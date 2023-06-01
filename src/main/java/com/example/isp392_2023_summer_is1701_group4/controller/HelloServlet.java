@@ -1,4 +1,4 @@
-package com.example.isp392_2023_summer_is1701_group4;
+package com.example.isp392_2023_summer_is1701_group4.controller;
 
 import java.io.*;
 
