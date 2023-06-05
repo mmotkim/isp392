@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Edit activity</title>
+  <title>Edit Activity</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
     integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -23,7 +23,7 @@
         <div class="mb-4">
           <h5 class="card-title">
             <!-- ID Class -->
-            Edit activity <span class="text-muted">(ID: )</span>
+            Edit Activity <span class="text-muted">(ID: )</span>
           </h5>
 
         </div>
@@ -51,7 +51,7 @@
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         
         <div>
-          <!-- Them activity -->
+          <!-- Them Activity -->
           <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
               class="bx bx-plus me-1 "></i> Confirm Changes</a>
         </div>

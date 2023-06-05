@@ -16,8 +16,8 @@
         <div class="col-md-6">
             <div class="mb-4">
                 <h5 class="card-title">
-                    <!-- Tong so luong activity -->
-                    Activity List <span class="text-muted fw-normal ms-2">(834)</span>
+                    <!-- Tong so luong Activity -->
+                    Activity List <span class="text-muted fw-normal ms-2">(2)</span>
                 </h5>
             </div>
         </div>
@@ -47,9 +47,9 @@
                     </ul>
                 </div>
                 <div>
-                    <!-- Them activity -->
+                    <!-- Them Activity -->
                     <a
-                            href="#"
+                            href="NewActivity"
                             data-bs-toggle="modal"
                             data-bs-target=".add-new"
                             class="btn btn-primary"
@@ -75,13 +75,14 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="t" items="${list}">
                         <tr>
                             <!-- ID -->
-                            <td>1</td>
+                            <td>${t.getActivityId()}</td>
                             <!-- Name -->
-                            <td>Introduction</td>
+                            <td>${t.getName()}</td>
                             <!-- Description -->
-                            <td>Introduce yourself</td>
+                            <td>${t.getDescription()}</td>
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">
@@ -128,6 +129,7 @@
                                 </ul>
                             </td>
                         </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>

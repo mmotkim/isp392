@@ -22,7 +22,7 @@
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title">
-            <!-- Tong so luong activity -->
+            <!-- Tong so luong Activity -->
             Adding new class
           </h5>
         </div>
@@ -68,7 +68,7 @@
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         
         <div>
-          <!-- Them activity -->
+          <!-- Them Activity -->
           <a href="#" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
               class="bx bx-plus me-1 "></i> Confirm Create Class</a>
         </div>

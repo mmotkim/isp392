@@ -1,37 +1,73 @@
 package Dao;
 
+import Utils.HibernateUtils;
+import Entity.Activity;
 import jakarta.persistence.*;
-import Entity.Activity
+import org.hibernate.Session;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityDAO {
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    EntityTransaction transaction = entityManager.getTransaction();
 
-    public int sumOfActivity(){
-        Query countActivity = entityManager.createNativeQuery("SELECT COUNT(*) FROM activity");
-        return (int) countActivity.getSingleResult();
+
+
+
+    public List<Activity> getAllActivities(){
+        ArrayList<Activity> list = new ArrayList<>();
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+//            Query getAll = entityManager.createNativeQuery("SELECT * FROM Activity");
+//
+//            for (Activity activity : getAll.getResultList()){
+//
+//            }
+
+            List<Activity> activities = entityManager.createQuery("FROM Activity ", Activity.class).getResultList();
+
+
+            transaction.commit();
+            return activities;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+
     }
 
-    public ArrayList<Activity> addActivityList(){
-        ArrayList<Activity> list = new ArrayList<>();
-        String sql = "select * from [Activity]";
+    public void addActivity(String name, String description){
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            transaction.begin();
 
-                list.add(new User(rs.getInt(1), rs.getInt(2) ,rs.getString(3), rs.getString(4), rs.getString(5)));
+            Activity activity = new Activity();
+            activity.setName(name);
+            activity.setDescription(description);
+            entityManager.persist(activity);
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
             }
-
-        } catch (Exception e) {
-            System.out.println(e);
+            entityManager.close();
+            entityManagerFactory.close();
         }
-        return list;
     }
 
 }
