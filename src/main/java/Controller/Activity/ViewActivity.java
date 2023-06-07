@@ -1,3 +1,5 @@
+package Controller.Activity;
+
 import Dao.ActivityDAO;
 import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "activity", value = "/activity")
-public class Activity extends HttpServlet {
+public class ViewActivity extends HttpServlet {
     private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

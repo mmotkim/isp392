@@ -1,23 +1,21 @@
 package Dao;
 
-import Utils.HibernateUtils;
 import Entity.Activity;
+import Utils.HibernateUtils;
 import jakarta.persistence.*;
-import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static Utils.HibernateUtils.*;
+
+
 public class ActivityDAO {
-
-
-
 
     public List<Activity> getAllActivities(){
         ArrayList<Activity> list = new ArrayList<>();
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -40,23 +38,49 @@ public class ActivityDAO {
                 transaction.rollback();
             }
             entityManager.close();
-            entityManagerFactory.close();
+            HibernateUtils.shutdown();
+
         }
 
     }
 
     public void addActivity(String name, String description){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = entityManager.getTransaction();
+        
+        try {
+            trans.begin();
+            
+            Activity activity = new Activity();
+
+            activity.setName(name);
+            activity.setDescription(description);
+
+            entityManager.persist(activity);
+            
+            trans.commit();
+
+
+        } finally {
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
+
+    public void deleteActivity(int id){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            Activity activity = new Activity();
-            activity.setName(name);
-            activity.setDescription(description);
-            entityManager.persist(activity);
+            Activity activity = entityManager.find(Activity.class, id);
+            entityManager.remove(activity);
 
             transaction.commit();
 
@@ -66,8 +90,33 @@ public class ActivityDAO {
                 transaction.rollback();
             }
             entityManager.close();
-            entityManagerFactory.close();
+
         }
     }
+
+    public void updateActivity(int id, String name, String description){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Activity activity = entityManager.find(Activity.class, id);
+            activity.setName(name);
+            activity.setDescription(description);
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
+
 
 }

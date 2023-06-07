@@ -1,3 +1,5 @@
+package Controller.Activity;
+
 import Dao.ActivityDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,10 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "NewActivity", value = "/NewActivity")
-public class NewActivity extends HttpServlet {
+@WebServlet(name = "Controller.Activity.Controller.Activity.EditActivity", value = "/Controller.Activity.Controller.Activity.EditActivity")
+public class EditActivity extends HttpServlet {
     private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -19,7 +20,7 @@ public class NewActivity extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            response.sendRedirect("newActivity.jsp");
+            response.sendRedirect("editActivity.jsp");
 
 
         } catch (Exception e) {
