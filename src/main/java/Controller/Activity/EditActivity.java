@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "Controller.Activity.Controller.Activity.EditActivity", value = "/Controller.Activity.Controller.Activity.EditActivity")
+@WebServlet(name = "EditActivity", value = "/EditActivity")
 public class EditActivity extends HttpServlet {
     private String message;
 

@@ -21,14 +21,7 @@ public class ActivityDAO {
         try {
             transaction.begin();
 
-//            Query getAll = entityManager.createNativeQuery("SELECT * FROM Activity");
-//
-//            for (Activity activity : getAll.getResultList()){
-//
-//            }
-
             List<Activity> activities = entityManager.createQuery("FROM Activity ", Activity.class).getResultList();
-
 
             transaction.commit();
             return activities;
@@ -38,7 +31,6 @@ public class ActivityDAO {
                 transaction.rollback();
             }
             entityManager.close();
-            HibernateUtils.shutdown();
 
         }
 

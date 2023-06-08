@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "Controller.Activity.Controller.Activity.DeleteActivity", value = "/Controller.Activity.Controller.Activity.DeleteActivity")
+@WebServlet(name = "DeleteActivity", value = "/DeleteActivity")
 public class DeleteActivity extends HttpServlet {
     private String message;
 

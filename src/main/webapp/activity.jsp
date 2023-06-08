@@ -1,37 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
+          integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
+          integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous">
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
 
-<div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-        </a>
-
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
-        </ul>
-
-        <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">Login</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
-        </div>
-    </header>
-</div>
+<jsp:include page="components/header.jsp"/>
 
 <div class="container" style="padding-top: 30px">
     <div class="row align-items-center">
@@ -72,8 +57,7 @@
                     <!-- Them Activity -->
                     <a
                             href="NewActivity"
-                            data-bs-toggle="modal"
-                            data-bs-target=".add-new"
+
                             class="btn btn-primary"
                     ><i class="bx bx-plus me-1"></i> Add New</a
                     >
@@ -98,59 +82,84 @@
                         </thead>
                         <tbody>
                         <c:forEach var="t" items="${list}">
-                        <tr>
-                            <!-- ID -->
-                            <td>${t.getActivityId()}</td>
-                            <!-- Name -->
-                            <td>${t.getName()}</td>
-                            <!-- Description -->
-                            <td>${t.getDescription()}</td>
+                            <tr>
+                                <!-- ID -->
+                                <td>${t.getActivityId()}</td>
+                                <!-- Name -->
+                                <td>${t.getName()}</td>
+                                <!-- Description -->
+                                <td>${t.getDescription()}</td>
 
-                            <td class="justify-content-between ml-2">
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item">
-                                        <!-- Edit -->
-                                        <a
-                                                href="javascript:void(0);"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                title="Edit"
-                                                class="px-2 text-primary"
-                                        ><i class="bx bx-pencil font-size-18"></i
-                                        ></a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <!-- Delete -->
-                                        <a
-                                                href="./DeleteActivity?id=${t.getActivityId()}"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
+                                <td class="justify-content-between ml-2">
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <!-- Edit -->
+                                            <a
+                                                    href="javascript:void(0);"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    title="Edit"
+                                                    class="px-4 text-primary"
+                                            ><i class="bx bx-pencil font-size-18"></i
+                                            ></a>
+                                        </li>
+                                        <li class="list-inline-item">
+
+                                            <a
+                                                    href="#"
+                                                    data-href="./DeleteActivity?id=${t.getActivityId()}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#confirm-delete"
                                                 title="Delete"
-                                                class="px-2 text-danger"
-                                        ><i class="bx bx-trash-alt font-size-18"></i
-                                        ></a>
-                                    </li>
-                                    <!-- Other actions -->
-                                    <li class=" list-inline-item dropdown ">
-                                        <a
-                                                class="text-muted dropdown-toggle font-size-18 "
-                                                href="#"
-                                                role="button"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                        ><i class="bx bx-dots-vertical-rounded"></i
-                                        ></a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">Action</a
-                                            ><a class="dropdown-item" href="#">Another action</a
-                                        ><a class="dropdown-item" href="#"
-                                        >Something else here</a
-                                        >
+                                                class="px-4 text-danger"
+                                                ><i class="bx bx-trash-alt font-size-18"></i
+                                                ></a>
+
+                                        </li>
+                                        <!-- Other actions -->
+                                        <li class=" list-inline-item dropdown ">
+                                            <a
+                                                    class="text-muted dropdown-toggle font-size-18 "
+                                                    href="#"
+                                                    role="button"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                            ><i class="bx bx-dots-vertical-rounded"></i
+                                            ></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="#">Action</a
+                                                ><a class="dropdown-item" href="#">Another action</a
+                                            ><a class="dropdown-item" href="#"
+                                            >Something else here</a
+                                            >
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <%--                            modal--%>
+                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                         </div>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
+                                        <div class="modal-body">
+                                            gay
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary" href="./DeleteActivity?id=${t.getActivityId()}">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </c:forEach>
                         </tbody>
                     </table>
@@ -187,5 +196,11 @@
         </div>
     </div>
 </div>
+<script>
+    // $('#confirm-delete').on('show.bs.modal', function(e) {
+    //     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    // });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

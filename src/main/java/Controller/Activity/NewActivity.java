@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "Controller.Activity.Controller.Activity.NewActivity", value = "/Controller.Activity.Controller.Activity.NewActivity")
+@WebServlet(name = "NewActivity", value = "/NewActivity")
 public class NewActivity extends HttpServlet {
     private String message;
 
