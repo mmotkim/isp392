@@ -12,6 +12,17 @@ import static Utils.HibernateUtils.*;
 
 public class ActivityDAO {
 
+    public int countActivities(){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+       try {
+            Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM class");
+
+            return (int)count.getSingleResult();
+
+        } finally {
+            entityManager.close();
+        }
+    }
     public List<Activity> getAllActivities(){
         ArrayList<Activity> list = new ArrayList<>();
 

@@ -6,7 +6,7 @@
  */
 :root,
 [data-bs-theme=light] {
-  --bs-blue: #0d6efd;
+  --bs-blue: #679cc8;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -29,7 +29,8 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #0d6efd;
+  /* --bs-primary: #0d6efd; */
+  --bs-primary: #c49e85;
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -43,7 +44,7 @@
   --bs-info-rgb: 13, 202, 240;
   --bs-warning-rgb: 255, 193, 7;
   --bs-danger-rgb: 220, 53, 69;
-  --bs-light-rgb: 248, 249, 250;
+  --bs-light-rgb: 237, 246, 249;
   --bs-dark-rgb: 33, 37, 41;
   --bs-primary-text-emphasis: #052c65;
   --bs-secondary-text-emphasis: #2b2f32;
@@ -104,7 +105,8 @@
   --bs-border-style: solid;
   --bs-border-color: #dee2e6;
   --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-  --bs-border-radius: 0.375rem;
+  --bs-border-radius: 3px;
+  /* --bs-border-radius: 0.275rem; */
   --bs-border-radius-sm: 0.25rem;
   --bs-border-radius-lg: 0.5rem;
   --bs-border-radius-xl: 1rem;
@@ -2017,7 +2019,7 @@ progress {
 
 .table-light {
   --bs-table-color: #000;
-  --bs-table-bg: #f8f9fa;
+  --bs-table-bg: #edf6f9;
   --bs-table-border-color: #dfe0e1;
   --bs-table-striped-bg: #ecedee;
   --bs-table-striped-color: #000;
@@ -3044,6 +3046,22 @@ textarea.form-control-lg {
 }
 
 .btn-primary {
+  --bs-btn-color: #000000;
+  --bs-btn-bg: #c49e85;
+  --bs-btn-border-color: #c49e85;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6b4b3e;
+  --bs-btn-hover-border-color: #6b4b3e;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0a58ca;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd;
+}
+/* .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #0d6efd;
   --bs-btn-border-color: #0d6efd;
@@ -3058,7 +3076,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #0d6efd;
   --bs-btn-disabled-border-color: #0d6efd;
-}
+} */
 
 .btn-secondary {
   --bs-btn-color: #fff;
@@ -6889,6 +6907,11 @@ textarea.form-control-lg {
   color: #000 !important;
   background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1)) !important;
 }
+/* 
+.text-bg-light {
+  color: #000 !important;
+  background-color: RGBA(248, 249, 250, var(--bs-bg-opacity, 1)) !important;
+} */
 
 .text-bg-dark {
   color: #fff !important;
@@ -12068,4 +12091,80 @@ textarea.form-control-lg {
   }
 }
 
+
+/* Style the checkmark/indicator */
+.checkbox-primary {
+  color: #fbceb5;
+}
+.checkbox-primary input:checked ~ .checkmark:after {
+  color: #fbceb5;
+}
+
+.btn {
+  cursor: pointer;
+  
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  font-size: 15px;
+  
+}
+.btn:hover,
+.btn:active,
+.btn:focus {
+  outline: none;
+}
+/* .btn.btn-primary {
+  background: #fbceb5 !important;
+  border: 1px solid #fbceb5 !important;
+  color: #000 !important;
+}
+.btn.btn-primary:hover {
+  border: 1px solid #fbceb5;
+  background: transparent;
+  color: #fbceb5;
+}
+.btn.btn-primary.btn-outline-primary {
+  border: 1px solid #fbceb5;
+  background: transparent;
+  color: #fbceb5;
+}
+.btn.btn-primary.btn-outline-primary:hover {
+  border: 1px solid transparent;
+  background: #fbceb5;
+  color: #fff; */
+}
+
+.bg-pattern {
+  background-color: #e5e5f7;
+  opacity: 0.2;
+  background-image: linear-gradient(135deg, #fbceb5 25%, transparent 25%), linear-gradient(225deg, #fbceb5 25%, transparent 25%),
+    linear-gradient(45deg, #fbceb5 25%, transparent 25%), linear-gradient(315deg, #fbceb5 25%, #e5e5f7 25%);
+  background-position: 8px 0, 8px 0, 0 0, 0 0;
+  background-size: 8px 8px;
+  background-repeat: repeat;
+}
+
+.login-wrap {
+  position: relative;
+  color: rgba(255, 255, 255, 0.9);
+}
+.login-wrap h3 {
+  font-weight: 300;
+  color: #fff;
+}
+.login-wrap .social {
+  width: 100%;
+}
+.login-wrap .social a {
+  width: 100%;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #000;
+  background: #fff;
+}
+.login-wrap .social a:hover {
+  background: rgba(0, 0, 0, 0);
+  color: #fbceb5;
+  border-color: #fbceb5;
+}
 /*# sourceMappingURL=bootstrap.css.map */
