@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous">
   <link rel="stylesheet" href="css/bootstrap.css">
+  
 </head>
 <body class="bg-light">
 
@@ -16,7 +16,7 @@
   <div class="container">
     <header class=" d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-left text-white text-decoration-none">
-        <a href="#" class="bi me-2">Kindergarten</a>
+        <a href="#" class=" bi me-2"><h2>Kindergarten</h2></a>
       </a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
@@ -105,7 +105,13 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="t" items="${list}">
+            <c:forEach var="t" items="${list}">   
+              <dialog id="d" >
+                <div class="">
+                  <p>hi Mmotkim</p>
+                  <button class="btn btn-primary" onclick="d.close()">Close</button>
+                </div>
+              </dialog>
               <tr>
                 <!-- ID -->
                 <td>${t.getActivityId()}</td>
@@ -119,9 +125,9 @@
                     <li class="list-inline-item">
                       <!-- Edit -->
                       <a
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
+                              href="#"
+                              onclick="d.showModal();"
+                              
                               title="Edit"
                               class="px-2 text-primary"
                       ><i class="bx bx-pencil font-size-18"></i

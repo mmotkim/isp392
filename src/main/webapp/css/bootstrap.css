@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
 /*!
  * Bootstrap  v5.3.0 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
@@ -39,13 +40,15 @@
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
   --bs-primary-rgb: 13, 110, 253;
-  --bs-secondary-rgb: 108, 117, 125;
+  /* --bs-secondary-rgb: 108, 117, 125; */
+  --bs-secondary-rgb: 255, 221, 210;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 13, 202, 240;
   --bs-warning-rgb: 255, 193, 7;
   --bs-danger-rgb: 220, 53, 69;
-  --bs-light-rgb: 237, 246, 249;
-  --bs-dark-rgb: 33, 37, 41;
+  --bs-light-rgb: 240, 248, 251;
+  /* --bs-dark-rgb: 33, 37, 41; */
+  --bs-dark-rgb: 0, 109, 119;
   --bs-primary-text-emphasis: #052c65;
   --bs-secondary-text-emphasis: #2b2f32;
   --bs-success-text-emphasis: #0a3622;
@@ -72,7 +75,7 @@
   --bs-dark-border-subtle: #adb5bd;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-sans-serif: Montserrat, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
@@ -194,7 +197,8 @@
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  font-family: Montserrat;
+  /* font-family: var(--bs-body-font-family); */
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -3046,17 +3050,17 @@ textarea.form-control-lg {
 }
 
 .btn-primary {
-  --bs-btn-color: #000000;
-  --bs-btn-bg: #c49e85;
-  --bs-btn-border-color: #c49e85;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #6b4b3e;
-  --bs-btn-hover-border-color: #6b4b3e;
+  --bs-btn-color: #0c0806;
+  --bs-btn-bg: #E29578;
+  --bs-btn-border-color: #E29578;
+  --bs-btn-hover-color: #0c0806;
+  --bs-btn-hover-bg: #EE7957;
+  --bs-btn-hover-border-color: #EE7957;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #0a58ca;
-  --bs-btn-active-border-color: #0a53be;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-active-color: #F0F8FB;
+  --bs-btn-active-bg: #DB6E50;
+  --bs-btn-active-border-color: #DB6E50;
+  --bs-btn-active-shadow: inset 1 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #0d6efd;
   --bs-btn-disabled-border-color: #0d6efd;
@@ -6935,7 +6939,7 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(var(--bs-secondary-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-secondary:hover, .link-secondary:focus {
-  color: RGBA(86, 94, 100, var(--bs-link-opacity, 1)) !important;
+  color: RGBA(240, 248, 251, var(--bs-link-opacity, 1)) !important;
   -webkit-text-decoration-color: RGBA(86, 94, 100, var(--bs-link-underline-opacity, 1)) !important;
   text-decoration-color: RGBA(86, 94, 100, var(--bs-link-underline-opacity, 1)) !important;
 }
@@ -12131,8 +12135,8 @@ textarea.form-control-lg {
 .btn.btn-primary.btn-outline-primary:hover {
   border: 1px solid transparent;
   background: #fbceb5;
-  color: #fff; */
-}
+  color: #fff; 
+}*/
 
 .bg-pattern {
   background-color: #e5e5f7;
@@ -12166,5 +12170,18 @@ textarea.form-control-lg {
   background: rgba(0, 0, 0, 0);
   color: #fbceb5;
   border-color: #fbceb5;
+}
+
+dialog {
+  border: none !important;
+  border-radius: calc(5px * var(--ratio));
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 1.6rem;
+  max-width: 400px;
+}
+dialog img {
+  display: block;
+  max-width: 75%;
+  margin: 1rem 0 auto 2rem;
 }
 /*# sourceMappingURL=bootstrap.css.map */
