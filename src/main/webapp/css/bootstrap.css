@@ -2145,9 +2145,9 @@ progress {
 .form-control:focus {
   color: var(--bs-body-color);
   background-color: var(--bs-body-bg);
-  border-color: #86b7fe;
+  border-color: #e29578;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 221, 210, 0.25);
 }
 .form-control::-webkit-date-and-time-value {
   min-width: 85px;
@@ -2334,9 +2334,9 @@ textarea.form-control-lg {
   }
 }
 .form-select:focus {
-  border-color: #86b7fe;
+  border-color: #E29578;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 221, 210, 0.25);
 }
 .form-select[multiple], .form-select[size]:not([size="1"]) {
   padding-right: 0.75rem;
@@ -6928,7 +6928,8 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(var(--bs-primary-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-primary:hover, .link-primary:focus {
-  color: RGBA(10, 88, 202, var(--bs-link-opacity, 1)) !important;
+  color: RGBA(var(--bs-secondary-rgb), var(--bs-link-opacity, 1)) !important;
+  /* color: RGBA(10, 88, 202, var(--bs-link-opacity, 1)) !important; */
   -webkit-text-decoration-color: RGBA(10, 88, 202, var(--bs-link-underline-opacity, 1)) !important;
   text-decoration-color: RGBA(10, 88, 202, var(--bs-link-underline-opacity, 1)) !important;
 }
@@ -6994,7 +6995,8 @@ textarea.form-control-lg {
   text-decoration-color: RGBA(var(--bs-light-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
 .link-light:hover, .link-light:focus {
-  color: RGBA(249, 250, 251, var(--bs-link-opacity, 1)) !important;
+  color: RGBA(var(--bs-secondary-rgb), var(--bs-link-opacity, 1)) !important;
+  /* color: RGBA(249, 250, 251, var(--bs-link-opacity, 1)) !important; */
   -webkit-text-decoration-color: RGBA(249, 250, 251, var(--bs-link-underline-opacity, 1)) !important;
   text-decoration-color: RGBA(249, 250, 251, var(--bs-link-underline-opacity, 1)) !important;
 }
@@ -12184,4 +12186,49 @@ dialog img {
   max-width: 75%;
   margin: 1rem 0 auto 2rem;
 }
+
+
+
+
+div.arrow {
+  width: 4vmin;
+  height: 4vmin;
+  box-sizing: border-box;
+  position: relative;
+  transform: rotate(-135deg);
+}
+div.arrow::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  border-width: 0.7vmin 0.7vmin 0 0;
+  border-style: solid;
+  border-color: #83C5BE;
+  transition: 0.2s ease;
+  display: block;
+  transform-origin: 100% 0;
+}
+div.arrow:after {
+  content: '';
+  float: left;
+  position: relative;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  border-width: 0 0.7vmin 0 0;
+  border-style: solid;
+  border-color: #83C5BE;
+  transform-origin: 80% 0;
+  transition: 0.2s ease;
+}
+div.arrow:hover::after {
+  transform: rotate(45deg);
+  border-color: #EE7957;
+  height: 120%;
+}
+div.arrow:hover::before {
+  border-color: #EE7957;
+  transform: scale(0.8);
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

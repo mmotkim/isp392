@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="search-box mt-3">
+      <input type="text" id="search-input" class="form-control" placeholder="Search by Name">
+    </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="col-auto"></th>
+          <th class="col-auto">Name</th>
+          <th class="col-auto">Description</th>
+        </tr>
+      </thead>
+      <tbody id="records-list">
+        <tr>
+          <td class="select-cell">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input">
+            </div>
+          </td>
+          <td>Option 1</td>
+          <td>Description 1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Include Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('search-input');
+      const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
+      const selectedRecords = new Set();
+
+      searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        for (let i = 0; i < recordsList.length; i++) {
+          const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+          recordsList[i].style.display = name.includes(searchTerm) ? 'table-row' : 'none';
+        }
+      });
+
+      const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
+      for (let i = 0; i < selectCheckboxes.length; i++) {
+        selectCheckboxes[i].addEventListener('click', function(event) {
+          event.stopPropagation();
+          const record = this.closest('tr');
+          if (this.checked) {
+            selectedRecords.add(record);
+          } else {
+            selectedRecords.delete(record);
+          }
+        });
+      }
+
+      const selectCells = document.getElementsByClassName('select-cell');
+      for (let i = 0; i < selectCells.length; i++) {
+        selectCells[i].addEventListener('click', function() {
+          const checkbox = this.querySelector('input[type="checkbox"]');
+          checkbox.checked = !checkbox.checked;
+          const record = this.closest('tr');
+          if (checkbox.checked) {
+            selectedRecords.add(record);
+          } else {
+            selectedRecords.delete(record);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
