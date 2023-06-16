@@ -15,7 +15,7 @@ public class ActivityDAO {
     public int countActivities(){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
        try {
-            Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM class");
+            Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM activity");
 
             return (int)count.getSingleResult();
 

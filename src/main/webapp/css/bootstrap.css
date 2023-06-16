@@ -31,7 +31,7 @@
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
   /* --bs-primary: #0d6efd; */
-  --bs-primary: #c49e85;
+  --bs-primary: #DB6E50;
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -39,7 +39,8 @@
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-primary-rgb: 13, 110, 253;
+  /* --bs-primary-rgb: 13, 110, 253; */
+  --bs-primary-rgb: 219, 110, 80;
   /* --bs-secondary-rgb: 108, 117, 125; */
   --bs-secondary-rgb: 255, 221, 210;
   --bs-success-rgb: 25, 135, 84;
@@ -3053,7 +3054,7 @@ textarea.form-control-lg {
   --bs-btn-color: #0c0806;
   --bs-btn-bg: #E29578;
   --bs-btn-border-color: #E29578;
-  --bs-btn-hover-color: #0c0806;
+  --bs-btn-hover-color: #F0F8FB;
   --bs-btn-hover-bg: #EE7957;
   --bs-btn-hover-border-color: #EE7957;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
@@ -12175,17 +12176,43 @@ textarea.form-control-lg {
 }
 
 dialog {
-  border: none !important;
-  border-radius: calc(5px * var(--ratio));
+  
+  
+  border-radius: var(--bs-border-radius-lg);
+  border-color: var(--bs-border-color-translucent);
   box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  padding: 1.6rem;
-  max-width: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: var(--bs-modal-zindex);
+  --bs-modal-zindex: 1055;
+  --bs-modal-width: 500px;
+  --bs-modal-padding: 1rem;
+  --bs-modal-margin: 0.5rem;
+  
+  --bs-modal-bg: var(--bs-body-bg);
+  --bs-modal-border-color: var(--bs-border-color-translucent);
+  border-width: var(--bs-border-width);
+  --bs-modal-border-radius: var(--bs-border-radius-lg);
+  --bs-modal-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
+  --bs-modal-header-padding-x: 1rem;
+  --bs-modal-header-padding-y: 1rem;
+  --bs-modal-header-padding: 1rem 1rem;
+  --bs-modal-header-border-color: var(--bs-border-color);
+  --bs-modal-header-border-width: var(--bs-border-width);
+  --bs-modal-title-line-height: 1.5;
+  --bs-modal-footer-gap: 0.5rem;
+  --bs-modal-footer-bg: ;
+  --bs-modal-footer-border-color: var(--bs-border-color);
+  --bs-modal-footer-border-width: var(--bs-border-width);
 }
 dialog img {
   display: block;
   max-width: 75%;
   margin: 1rem 0 auto 2rem;
 }
+
+
 
 
 

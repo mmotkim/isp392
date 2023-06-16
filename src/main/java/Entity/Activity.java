@@ -17,6 +17,17 @@ public class Activity {
     @Basic
     @Column(name = "description")
     private String description;
+    @Basic
+    @Column(name = "type")
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getActivityId() {
         return activityId;
@@ -71,6 +82,7 @@ public class Activity {
                 "activityId=" + activityId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

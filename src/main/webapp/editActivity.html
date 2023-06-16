@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Adding a new Activity</title>
+  <title>Edit Activity</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
     integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -28,24 +28,14 @@
    
   <div class="container" style="margin-top: 40px">
     
-    <form action="NewActivity" method="post">
-      <!-- confirm button -->
-      <div class="col-md pt-3">
-        <div class="d-flex  align-items-center justify-content-end gap mb-3">
-          <div>
-            <!-- Them Activity -->
-            <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
-                class="bi bi-check-lg me-1 "></i> Confirm Create Activity</button>
-          </div>
-        </div>
-      </div>
-
+    <form action="EditActivity" method="post">
+      
       <div class="row align-items-center">
         <div class="col-md-6">
           <div class="mb-4">
             <h5 class="card-title text-primary">
               <!-- Tong so luong Activity -->
-              1. Add a new Activity.
+              1. Edit Activity Details. <span class="text-muted">(Activity ID: )</span>
             </h5>
           </div>
         </div>
@@ -60,12 +50,12 @@
             
             <label class="input-group-text" for="name">Enter Activity Name:</label>
             <input name="name" type="text" class="form-control" placeholder="Activity Name" aria-label="Your Activity Name"
-            aria-describedby="basic-addon2" required>
+            aria-describedby="basic-addon2" value="" required>
           </div>
           <div class="form-row input-group mb-3">
             <label class="input-group-text" for="description">Enter Activity Description:</label>
             <input name="description" type="text" class="form-control" placeholder="Activity Description" aria-label="Your Activity Description"
-                   aria-describedby="basic-addon2">
+                   aria-describedby="basic-addon2" value="">
           </div>
           
           <div class="input-group mb-3">
@@ -90,7 +80,7 @@
         <div class="mb-4">
           <h5 class="card-title text-primary">
             <!-- Tong so luong Activity -->
-            2. Assign the activity to a class,... or leave it empty for now.
+            2. Reassign the activity to classes,... or leave it for now.
           </h5>
         </div>
       </div>
@@ -132,7 +122,16 @@
       </div>
     </div>
 
-    
+    <!-- Confirm Button -->
+    <div class="col-md pt-3">
+      <div class="d-flex  align-items-center justify-content-end gap mb-3">
+        <div>
+          <!-- Edit Activity -->
+          <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
+              class="bi bi-check-lg me-1 "></i> Confirm Edit Activity</button>
+        </div>
+      </div>
+    </div>
 
 
     </form>

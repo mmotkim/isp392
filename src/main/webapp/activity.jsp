@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="css/bootstrap.css" />
 </head>
 <body class="bg-light">
-<jsp:include page="header.jsp"/>
+<jsp:include page="components/header.jsp"/>
 <div class="">
     <div class="container">
         <div class="row align-items-center">
@@ -34,35 +34,12 @@
                 <div class="mb-4">
                     <h5 class="card-title">
                         <!-- Tong so luong Activity -->
-                        Activity List <span class="text-muted fw-normal ms-2">(2)</span>
+                        Activity List <span class="text-muted fw-normal ms-2"> ${count} </span>
                     </h5>
                 </div>
             </div>
             <div class="col-md-6">
-                <div
-                        class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3"
-                >
-                    <div>
-                        <ul class="nav nav-pills">
-                            <!--    <li class="nav-item">
-                    <a
-                            aria-current="page"
-                            href="#"
-                            class="router-link-active router-link-exact-active nav-link active"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title=""
-                            data-bs-original-title="List"
-                            aria-label="List"
-                    >
-                      <i class="bx bx-list-ul"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Grid" aria-label="Grid"><i class="bx bx-grid-alt"></i></a>
-                  </li> -->
-                        </ul>
-                    </div>
+                <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                     <div>
                         <!-- Them Activity -->
                         <a href="NewActivity" class="btn btn-primary px-4 py-2"
@@ -191,6 +168,6 @@
 
 <script src="js/bootstrap.bundle.js"></script>
 </body>
-</body>
+
 </html>
 

@@ -20,11 +20,11 @@
 </head>
 
 <body class="bg-light">
-<jsp:include page="header.jsp"/>
+<jsp:include page="components/header.jsp"/>
 
 <%--Back--%>
 <div class="container pt-3">
-  <a href="/Activity" class="size-3">
+  <a href="Activity" class="size-3">
     <div class="arrow" style=""></div>
   </a>
 </div>

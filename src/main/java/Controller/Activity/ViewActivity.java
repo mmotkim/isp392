@@ -21,7 +21,9 @@ public class ViewActivity extends HttpServlet {
         HttpSession session = request.getSession();
         ActivityDAO activityDAO = new ActivityDAO();
         List<Entity.Activity> list = activityDAO.getAllActivities();
+        int count = activityDAO.countActivities();
         request.setAttribute("list", list);
+        request.setAttribute("count", count);
         Object object = session.getAttribute("account");
 //        User u = (User) object;
         request.getRequestDispatcher("activity.jsp").forward(request, response);
