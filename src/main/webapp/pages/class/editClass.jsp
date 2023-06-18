@@ -54,7 +54,7 @@
           <select name="level" id="level" type="text" class="form-select" placeholder="${aClass.getLevel()}" aria-label="Choose Class Level"
                   aria-describedby="basic-addon2" required>
 
-            <option value="">Choose an class level</option>
+            <option value="${aClass.getLevel()}">Choose an class level</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>

@@ -37,7 +37,9 @@ public class Users {
     @Basic
     @Column(name = "Role")
     private Integer role;
-
+    @Basic
+    @Column(name = "isActive")
+    private Boolean isActive;
     public int getUserId() {
         return userId;
     }
@@ -116,6 +118,14 @@ public class Users {
 
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     @Override
