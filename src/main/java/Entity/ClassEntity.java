@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "class", schema = "dbo", catalog = "ISP392_IS1701")
-public class Class {
+public class ClassEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "class_id")
@@ -56,7 +56,7 @@ public class Class {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Class clazz = (Class) o;
+        ClassEntity clazz = (ClassEntity) o;
 
         if (classId != clazz.classId) return false;
         if (className != null ? !className.equals(clazz.className) : clazz.className != null) return false;
