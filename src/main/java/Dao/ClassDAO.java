@@ -73,8 +73,8 @@ public class ClassDAO {
         try {
             transaction.begin();
 
-            ClassEntity activity = entityManager.find(ClassEntity.class, id);
-            entityManager.remove(activity);
+            ClassEntity aClass = entityManager.find(ClassEntity.class, id);
+            entityManager.remove(aClass);
 
             transaction.commit();
 
