@@ -1,6 +1,7 @@
-package Controller.Activity;
+package Controller.Notification;
 
 import Dao.ActivityDAO;
+import Entity.Activity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,28 +11,25 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "NewActivity", value = "/NewActivity")
-public class NewActivity extends HttpServlet {
+@WebServlet(name = "EditActivity", value = "/EditActivity")
+public class EditNotification extends HttpServlet {
     private String message;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
             HttpSession session = request.getSession();
-
-            request.getRequestDispatcher("pages/activity/newActivity.jsp").forward(request, response);
+            ActivityDAO activityDAO = new ActivityDAO();
+            Activity activity = activityDAO.getActivity(Integer.parseInt(request.getParameter("activityId")));
+            request.setAttribute("a", activity);
+            request.getRequestDispatcher("pages/activity/editActivity.jsp").forward(request, response);
 
 
         } catch (Exception e) {
         }
 
-    }
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        processRequest(request, response);
 
     }
 
@@ -42,16 +40,18 @@ public class NewActivity extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
+                int id = Integer.parseInt(request.getParameter("activityId")) ;
+
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
                 String type = request.getParameter("type");
 
             ActivityDAO activityDAO = new ActivityDAO();
-            activityDAO.addActivity(name,description,type);
+            activityDAO.updateActivity(id,name,description,type);
 
 
 
-            response.sendRedirect("activity");
+            response.sendRedirect("./activity");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

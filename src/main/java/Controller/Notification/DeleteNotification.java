@@ -1,4 +1,4 @@
-package Controller.Activity;
+package Controller.Notification;
 
 import Dao.ActivityDAO;
 import jakarta.servlet.ServletException;
@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "NewActivity", value = "/NewActivity")
-public class NewActivity extends HttpServlet {
+    @WebServlet(name = "DeleteActivity", value = "/DeleteActivity")
+public class DeleteNotification extends HttpServlet {
     private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -19,8 +19,10 @@ public class NewActivity extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            ActivityDAO activityDAO = new ActivityDAO();
+            activityDAO.deleteActivity(Integer.parseInt(request.getParameter("id")))        ;
 
-            request.getRequestDispatcher("pages/activity/newActivity.jsp").forward(request, response);
+            response.sendRedirect("activity");
 
 
         } catch (Exception e) {
@@ -39,23 +41,7 @@ public class NewActivity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            HttpSession session = request.getSession();
 
-                String name = request.getParameter("name");
-                String description = request.getParameter("description");
-                String type = request.getParameter("type");
-
-            ActivityDAO activityDAO = new ActivityDAO();
-            activityDAO.addActivity(name,description,type);
-
-
-
-            response.sendRedirect("activity");
-        } catch (Exception e) {
-            response.sendRedirect("./404.html");
-
-        }
     }
 
     public void destroy() {

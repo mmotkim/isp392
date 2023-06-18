@@ -23,10 +23,10 @@
             integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
 </head>
 <body class="bg-light">
-<jsp:include page="components/header.jsp"/>
+<jsp:include page="../../components/header.jsp"/>
 <div class="">
     <div class="container">
         <div class="row align-items-center">
@@ -52,9 +52,7 @@
         <div class="row">
             <div class="col-lg-16">
                 <div class="table-responsive">
-                    <table
-                            class="table table-light table-nowrap align-middle table-borderless table-hover"
-                    >
+                    <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                         <thead>
                         <tr>
                             <th scope="col" style="width: 50px">ID</th>
@@ -66,14 +64,26 @@
                         </thead>
                         <tbody>
                         <c:forEach var="t" items="${list}">
-                            <dialog id="d">
-                                <div class="">
-                                    <p>hi Mmotkim</p>
-                                    <button class="btn btn-primary" onclick="d.close()">
-                                        Close
-                                    </button>
+                            <dialog id="d" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-danger">Confirm Deletion</h5>
+                                            <button type="button" class="btn-close" onclick="d.close()"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete Notification <span class="text-muted">( ID: ${t.getActivityId()})</span></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
+                                            <a href="./DeleteActivity?id=${t.getActivityId()}" class="btn btn-primary" onclick="d.close()">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </dialog>
+
                             <tr>
                                 <!-- ID -->
                                 <td>${t.getActivityId()}</td>
@@ -88,8 +98,8 @@
                                         <li class="list-inline-item">
                                             <!-- Edit -->
                                             <a
-                                                    href="#"
-                                                    onclick="d.showModal();"
+                                                    href="./EditActivity?activityId=${t.getActivityId()}"
+
                                                     title="Edit"
                                                     class="px-2 text-primary"
                                             ><i class="bx bx-pencil font-size-18"></i
@@ -98,9 +108,8 @@
                                         <li class="list-inline-item">
                                             <!-- Delete -->
                                             <a
-                                                    href="./DeleteActivity?id=${t.getActivityId()}"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="top"
+                                                    href="#"
+                                                    onclick="d.showModal();"
                                                     title="Delete"
                                                     class="px-2 text-danger"
                                             ><i class="bx bx-trash-alt font-size-18"></i
@@ -166,7 +175,7 @@
 </div>
 
 
-<script src="js/bootstrap.bundle.js"></script>
+<script src="../../js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

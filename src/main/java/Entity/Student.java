@@ -8,23 +8,29 @@ import java.sql.Date;
 public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "student_id")
+    @Column(name = "student_id", nullable = false)
     private int studentId;
     @Basic
-    @Column(name = "student_name")
+    @Column(name = "student_name", nullable = true, length = 100)
     private String studentName;
     @Basic
-    @Column(name = "dob")
+    @Column(name = "dob", nullable = true)
     private Date dob;
     @Basic
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = true)
     private Boolean gender;
     @Basic
-    @Column(name = "address")
+    @Column(name = "address", nullable = true, length = 500)
     private String address;
     @Basic
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", nullable = true)
     private Integer parentId;
+    @Basic
+    @Column(name = "isActive", nullable = false)
+    private boolean isActive;
+    @Basic
+    @Column(name = "class_id", nullable = false)
+    private int classId;
 
     public int getStudentId() {
         return studentId;
@@ -74,6 +80,22 @@ public class Student {
         this.parentId = parentId;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +104,8 @@ public class Student {
         Student student = (Student) o;
 
         if (studentId != student.studentId) return false;
+        if (isActive != student.isActive) return false;
+        if (classId != student.classId) return false;
         if (studentName != null ? !studentName.equals(student.studentName) : student.studentName != null) return false;
         if (dob != null ? !dob.equals(student.dob) : student.dob != null) return false;
         if (gender != null ? !gender.equals(student.gender) : student.gender != null) return false;
@@ -99,6 +123,8 @@ public class Student {
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
+        result = 31 * result + (isActive ? 1 : 0);
+        result = 31 * result + classId;
         return result;
     }
 }

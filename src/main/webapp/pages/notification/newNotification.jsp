@@ -14,20 +14,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/bootstrap.css" />
   </head>
 
   <body class="bg-light">
     <jsp:include page="components/header.jsp" />
 
-    <%--Back--%>
+    <!-- Back -->
     <div class="container pt-3">
       <a href="Activity" class="size-3">
         <div class="arrow"></div>
       </a>
     </div>
 
-    <%--Main Body--%>
+    <!-- Main body -->
     <div class="container" style="margin-top: 40px">
       <div class="row align-items-center">
         <div class="col-md-6">

@@ -1,6 +1,7 @@
 package Controller.Activity;
 
 import Dao.ActivityDAO;
+import Entity.Activity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,24 +15,21 @@ import java.io.IOException;
 public class EditActivity extends HttpServlet {
     private String message;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
             HttpSession session = request.getSession();
-
-            response.sendRedirect("editActivity.jsp");
+            ActivityDAO activityDAO = new ActivityDAO();
+            Activity activity = activityDAO.getActivity(Integer.parseInt(request.getParameter("activityId")));
+            request.setAttribute("a", activity);
+            request.getRequestDispatcher("pages/activity/editActivity.jsp").forward(request, response);
 
 
         } catch (Exception e) {
         }
 
-    }
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        processRequest(request, response);
 
     }
 
@@ -42,11 +40,13 @@ public class EditActivity extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
+                int id = Integer.parseInt(request.getParameter("activityId")) ;
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
+                String type = request.getParameter("type");
 
             ActivityDAO activityDAO = new ActivityDAO();
-            activityDAO.addActivity(name,description);
+            activityDAO.updateActivity(id,name,description,type);
 
 
 

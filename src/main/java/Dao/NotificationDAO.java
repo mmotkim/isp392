@@ -1,21 +1,22 @@
 package Dao;
 
-import Entity.Activity;
+import Entity.Notification;
 import Utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ActivityDAO {
+public class NotificationDAO {
 
-    public int countActivities(){
+    public int countNotifications(){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
        try {
-            Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM activity");
+            Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM notification");
 
             return (int)count.getSingleResult();
 
@@ -23,17 +24,17 @@ public class ActivityDAO {
             entityManager.close();
         }
     }
-    public List<Activity> getAllActivities(){
+    public List<Notification> getAllNotifications(){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            List<Activity> activities = entityManager.createQuery("FROM Activity ", Activity.class).getResultList();
+            List<Notification> notifications = entityManager.createQuery("FROM Notification ", Notification.class).getResultList();
 
             transaction.commit();
-            return activities;
+            return notifications;
 
         } finally {
             if (transaction.isActive()) {
@@ -45,21 +46,25 @@ public class ActivityDAO {
 
     }
 
-    public void addActivity(String name, String description, String type){
+    public void addNotification(String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity){
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = entityManager.getTransaction();
-        
+
         try {
             trans.begin();
-            
-            Activity activity = new Activity();
-            activity.setName(name);
-            activity.setDescription(description);
-            activity.setType(type);
 
-            entityManager.persist(activity);
-            
+            Notification notification = new Notification();
+
+            notification.setTitle(title);
+            notification.setDescription(description);
+            notification.setCreatedDate(createdDate);
+            notification.setProcessingDate(processingDate);
+            notification.setEndDate(endDate);
+            notification.setActivity(isActivity);
+
+            entityManager.persist(notification);
+
             trans.commit();
 
 
@@ -73,15 +78,15 @@ public class ActivityDAO {
     }
 
 
-    public void deleteActivity(int id){
+    public void deleteNotification(int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            Activity activity = entityManager.find(Activity.class, id);
-            entityManager.remove(activity);
+            Notification notification = entityManager.find(Notification.class, id);
+            entityManager.remove(notification);
 
             transaction.commit();
 
@@ -95,17 +100,21 @@ public class ActivityDAO {
         }
     }
 
-    public void updateActivity(int id, String name, String description, String type){
+    public void updateNotification(int id, String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            Activity activity = entityManager.find(Activity.class, id);
-            activity.setName(name);
-            activity.setDescription(description);
-            activity.setType(type);
+            Notification notification = entityManager.find(Notification.class, id);
+
+            notification.setTitle(title);
+            notification.setDescription(description);
+            notification.setCreatedDate(createdDate);
+            notification.setProcessingDate(processingDate);
+            notification.setEndDate(endDate);
+            notification.setActivity(isActivity);
 
             transaction.commit();
 
@@ -119,8 +128,8 @@ public class ActivityDAO {
         }
     }
 
-    public Activity getActivity(int id){
-        ArrayList<Activity> list = new ArrayList<>();
+    public Notification getNotification(int id){
+        ArrayList<Notification> list = new ArrayList<>();
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -128,10 +137,10 @@ public class ActivityDAO {
         try {
             transaction.begin();
 
-            Activity activity = entityManager.createQuery("FROM Activity WHERE id = " + id, Activity.class).getSingleResult();
+            Notification notification = entityManager.createQuery("FROM Notification WHERE id = " + id, Notification.class).getSingleResult();
 
             transaction.commit();
-            return activity;
+            return notification;
 
         } finally {
             if (transaction.isActive()) {

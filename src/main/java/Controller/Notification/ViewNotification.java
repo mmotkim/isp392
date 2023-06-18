@@ -1,4 +1,4 @@
-package Controller.Activity;
+package Controller.Notification;
 
 import Dao.ActivityDAO;
 import jakarta.servlet.ServletException;
@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "activity", value = "/activity")
-public class ViewActivity extends HttpServlet {
+@WebServlet(name = "notification", value = "/notification")
+public class ViewNotification extends HttpServlet {
     private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

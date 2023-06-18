@@ -33,7 +33,7 @@
         >
             <div class="logo">
                 <a href="/" class="d-flex">
-                    <img class="me-3" height="28" src="../assets/logo.png"/>
+                    <img class="me-3" height="28" src="${pageContext.request.contextPath}/assets/logo.png"/>
                 </a>
             </div>
 
