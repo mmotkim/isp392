@@ -113,6 +113,7 @@
 
 
 </div>
+<jsp:include page="../../components/footer.jsp"/>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

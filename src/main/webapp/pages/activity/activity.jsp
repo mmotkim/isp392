@@ -174,8 +174,10 @@
     </div>
 </div>
 
+<jsp:include page="../../components/footer.jsp"/>
 
 <script src="../../js/bootstrap.bundle.js"></script>
+
 </body>
 
 </html>

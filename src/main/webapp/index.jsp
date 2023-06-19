@@ -4,11 +4,16 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<jsp:include page="components/header.jsp"/>
+
+<h1><%= "Welcome!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<jsp:include page="components/footer.jsp"/>
+
 </body>
 </html>

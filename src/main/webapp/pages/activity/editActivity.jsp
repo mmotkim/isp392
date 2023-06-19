@@ -142,6 +142,7 @@
 
 
 </div>
+<jsp:include page="../../components/footer.jsp"/>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -194,6 +195,7 @@
     overflow-y: auto;
   }
 </style>
+
 </body>
 
 </html>
