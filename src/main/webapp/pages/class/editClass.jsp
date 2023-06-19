@@ -97,7 +97,7 @@
                                     <!-- Name -->
                                     <td>${t.getStudentName()}</td>
                                     <td>${t.getDob()}</td>
-                                    <td>${t.getGender()}</td>
+                                    <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
                                     <td>${t.getAddress()}</td>
                                 </tr>
                             </c:forEach>
@@ -112,10 +112,15 @@
         <div class="col-md pt-3">
             <div class="d-flex  align-items-center justify-content-end gap mb-3">
                 <div>
-                    <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
-                            class="bx bx-plus me-1 "></i> Confirm Changes
+                    <button href="class" data-bs-toggle="modal" class=" btn btn-primary"><i
+                            class="bx bx-plus me-1 "></i> Cancel Changes
                     </button>
                 </div>
+                <div>
+                <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
+                        class="bx bx-plus me-1 "></i> Confirm Changes
+                </button>
+            </div>
             </div>
         </div>
 

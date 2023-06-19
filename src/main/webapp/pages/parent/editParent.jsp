@@ -70,17 +70,17 @@
           </div>
 
           <div class="form-row input-group mb-3">
-          <label class="input-group-text" for="phone">Enter Birthday:</label>
+          <label class="input-group-text" for="phone">Enter Phone:</label>
           <input id="phone" name="phone" type="text" class="form-control" placeholder="Phone" aria-label="Your Phone"
                  aria-describedby="basic-addon2" value="${a.getPhone()}">
         </div>
           <div class="form-row input-group mb-3">
-          <label class="input-group-text" for="email">Enter Birthday:</label>
+          <label class="input-group-text" for="email">Enter Email:</label>
           <input id="email" name="email" type="text" class="form-control" placeholder="Email" aria-label="Your Email"
                  aria-describedby="basic-addon2" value="${a.getEmail()}">
         </div>
           <div class="form-row input-group mb-3">
-          <label class="input-group-text" for="address">Enter Birthday:</label>
+          <label class="input-group-text" for="address">Enter Address:</label>
           <input id="address" name="address" type="text" class="form-control" placeholder="Address" aria-label="Your Address"
                  aria-describedby="basic-addon2" value="${a.getAddress()}">
         </div>
@@ -102,7 +102,11 @@
     <div class="col-md pt-3">
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         <div>
-          <!-- Edit Activity -->
+          <button href="parent" data-bs-toggle="modal" class=" btn btn-primary"><i
+                  class="bx bx-plus me-1 "></i> Cancel Changes
+          </button>
+        </div>
+        <div>
           <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
                   class="bi bi-check-lg me-1 "></i> Confirm Edit Activity</button>
         </div>

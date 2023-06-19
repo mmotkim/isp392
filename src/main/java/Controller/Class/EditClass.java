@@ -27,7 +27,7 @@ public class EditClass extends HttpServlet {
             ClassDAO classDAO = new ClassDAO();
             ClassEntity aClass = classDAO.getClassById(Integer.parseInt(request.getParameter("classId")));
             StudentDAO studentDAO = new StudentDAO();
-            List<Student> listS = studentDAO.getStudentList();
+            List<Student> listS = studentDAO.getStudentListByClass(aClass.getClassId());
             request.setAttribute("aClass", aClass);
             request.setAttribute("listS", listS);
             request.getRequestDispatcher("pages/class/editClass.jsp").forward(request, response);

@@ -39,5 +39,30 @@ public class StudentDAO {
 
         return studentList;
     }
+    public List<Student> getStudentListByClass(int classId) {
+        List<Student> studentList = new ArrayList<Student>();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Query query = entityManager.createQuery("FROM Student WHERE classId = " + classId, Student.class);
+            studentList = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
+
+        return studentList;
+    }
 
 }
