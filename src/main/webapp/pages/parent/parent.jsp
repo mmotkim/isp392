@@ -88,7 +88,7 @@
                 <td>${t.getPhone()}</td>
                 <td>${t.getEmail()}</td>
                 <td>${t.getAddress()}</td>
-                <td>${t.getActive().equals(1) ? "Male" : "Female"}</td>
+                <td>${t.getActive().equals(1) ? "Active" : "Inactive"}</td>
 
                 <td class="justify-content-between ml-2">
                   <ul class="list-inline mb-0">

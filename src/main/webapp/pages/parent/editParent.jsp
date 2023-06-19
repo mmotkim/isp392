@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Edit Activity</title>
+  <title>Edit Parent</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
         integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -48,7 +48,8 @@
     <div class="col">
       <div class="col-lg-16">
         <div class="">
-          <!-- Ten lop -->
+          <input name="id" id="id" type="hidden" value="${a.getUserId()}">
+
           <div class="form-row input-group mb-3 d-flex">
 
             <label class="input-group-text" for="name">Enter Parent Name:</label>
@@ -87,9 +88,9 @@
           <div class="form-row input-group mb-3 d-flex">
             <label class="input-group-text">Active</label>
             <input type="radio" id="true1" name="active" value="Yes">
-            <label for="true1">Male</label><br>
+            <label for="true1">Active</label><br>
             <input type="radio" id="false1" name="active" value="No">
-            <label for="false1">Female</label><br>
+            <label for="false1">Inactive</label><br>
           </div>
 
 
