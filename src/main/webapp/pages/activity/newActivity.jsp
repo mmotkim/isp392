@@ -16,7 +16,7 @@
         integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
 </head>
 
 <body class="bg-light">

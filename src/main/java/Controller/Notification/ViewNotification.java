@@ -1,6 +1,6 @@
 package Controller.Notification;
 
-import Dao.ActivityDAO;
+import Dao.NotificationDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,14 +19,19 @@ public class ViewNotification extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        ActivityDAO activityDAO = new ActivityDAO();
-        List<Entity.Activity> list = activityDAO.getAllActivities();
-        int count = activityDAO.countActivities();
+        NotificationDAO notificationDAO = new NotificationDAO();
+
+        List<Entity.Notification> list = notificationDAO.getAllNotifications();
+
+        int count = notificationDAO.countNotifications();
+
+
         request.setAttribute("list", list);
         request.setAttribute("count", count);
+
         Object object = session.getAttribute("account");
 //        User u = (User) object;
-        request.getRequestDispatcher("pages/activity/activity.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/notification/notification.jsp").forward(request, response);
 
 
 

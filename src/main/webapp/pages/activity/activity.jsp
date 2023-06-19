@@ -23,7 +23,7 @@
             integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
 </head>
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
@@ -64,19 +64,19 @@
                         </thead>
                         <tbody>
                         <c:forEach var="t" items="${list}">
-                            <dialog id="d" >
+                            <dialog id="d${t.getActivityId()}" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                                            <button type="button" class="btn-close" onclick="d.close()"></button>
+                                            <button type="button" class="btn-close" onclick="d${t.getActivityId()}.close()"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Are you sure you want to delete Notification <span class="text-muted">( ID: ${t.getActivityId()})</span></p>
+                                            <p>Are you sure you want to delete Activity <span class="text-muted">( ID: ${t.getActivityId()})</span></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
-                                            <a href="./DeleteActivity?id=${t.getActivityId()}" class="btn btn-primary" onclick="d.close()">
+                                            <button class="btn btn-secondary" onclick="d${t.getActivityId()}.close()">Cancel</button>
+                                            <a href="./DeleteActivity?id=${t.getActivityId()}" class="btn btn-primary" onclick="d${t.getActivityId()}.close()">
                                                 Delete
                                             </a>
                                         </div>
@@ -109,7 +109,7 @@
                                             <!-- Delete -->
                                             <a
                                                     href="#"
-                                                    onclick="d.showModal();"
+                                                    onclick="d${t.getActivityId()}.showModal();"
                                                     title="Delete"
                                                     class="px-2 text-danger"
                                             ><i class="bx bx-trash-alt font-size-18"></i
@@ -145,7 +145,7 @@
         </div>
         <div class="row g-0 align-items-center pb-4">
             <div class="col-sm-6">
-                <div><p class="mb-sm-0">Showing 1 to 10 of 57 entries</p></div>
+                <div><p class="mb-sm-0">Showing 1 to 10 of ${count} entries</p></div>
             </div>
             <div class="col-sm-6">
                 <div class="float-sm-end">
@@ -158,10 +158,10 @@
                         <li class="page-item active">
                             <a href="#" class="page-link">1</a>
                         </li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+<%--                        <li class="page-item"><a href="#" class="page-link">2</a></li>--%>
+<%--                        <li class="page-item"><a href="#" class="page-link">3</a></li>--%>
+<%--                        <li class="page-item"><a href="#" class="page-link">4</a></li>--%>
+<%--                        <li class="page-item"><a href="#" class="page-link">5</a></li>--%>
                         <li class="page-item">
                             <a href="#" class="page-link"
                             ><i class="mdi mdi-chevron-right"></i
@@ -176,7 +176,8 @@
 
 <jsp:include page="../../components/footer.jsp"/>
 
-<script src="../../js/bootstrap.bundle.js"></script>
+
+<script src="../../assets/js/bootstrap.bundle.js"></script>
 
 </body>
 

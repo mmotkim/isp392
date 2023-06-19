@@ -46,7 +46,7 @@ public class NotificationDAO {
 
     }
 
-    public void addNotification(String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity){
+    public void addNotification(String title, String description, Date createdDate, Date processingDate, Date endDate){
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = entityManager.getTransaction();
@@ -61,7 +61,7 @@ public class NotificationDAO {
             notification.setCreatedDate(createdDate);
             notification.setProcessingDate(processingDate);
             notification.setEndDate(endDate);
-            notification.setActivity(isActivity);
+
 
             entityManager.persist(notification);
 
@@ -77,6 +77,37 @@ public class NotificationDAO {
         }
     }
 
+    public void addNotificationWithActivity(String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity, int activityId){
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = entityManager.getTransaction();
+
+        try {
+            trans.begin();
+
+            Notification notification = new Notification();
+
+            notification.setTitle(title);
+            notification.setDescription(description);
+            notification.setCreatedDate(createdDate);
+            notification.setProcessingDate(processingDate);
+            notification.setEndDate(endDate);
+            notification.setActivity(isActivity);
+            notification.setActivityId(activityId);
+
+            entityManager.persist(notification);
+
+            trans.commit();
+
+
+        } finally {
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
 
     public void deleteNotification(int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
@@ -100,7 +131,34 @@ public class NotificationDAO {
         }
     }
 
-    public void updateNotification(int id, String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity){
+    public void updateNotification(int id, String title, String description, Date processingDate, Date endDate){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Notification notification = entityManager.find(Notification.class, id);
+
+            notification.setTitle(title);
+            notification.setDescription(description);
+            notification.setProcessingDate(processingDate);
+            notification.setEndDate(endDate);
+
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
+    public void updateNotificationWithActivity(int id, String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity, int activityId){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -115,6 +173,7 @@ public class NotificationDAO {
             notification.setProcessingDate(processingDate);
             notification.setEndDate(endDate);
             notification.setActivity(isActivity);
+            notification.setActivityId(activityId);
 
             transaction.commit();
 
