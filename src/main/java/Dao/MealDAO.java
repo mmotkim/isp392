@@ -122,7 +122,7 @@ public class MealDAO {
         }
     }
 
-    public Meal getMeal(int id){
+    public Meal getMealById(int id){
         ArrayList<Meal> list = new ArrayList<>();
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();

@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Edit Activity</title>
+  <title>Edit Meal</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
         integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
 </head>
 
+<body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
 
-<body class="bg-light">
 <div class="container pt-3">
-  <a href="activity" class="size-3">
+  <a href="meal" class="size-3">
     <div class="arrow" style=""></div>
   </a>
 </div>
@@ -32,14 +32,13 @@
 
 <div class="container" style="margin-top: 40px">
 
-  <form action="EditActivity" method="post">
+  <form action="EditMeal" method="post">
 
     <div class="row align-items-center">
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title text-primary">
-            <!-- Tong so luong Activity -->
-            1. Edit Activity Details. <span class="text-muted">(Activity ID: )</span>
+            Edit Meal Details. <span class="text-muted">(Meal ID: ${a.getMealId()})</span>
           </h5>
         </div>
       </div>
@@ -49,92 +48,33 @@
     <div class="col">
       <div class="col-lg-16">
         <div class="">
-          <!-- Ten lop -->
           <div class="form-row input-group mb-3 d-flex">
 
-            <label class="input-group-text" for="name">Enter Activity Name:</label>
-            <input id="name" name="name" type="text" class="form-control" placeholder="Activity Name" aria-label="Your Activity Name"
-                   aria-describedby="basic-addon2" value="${a.getActivityId()}" required>
+            <label class="input-group-text" for="description">Enter Meal Description:</label>
+            <input name="description" id="description" type="text" class="form-control" placeholder="Description" aria-label="Your Meal Description"
+                   aria-describedby="basic-addon2" required value="${a.getMealDescription()}">
           </div>
           <div class="form-row input-group mb-3">
-            <label class="input-group-text" for="description">Enter Activity Description:</label>
-            <input id="description" name="description" type="text" class="form-control" placeholder="Activity Description" aria-label="Your Activity Description"
-                   aria-describedby="basic-addon2" value="${a.getDescription()}">
+            <label class="input-group-text" for="create_date">Enter Create Date</label>
+            <input name="create_date" id="create_date" type="text" class="form-control" placeholder="Create Date" aria-label="Your Create Date"
+                   aria-describedby="basic-addon2" value="${a.getCreatedDate()}">
           </div>
-
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="type">Choose Activity Type:</label>
-            <select id="type" name="type" type="text" class="form-select" placeholder="Activity Type" aria-label="Choose Activity Type"
-                    aria-describedby="basic-addon2" required>
-
-              <option value="">Choose an activity type</option>
-              <option value="entertainment" selected >Entertainment</option>
-              <option value="meal" >Meal</option>
-              <option value="study">Study</option>
-              <option value="skills">Skills</option>
-            </select>
+          <div class="form-row input-group mb-3">
+            <label class="input-group-text" for="date">Enter Create Date</label>
+            <input name="date" id="date" type="text" class="form-control" placeholder="Date" aria-label="Your Date"
+                   aria-describedby="basic-addon2" value="${a.getDate()}">
           </div>
 
         </div>
       </div>
     </div>
-
-    <div class="row align-items-center py-3">
-      <div class="col-md-6">
-        <div class="mb-4">
-          <h5 class="card-title text-primary">
-            <!-- Tong so luong Activity -->
-            2. Reassign the activity to classes,... or leave it for now.
-          </h5>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="search-box pb-3">
-        <h5 class="Title pb-2">
-          Class list
-        </h5>
-        <input type="text" id="search-input" class="form-control" placeholder="Search by Class Name or Teachers Name">
-      </div>
-
-      <div class="table-container">
-        <table class="table table-hover mt-2">
-          <thead>
-          <tr>
-            <th class="col-auto">Select</th>
-            <th class="col-auto">Name</th>
-            <th class="col-auto">Level</th>
-            <th class="col-auto">Student Quantity</th>
-            <th class="col-auto">Teachers in charge</th>
-          </tr>
-          </thead>
-          <tbody id="records-list">
-          <tr>
-            <td class="select-cell">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-              </div>
-            </td>
-            <td>Option 1</td>
-            <td>A1</td>
-            <td>32</td>
-            <td>Thoa, Chung</td>
-          </tr>
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <input value="${a.getActivityId()}" name="activityId" type="hidden">
 
     <!-- Confirm Button -->
     <div class="col-md pt-3">
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         <div>
-          <!-- Edit Activity -->
           <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
-                  class="bi bi-check-lg me-1 "></i> Confirm Edit Activity</button>
+                  class="bi bi-check-lg me-1 "></i> Confirm Edit Meal</button>
         </div>
       </div>
     </div>
@@ -197,7 +137,6 @@
     overflow-y: auto;
   }
 </style>
-
 </body>
 
 </html>

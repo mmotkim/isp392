@@ -8,7 +8,7 @@
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
   />
-  <title>Parent</title>
+  <title>Class</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <link rel="stylesheet"
@@ -33,11 +33,18 @@
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title">
-            Parent List <span class="text-muted fw-normal ms-2"> ${count} </span>
+            Meal List <span class="text-muted fw-normal ms-2"> ${count} </span>
           </h5>
         </div>
       </div>
       <div class="col-md-6">
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+          <div>
+            <!-- Them Class -->
+            <a href="NewMeal" class="btn btn-primary px-4 py-2"
+            ><i class="bx bx-plus me-1"></i> Add New Meal</a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -48,12 +55,9 @@
             <tr>
               <th scope="col" style="width: 50px">ID</th>
               <th scope="col">Name</th>
-              <th scope="col">Gender</th>
-              <th scope="col">DoB</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Email</th>
-              <th scope="col">Address</th>
-              <th scope="col">isActive</th>
+              <th scope="col">Level</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -66,11 +70,11 @@
                       <button type="button" class="btn-close" onclick="d.close()"></button>
                     </div>
                     <div class="modal-body">
-                      <p>Are you sure you want to delete Notification <span class="text-muted">( ID: ${t.getUserId()})</span></p>
+                      <p>Are you sure you want to delete Meal <span class="text-muted">( ID: ${t.getMealId()})</span></p>
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
-                      <a href="./DeleteParent?id=${t.getUserId()}" class="btn btn-primary" onclick="d.close()">
+                      <a href="./DeleteMeal?id=${t.getMealId()}" class="btn btn-primary" onclick="d.close()">
                         Delete
                       </a>
                     </div>
@@ -80,22 +84,18 @@
 
               <tr>
                 <!-- ID -->
-                <td>${t.getUserId()}</td>
+                <td>${t.getMealId()}</td>
                 <!-- Name -->
-                <td>${t.getFullname()}</td>
-                <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
-                <td>${t.getDob()}</td>
-                <td>${t.getPhone()}</td>
-                <td>${t.getEmail()}</td>
-                <td>${t.getAddress()}</td>
-                <td>${t.getActive().equals(1) ? "Male" : "Female"}</td>
+                <td>${t.getMealDescription()}</td>
+                <td>${t.getCreatedDate()}</td>
+                <td>${t.getDate()}</td>
 
                 <td class="justify-content-between ml-2">
                   <ul class="list-inline mb-0">
                     <li class="list-inline-item">
                       <!-- Edit -->
                       <a
-                              href="./EditParent?id=${t.getUserId()}"
+                              href="./EditMeal?id=${t.getMealId()}"
 
                               title="Edit"
                               class="px-2 text-primary"
@@ -105,7 +105,7 @@
                     <li class="list-inline-item">
                       <!-- Delete -->
                       <a
-                              href="./DeleteParent?id=${t.getUserId()}"
+                              href="./DeleteMeal?id=${t.getMealId()}"
                               onclick="d.showModal();"
                               title="Delete"
                               class="px-2 text-danger"
