@@ -23,16 +23,14 @@
             integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
 </head>
 <body>
 <div class="bg-dark text-white ">
     <div class="container">
-        <header
-                class="d-flex flex-wrap align-items-center justify-content-md-between py-3 mb-4"
-        >
+        <header class="d-flex flex-wrap align-items-center justify-content-md-between py-3 mb-4">
             <div class="logo">
-                <a href="/" class="d-flex">
+                <a href="#" class="d-flex">
                     <img class="me-3" height="28" src="${pageContext.request.contextPath}/assets/logo.png"/>
                 </a>
             </div>
@@ -76,5 +74,6 @@
     </div>
 
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
 </body>
 </html>

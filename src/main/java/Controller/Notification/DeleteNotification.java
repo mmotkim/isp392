@@ -1,6 +1,6 @@
 package Controller.Notification;
 
-import Dao.ActivityDAO;
+import Dao.NotificationDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-    @WebServlet(name = "DeleteActivity", value = "/DeleteActivity")
+    @WebServlet(name = "DeleteNotification", value = "/DeleteNotification")
 public class DeleteNotification extends HttpServlet {
     private String message;
 
@@ -19,10 +19,10 @@ public class DeleteNotification extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
-            ActivityDAO activityDAO = new ActivityDAO();
-            activityDAO.deleteActivity(Integer.parseInt(request.getParameter("id")))        ;
+            NotificationDAO notificationDAO = new NotificationDAO();
+            notificationDAO.deleteNotification(Integer.parseInt(request.getParameter("id")))        ;
 
-            response.sendRedirect("activity");
+            response.sendRedirect("notification");
 
 
         } catch (Exception e) {

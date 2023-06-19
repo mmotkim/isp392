@@ -14,15 +14,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-    <link rel="stylesheet" href="../../css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
   </head>
 
   <body class="bg-light">
-    <jsp:include page="components/header.jsp" />
+    <jsp:include page="../../components/header.jsp" />
 
     <!-- Back -->
     <div class="container pt-3">
-      <a href="Activity" class="size-3">
+      <a href="notification" class="size-3">
         <div class="arrow"></div>
       </a>
     </div>
@@ -33,36 +33,35 @@
         <div class="col-md-6">
           <div class="mb-4">
             <h5 class="card-title">
-              <!-- Tong so luong Activity -->
-              1. Add a new Activity.
+              <!-- Tong so luong Notification -->
+              1. Add a new Notification.
             </h5>
           </div>
         </div>
       </div>
-      <form action="NewActivity" method="post">
+      <form action="NewNotification" method="post">
         <div class="col">
           <div class="col-lg-16">
             <div class="">
               <!-- Ten lop -->
               <div class="form-row input-group mb-3 d-flex">
-                <label class="input-group-text" for="name">Enter Activity Name:</label>
-                <input name="name" id="name" type="text" class="form-control" placeholder="Activity Name" aria-label="Your Activity Name" aria-describedby="basic-addon2" required />
+                <label class="input-group-text" for="name">Enter Notification Title:</label>
+                <input name="title" id="name" type="text" class="form-control" placeholder="Notification Name" aria-label="Your Notification Name" aria-describedby="basic-addon2" required />
               </div>
               <div class="form-row input-group mb-3">
-                <label class="input-group-text" for="description">Enter Activity Description:</label>
-                <input name="description" id="description" type="text" class="form-control" placeholder="Activity Description" aria-label="Your Activity Description" aria-describedby="basic-addon2" />
+                <label class="input-group-text" for="description">Enter Notification Description:</label>
+                <input name="description" id="description" type="text" class="form-control" placeholder="Notification Description" aria-label="Your Notification Description" aria-describedby="basic-addon2" />
+              </div>
+              <div class="form-row input-group mb-3 d-flex">
+                <label class="input-group-text" for="process">Enter Start Date:</label>
+                <input name="process" id="process" type="date" onchange="TDate()" class="form-control" placeholder="Notification Start Date" aria-label="Your Notification Start Date" aria-describedby="basic-addon2" required />
+              </div>
+              <div class="form-row input-group mb-3 d-flex">
+                <label class="input-group-text" for="end">Enter End Date:</label>
+                <input name="end" id="end" type="date" onchange="TDate()" class="form-control" placeholder="Notification End Date" aria-label="Your Notification End Date" aria-describedby="basic-addon2" required />
               </div>
 
-              <div class="input-group mb-3">
-                <label class="input-group-text" for="type">Choose Activity Type:</label>
-                <select name="type" id="type" type="text" class="form-select" placeholder="Activity Description" aria-label="Choose Activity Type" aria-describedby="basic-addon2" required>
-                  <option value="">Choose an activity type</option>
-                  <option value="entertainment">Entertainment</option>
-                  <option value="meal">Meal</option>
-                  <option value="study">Study</option>
-                  <option value="skills">Skills</option>
-                </select>
-              </div>
+              <input name="created" id="created" type="hidden" >
             </div>
           </div>
         </div>
@@ -71,8 +70,8 @@
           <div class="col-md-6">
             <div class="mb-4">
               <h5 class="card-title">
-                <!-- Tong so luong Activity -->
-                2. Assign the activity to a class,... or leave it empty for now.
+                <!-- Tong so luong Notification -->
+                2. Assign the notification to an activity (one only),... or leave it empty for now.
               </h5>
             </div>
           </div>
@@ -83,22 +82,34 @@
           </div>
           <table class="table table-hover">
             <thead>
-              <tr>
-                <th class="col-auto">Select</th>
-                <th class="col-auto">Name</th>
-                <th class="col-auto">Description</th>
-              </tr>
+            <tr>
+              <th class="col-1">Select</th>
+              <th class="col-auto">Name</th>
+              <th class="col-auto">Description</th>
+              <th class="col-auto">Type</th>
+            </tr>
             </thead>
             <tbody id="records-list">
-              <tr>
-                <td class="select-cell">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" />
-                  </div>
-                </td>
-                <td>Option 1</td>
-                <td>Description 1</td>
-              </tr>
+            <tr>
+              <td class="select-cell col-auto">
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" />
+                </div>
+              </td>
+              <td>Option 1</td>
+              <td>Description 1</td>
+              <td>Type 1</td>
+            </tr>
+            <tr>
+              <td class="select-cell">
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" />
+                </div>
+              </td>
+              <td>Option 1</td>
+              <td>Description 1</td>
+              <td>Type 1</td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -106,8 +117,8 @@
         <div class="col-md pt-3">
           <div class="d-flex align-items-center justify-content-end gap mb-3">
             <div>
-              <!-- Them Activity -->
-              <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Confirm Create Activity</button>
+              <!-- Them Notification -->
+              <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary"><i class="bx bx-plus me-1"></i> Confirm Create Notification</button>
             </div>
           </div>
         </div>
@@ -115,46 +126,63 @@
     </div>
 
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("search-input");
-        const recordsList = document.getElementById("records-list").getElementsByTagName("tr");
-        const selectedRecords = new Set();
+      document.getElementById("created").valueAsDate = new Date();
 
-        searchInput.addEventListener("input", function () {
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
+        let selectedRecord = null;
+
+        searchInput.addEventListener('input', function() {
           const searchTerm = searchInput.value.trim().toLowerCase();
           for (let i = 0; i < recordsList.length; i++) {
-            const name = recordsList[i].getElementsByTagName("td")[1].textContent.toLowerCase();
-            recordsList[i].style.display = name.includes(searchTerm) ? "table-row" : "none";
+            const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+            const description = recordsList[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+            const shouldDisplay = name.includes(searchTerm) || description.includes(searchTerm);
+            recordsList[i].style.display = shouldDisplay ? 'table-row' : 'none';
           }
         });
 
-        const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
-        for (let i = 0; i < selectCheckboxes.length; i++) {
-          selectCheckboxes[i].addEventListener("click", function (event) {
-            event.stopPropagation();
-            const record = this.closest("tr");
-            if (this.checked) {
-              selectedRecords.add(record);
-            } else {
-              selectedRecords.delete(record);
-            }
+        const selectRadios = document.querySelectorAll('.select-cell input[type="radio"]');
+        for (let i = 0; i < selectRadios.length; i++) {
+          selectRadios[i].addEventListener('click', function() {
+            const record = this.closest('tr');
+            selectedRecord = record;
+            deselectOtherRadios(record);
           });
         }
 
-        const selectCells = document.getElementsByClassName("select-cell");
+        const selectCells = document.getElementsByClassName('select-cell');
         for (let i = 0; i < selectCells.length; i++) {
-          selectCells[i].addEventListener("click", function () {
-            const checkbox = this.querySelector('input[type="checkbox"]');
-            checkbox.checked = !checkbox.checked;
-            const record = this.closest("tr");
-            if (checkbox.checked) {
-              selectedRecords.add(record);
-            } else {
-              selectedRecords.delete(record);
-            }
+          selectCells[i].addEventListener('click', function() {
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+            const record = this.closest('tr');
+            selectedRecord = record;
+            deselectOtherRadios(record);
           });
         }
+
+        function deselectOtherRadios(currentRecord) {
+          for (let i = 0; i < selectRadios.length; i++) {
+            const record = selectRadios[i].closest('tr');
+            if (record !== currentRecord) {
+              selectRadios[i].checked = false;
+            }
+          }
+        }
       });
+
+      function TDate(){
+        var start = document.getElementById("process").value;
+        var end = document.getElementById("end").value;
+
+        if (new Date(start).getTime() > new Date(end).getTime()){
+          alert("Notification End date must be later than start date");
+          return false;
+        }
+        return true;
+      }
     </script>
   </body>
 </html>
