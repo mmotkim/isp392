@@ -158,7 +158,7 @@ public class NotificationDAO {
         }
     }
 
-    public void updateNotificationWithActivity(int id, String title, String description, Date createdDate, Date processingDate, Date endDate, boolean isActivity, int activityId){
+    public void updateNotificationWithActivity(int id, String title, String description , Date processingDate, Date endDate, boolean isActivity, int activityId){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -169,7 +169,7 @@ public class NotificationDAO {
 
             notification.setTitle(title);
             notification.setDescription(description);
-            notification.setCreatedDate(createdDate);
+
             notification.setProcessingDate(processingDate);
             notification.setEndDate(endDate);
             notification.setActivity(isActivity);

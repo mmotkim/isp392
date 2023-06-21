@@ -1,6 +1,8 @@
 package Controller.Notification;
 
+import Dao.ActivityDAO;
 import Dao.NotificationDAO;
+import Entity.Activity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,29 +14,29 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet(name = "NewNotification", value = "/NewNotification")
 public class NewNotification extends HttpServlet {
-    private String message;
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
+            ActivityDAO activityDAO = new ActivityDAO();
             HttpSession session = request.getSession();
 
+            int count2 = activityDAO.countActivities();
+            List<Entity.Activity> list2 = activityDAO.getAllActivities();
+            request.setAttribute("list2", list2);
+            request.setAttribute("count2", count2);
             request.getRequestDispatcher("pages/notification/newNotification.jsp").forward(request, response);
 
 
         } catch (Exception e) {
         }
-
-    }
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        processRequest(request, response);
 
     }
 
@@ -59,18 +61,14 @@ public class NewNotification extends HttpServlet {
 
 
 
-            if (request.getParameter("isActivity") == null) {
-                notificationDAO.addNotification(title, description, created, process, end);
+            if (request.getParameter("activityId").equals("")) {
+                notificationDAO.addNotification(title.trim(), description.trim(), created, process, end);
             }
-//            else if (request.getParameter("isActivity") != null){
-//                boolean isActivity = Boolean.parseBoolean(request.getParameter("isActivity"));
-//                int activityId = Integer.parseInt(request.getParameter("activityId"));
-//                notificationDAO.addNotificationWithActivity(title, description, created, process, end, isActivity, activityId);
-//            }
-
-
-
-
+            else if (request.getParameter("activityId") != null){
+                boolean isActivity = true;
+                int activityId = Integer.parseInt(request.getParameter("activityId"));
+                notificationDAO.addNotificationWithActivity(title, description, created, process, end, isActivity, activityId);
+            }
 
             response.sendRedirect("notification");
         } catch (Exception e) {

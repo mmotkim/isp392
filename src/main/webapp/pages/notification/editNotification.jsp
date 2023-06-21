@@ -37,7 +37,7 @@
         <div class="mb-4">
           <h5 class="card-title text-primary">
             <!-- Tong so luong Notification -->
-            1. Edit Notification Details. <span class="text-muted">(Notification ID: )</span>
+            1. Edit Notification Details. <span class="text-muted">(Notification ID: ${n.getNotificationId()})</span>
           </h5>
         </div>
       </div>
@@ -92,7 +92,8 @@
         <table class="table table-hover mt-2">
           <thead>
           <tr>
-            <th class="col-auto">Select</th>
+            <th class="col-1">Select</th>
+            <td class="col-auto">ID</td>
             <th class="col-auto">Name</th>
             <th class="col-auto">Description</th>
             <th class="col-auto">Type</th>
@@ -103,10 +104,11 @@
           <tr>
             <td class="select-cell">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" ${(n.getActivityId() == t.getActivityId()) ? 'checked' : ''}>
+                <input type="radio" class="form-check-input" ${(n.getActivityId() == t.getActivityId()) ? 'checked' : ''}>
               </div>
             </td>
             <td>${t.getActivityId()}</td>
+            <td>${t.getName()}</td>
             <td>${t.getDescription()}</td>
             <td>${t.getType()}</td>
           </tr>
@@ -117,6 +119,7 @@
     </div>
 
     <input value="${n.getNotificationId()}" name="notificationId" type="hidden">
+    <input type="hidden" id="activityId" name="activityId">
 
     <!-- Confirm Button -->
     <div class="col-md pt-3">
@@ -132,50 +135,71 @@
 
 
 </div>
+<jsp:include page="../../components/footer.jsp"/>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
-    const selectedRecords = new Set();
+    let selectedRecord = null;
 
     searchInput.addEventListener('input', function() {
       const searchTerm = searchInput.value.trim().toLowerCase();
       for (let i = 0; i < recordsList.length; i++) {
-        const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-        const teachers = recordsList[i].getElementsByTagName('td')[4].textContent.toLowerCase();
-        const shouldDisplay = name.includes(searchTerm) || teachers.includes(searchTerm);
+        const name = recordsList[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+        const description = recordsList[i].getElementsByTagName('td')[4].textContent.toLowerCase();
+        const shouldDisplay = name.includes(searchTerm) || description.includes(searchTerm);
         recordsList[i].style.display = shouldDisplay ? 'table-row' : 'none';
       }
     });
 
-    const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
-    for (let i = 0; i < selectCheckboxes.length; i++) {
-      selectCheckboxes[i].addEventListener('click', function(event) {
-        event.stopPropagation();
+    const selectRadios = document.querySelectorAll('.select-cell input[type="radio"]');
+    for (let i = 0; i < selectRadios.length; i++) {
+      selectRadios[i].addEventListener('click', function() {
         const record = this.closest('tr');
-        if (this.checked) {
-          selectedRecords.add(record);
-        } else {
-          selectedRecords.delete(record);
-        }
+        selectedRecord = record;
+        deselectOtherRadios(record);
+        setActivityId(selectedRecord);
       });
     }
 
     const selectCells = document.getElementsByClassName('select-cell');
     for (let i = 0; i < selectCells.length; i++) {
       selectCells[i].addEventListener('click', function() {
-        const checkbox = this.querySelector('input[type="checkbox"]');
-        checkbox.checked = !checkbox.checked;
+        const radio = this.querySelector('input[type="radio"]');
+        radio.checked = true;
         const record = this.closest('tr');
-        if (checkbox.checked) {
-          selectedRecords.add(record);
-        } else {
-          selectedRecords.delete(record);
-        }
+        selectedRecord = record;
+        deselectOtherRadios(record);
+        setActivityId(selectedRecord);
       });
     }
+
+    function deselectOtherRadios(currentRecord) {
+      for (let i = 0; i < selectRadios.length; i++) {
+        const record = selectRadios[i].closest('tr');
+        if (record !== currentRecord) {
+          selectRadios[i].checked = false;
+        }
+      }
+    }
   });
+  function setActivityId(selectedRecord) {
+    if (selectedRecord) {
+      document.getElementById('activityId').value = selectedRecord.getElementsByTagName('td')[1].textContent;
+    }
+  }
+
+  function TDate(){
+    var start = document.getElementById("process").value;
+    var end = document.getElementById("end").value;
+
+    if (new Date(start).getTime() > new Date(end).getTime()){
+      alert("Notification End date must be later than start date");
+      return false;
+    }
+    return true;
+  }
 </script>
 
 <style>

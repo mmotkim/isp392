@@ -64,14 +64,14 @@ public class EditNotification extends HttpServlet {
 
             NotificationDAO notificationDAO = new NotificationDAO();
 
-            if (request.getParameter("isActivity") == null) {
+            if (request.getParameter("activityId").equals("")) {
                 notificationDAO.updateNotification(id, title, description, process, end);
             }
-//            else if (request.getParameter("isActivity") != null){
-//                boolean isActivity = Boolean.parseBoolean(request.getParameter("isActivity"));
-//                int activityId = Integer.parseInt(request.getParameter("activityId"));
-//                notificationDAO.updateNotificationWithActivity(id, title, description, created, process, end, isActivity, activityId);
-//            }
+            else if (request.getParameter("activityId") != null){
+                boolean isActivity = true;
+                int activityId = Integer.parseInt(request.getParameter("activityId"));
+                notificationDAO.updateNotificationWithActivity(id, title, description, process, end, isActivity, activityId);
+            }
 
 
             response.sendRedirect("./notification");

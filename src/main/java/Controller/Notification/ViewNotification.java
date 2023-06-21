@@ -1,6 +1,9 @@
 package Controller.Notification;
 
+import Dao.ActivityDAO;
 import Dao.NotificationDAO;
+import Entity.Activity;
+import Entity.Notification;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,7 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "notification", value = "/notification")
 public class ViewNotification extends HttpServlet {
@@ -20,8 +25,10 @@ public class ViewNotification extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         NotificationDAO notificationDAO = new NotificationDAO();
+        ActivityDAO activityDAO = new ActivityDAO();
 
         List<Entity.Notification> list = notificationDAO.getAllNotifications();
+
 
         int count = notificationDAO.countNotifications();
 
@@ -46,5 +53,18 @@ public class ViewNotification extends HttpServlet {
 
 
     public void destroy() {
+    }
+
+    public static void main(String[] args) {
+
+        NotificationDAO notificationDAO = new NotificationDAO();
+        ActivityDAO activityDAO = new ActivityDAO();
+
+        List<Entity.Notification> list = notificationDAO.getAllNotifications();
+        Map<Notification, String> map = new HashMap<>();
+
+
+
+        int count = notificationDAO.countNotifications();
     }
 }

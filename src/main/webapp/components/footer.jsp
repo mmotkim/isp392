@@ -15,6 +15,9 @@
             background-color: #f2f2f2;
             padding: 20px;
             text-align: center;
+
+
+
         }
         .footer-content {
             display: flex;
@@ -35,12 +38,11 @@
 </head>
 
 <body>
-<footer>
-    <div class="footer-content">
+<footer class="footer">
+    <div class="container justify-content-between align-text-center">
         <p>&copy; 2023 AsterGarten Kindergaten</p>
         <ul class="footer-links">
-            <li><a href="#">Home Page</a></li>
-            <li><a href="#">Notification</a></li>
+            <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
     </div>

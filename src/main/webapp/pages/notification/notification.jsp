@@ -54,14 +54,14 @@
               <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style="width: 50px">ID</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Created Date</th>
-                    <th scope="col">Processing Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Activity</th>
-                    <th scope="col">Action</th>
+                    <th class="col-auto" scope="col" style="width: 50px">Number</th>
+                    <th class="col-auto" scope="col">Title</th>
+                    <th class="col-auto" scope="col">Description</th>
+                    <th class="col-1" scope="col">Created Date</th>
+                    <th class="col-1" scope="col">Processing Date</th>
+                    <th class="col-1" scope="col">End Date</th>
+                    <th class="col-auto" scope="col">Activity</th>
+                    <th class="col-md-2" scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,7 +75,7 @@
                               <button type="button" class="btn-close" onclick="d${t.getNotificationId()}.close()"></button>
                             </div>
                             <div class="modal-body">
-                              <p>Are you sure you want to delete Notification ( ID: )</p>
+                              <p>Are you sure you want to delete Notification ( ID: ${t.getNotificationId()})</p>
                             </div>
                             <div class="modal-footer">
                               <button class="btn btn-secondary" onclick="d${t.getNotificationId()}.close()">Cancel</button>
@@ -95,7 +95,7 @@
                       <td>${t.getCreatedDate()}</td>
                       <td>${t.getProcessingDate()}</td>
                       <td>${t.getEndDate()}</td>
-                      <td>${t.getActivityId()}</td>
+                      <td style="text-align: center;">${t.getActivityId()}</td>
 
                       <td class="justify-content-between ml-2">
                         <ul class="list-inline mb-0">
@@ -147,6 +147,11 @@
         </div>
       </div>
     </div>
+    <footer>
+      <jsp:include page="../../components/footer.jsp"/>
+
+    </footer>
+
 
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
   </body>
