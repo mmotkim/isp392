@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Edit Activity</title>
+  <title>Edit Parent</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
         integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -48,7 +48,8 @@
     <div class="col">
       <div class="col-lg-16">
         <div class="">
-          <!-- Ten lop -->
+          <input name="id" id="id" type="hidden" value="${a.getUserId()}">
+
           <div class="form-row input-group mb-3 d-flex">
 
             <label class="input-group-text" for="name">Enter Parent Name:</label>
@@ -69,17 +70,17 @@
           </div>
 
           <div class="form-row input-group mb-3">
-          <label class="input-group-text" for="phone">Enter Birthday:</label>
+          <label class="input-group-text" for="phone">Enter Phone:</label>
           <input id="phone" name="phone" type="text" class="form-control" placeholder="Phone" aria-label="Your Phone"
                  aria-describedby="basic-addon2" value="${a.getPhone()}">
         </div>
           <div class="form-row input-group mb-3">
-          <label class="input-group-text" for="email">Enter Birthday:</label>
+          <label class="input-group-text" for="email">Enter Email:</label>
           <input id="email" name="email" type="text" class="form-control" placeholder="Email" aria-label="Your Email"
                  aria-describedby="basic-addon2" value="${a.getEmail()}">
         </div>
           <div class="form-row input-group mb-3">
-          <label class="input-group-text" for="address">Enter Birthday:</label>
+          <label class="input-group-text" for="address">Enter Address:</label>
           <input id="address" name="address" type="text" class="form-control" placeholder="Address" aria-label="Your Address"
                  aria-describedby="basic-addon2" value="${a.getAddress()}">
         </div>
@@ -87,9 +88,9 @@
           <div class="form-row input-group mb-3 d-flex">
             <label class="input-group-text">Active</label>
             <input type="radio" id="true1" name="active" value="Yes">
-            <label for="true1">Male</label><br>
+            <label for="true1">Active</label><br>
             <input type="radio" id="false1" name="active" value="No">
-            <label for="false1">Female</label><br>
+            <label for="false1">Inactive</label><br>
           </div>
 
 
@@ -101,7 +102,11 @@
     <div class="col-md pt-3">
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         <div>
-          <!-- Edit Activity -->
+          <button href="parent" data-bs-toggle="modal" class=" btn btn-primary"><i
+                  class="bx bx-plus me-1 "></i> Cancel Changes
+          </button>
+        </div>
+        <div>
           <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
                   class="bi bi-check-lg me-1 "></i> Confirm Edit Activity</button>
         </div>

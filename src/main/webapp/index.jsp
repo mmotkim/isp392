@@ -67,11 +67,26 @@
             font-size: 16px;
             margin-bottom: 30px;
         }
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
 <jsp:include page="components/header.jsp"/>
-
+<div class="container">
 <section class="banner">
     <h1>Chào mừng đến với Trường Mầm non Astergarten</h1>
     <p>Giáo dục và chăm sóc trẻ em từ 2 đến 5 tuổi</p>
@@ -86,7 +101,7 @@
     <h2>Chương trình học</h2>
     <p>Chúng tôi cung cấp các chương trình học đa dạng và phù hợp với từng độ tuổi của trẻ. Chương trình giáo dục của chúng tôi tập trung vào việc khám phá, tò mò và phát triển tư duy sáng tạo của trẻ. Chúng tôi đảm bảo trẻ em được tham gia vào các hoạt động học tập bổ ích và thú vị.</p>
 </section>
-
+</div>
 <jsp:include page="components/footer.jsp"/>
 
 </body>

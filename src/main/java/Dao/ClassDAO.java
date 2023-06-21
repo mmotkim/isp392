@@ -88,7 +88,7 @@ public class ClassDAO {
         }
     }
 
-    public void updateClass(int id, String name, int level, int quantity){
+    public void updateClass(int id, String name, int level){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -98,7 +98,6 @@ public class ClassDAO {
             ClassEntity upClass = entityManager.find(ClassEntity.class, id);
             upClass.setClassName(name);
             upClass.setLevel(level);
-            upClass.setStudentQuantity(quantity);
 
             transaction.commit();
 
