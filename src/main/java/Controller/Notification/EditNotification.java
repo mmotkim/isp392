@@ -18,7 +18,7 @@ import java.util.List;
 
 @WebServlet(name = "EditNotification", value = "/EditNotification")
 public class EditNotification extends HttpServlet {
-    private String message;
+
 
 
     @Override
@@ -73,8 +73,7 @@ public class EditNotification extends HttpServlet {
                 notificationDAO.updateNotificationWithActivity(id, title, description, process, end, isActivity, activityId);
             }
 
-
-            response.sendRedirect("./notification");
+            response.sendRedirect("./notification?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

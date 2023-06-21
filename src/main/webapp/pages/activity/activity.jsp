@@ -30,6 +30,13 @@
 <div class="">
     <div class="container">
         <div class="row align-items-center">
+            <%--    Alert--%>
+            <c:if test ="${param.state eq 'true'}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Action completed without issues!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
             <div class="col-md-6">
                 <div class="mb-4">
                     <h5 class="card-title">

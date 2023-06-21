@@ -153,6 +153,8 @@
       }
     });
 
+
+
     const selectRadios = document.querySelectorAll('.select-cell input[type="radio"]');
     for (let i = 0; i < selectRadios.length; i++) {
       selectRadios[i].addEventListener('click', function() {

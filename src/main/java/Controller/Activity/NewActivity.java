@@ -51,7 +51,7 @@ public class NewActivity extends HttpServlet {
 
 
 
-            response.sendRedirect("activity");
+            response.sendRedirect("activity?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

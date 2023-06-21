@@ -27,8 +27,18 @@
 </head>
   <body class="bg-light">
     <jsp:include page="../../components/header.jsp" />
+
+
+
     <div class="">
       <div class="container">
+        <%--    Alert--%>
+        <c:if test ="${param.state eq 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Action completed without issues!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </c:if>
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="mb-4">
@@ -65,21 +75,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach var="t" items="${list}">
+                  <c:forEach var="t" items="${map}">
                     <!-- Dialog -->
-                    <dialog id="d${t.getNotificationId()}" >
+                    <dialog id="d${t.key.getNotificationId()}" >
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                              <button type="button" class="btn-close" onclick="d${t.getNotificationId()}.close()"></button>
+                              <button type="button" class="btn-close" onclick="d${t.key.getNotificationId()}.close()"></button>
                             </div>
                             <div class="modal-body">
-                              <p>Are you sure you want to delete Notification ( ID: ${t.getNotificationId()})</p>
+                              <p>Are you sure you want to delete Notification ( ID: ${t.key.getNotificationId()})</p>
                             </div>
                             <div class="modal-footer">
-                              <button class="btn btn-secondary" onclick="d${t.getNotificationId()}.close()">Cancel</button>
-                              <a href="./DeleteNotification?id=${t.getNotificationId()}" class="btn btn-primary" onclick="d${t.getNotificationId()}.close()">Delete</a>
+                              <button class="btn btn-secondary" onclick="d${t.key.getNotificationId()}.close()">Cancel</button>
+                              <a href="./DeleteNotification?id=${t.key.getNotificationId()}" class="btn btn-primary" onclick="d${t.key.getNotificationId()}.close()">Delete</a>
                             </div>
                           </div>
                         </div>
@@ -87,25 +97,25 @@
                     </dialog>
                     <tr>
                       <!-- ID -->
-                      <td>${t.getNotificationId()}</td>
+                      <td>${t.key.getNotificationId()}</td>
                       <!-- Name -->
-                      <td>${t.getTitle()}</td>
+                      <td>${t.key.getTitle()}</td>
                       <!-- Description -->
-                      <td>${t.getDescription()}</td>
-                      <td>${t.getCreatedDate()}</td>
-                      <td>${t.getProcessingDate()}</td>
-                      <td>${t.getEndDate()}</td>
-                      <td style="text-align: center;">${t.getActivityId()}</td>
+                      <td>${t.key.getDescription()}</td>
+                      <td>${t.key.getCreatedDate()}</td>
+                      <td>${t.key.getProcessingDate()}</td>
+                      <td>${t.key.getEndDate()}</td>
+                      <td>${t.value}</td>
 
                       <td class="justify-content-between ml-2">
                         <ul class="list-inline mb-0">
                           <li class="list-inline-item">
                             <!-- Edit -->
-                            <a href="./EditNotification?notificationId=${t.getNotificationId()}"  title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                            <a href="./EditNotification?notificationId=${t.key.getNotificationId()}"  title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                           </li>
                           <li class="list-inline-item">
                             <!-- Delete -->
-                            <a href="#" onclick="d${t.getNotificationId()}.showModal();" title="Delete" class="px-2 text-primary"><i class="bx bx-trash-alt font-size-18"></i></a>
+                            <a href="#" onclick="d${t.key.getNotificationId()}.showModal();" title="Delete" class="px-2 text-primary"><i class="bx bx-trash-alt font-size-18"></i></a>
                           </li>
                           <!-- Other actions -->
                           <li class="list-inline-item dropdown">
@@ -153,6 +163,6 @@
     </footer>
 
 
-    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.js"></script>
   </body>
 </html>
