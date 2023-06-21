@@ -2,7 +2,6 @@ package Controller.Notification;
 
 import Dao.ActivityDAO;
 import Dao.NotificationDAO;
-import Entity.Activity;
 import Entity.Notification;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +17,7 @@ import java.util.Map;
 
 @WebServlet(name = "notification", value = "/notification")
 public class ViewNotification extends HttpServlet {
-    private String message;
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,12 +27,21 @@ public class ViewNotification extends HttpServlet {
         ActivityDAO activityDAO = new ActivityDAO();
 
         List<Entity.Notification> list = notificationDAO.getAllNotifications();
+        Map<Notification, String> map = new HashMap<>();
+        for (Notification notif : list){
+            if (notif.getActivityId()!=null){
+                String actName = activityDAO.getActivity(notif.getActivityId()).getName();
+                map.put(notif, actName);
+            } else {
+                map.put(notif, "");
+            }
+        }
 
 
         int count = notificationDAO.countNotifications();
 
 
-        request.setAttribute("list", list);
+        request.setAttribute("map", map);
         request.setAttribute("count", count);
 
         Object object = session.getAttribute("account");
@@ -55,16 +63,4 @@ public class ViewNotification extends HttpServlet {
     public void destroy() {
     }
 
-    public static void main(String[] args) {
-
-        NotificationDAO notificationDAO = new NotificationDAO();
-        ActivityDAO activityDAO = new ActivityDAO();
-
-        List<Entity.Notification> list = notificationDAO.getAllNotifications();
-        Map<Notification, String> map = new HashMap<>();
-
-
-
-        int count = notificationDAO.countNotifications();
-    }
 }

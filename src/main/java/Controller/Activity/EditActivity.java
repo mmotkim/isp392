@@ -13,7 +13,6 @@ import java.io.IOException;
 
 @WebServlet(name = "EditActivity", value = "/EditActivity")
 public class EditActivity extends HttpServlet {
-    private String message;
 
 
     @Override
@@ -50,7 +49,7 @@ public class EditActivity extends HttpServlet {
 
 
 
-            response.sendRedirect("./activity");
+            response.sendRedirect("./activity?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

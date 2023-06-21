@@ -12,7 +12,6 @@ import java.io.IOException;
 
     @WebServlet(name = "DeleteActivity", value = "/DeleteActivity")
 public class DeleteActivity extends HttpServlet {
-    private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -22,7 +21,7 @@ public class DeleteActivity extends HttpServlet {
             ActivityDAO activityDAO = new ActivityDAO();
             activityDAO.deleteActivity(Integer.parseInt(request.getParameter("id")))        ;
 
-            response.sendRedirect("activity");
+            response.sendRedirect("activity?state=true");
 
 
         } catch (Exception e) {

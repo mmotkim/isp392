@@ -12,7 +12,6 @@ import java.io.IOException;
 
     @WebServlet(name = "DeleteNotification", value = "/DeleteNotification")
 public class DeleteNotification extends HttpServlet {
-    private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -22,7 +21,7 @@ public class DeleteNotification extends HttpServlet {
             NotificationDAO notificationDAO = new NotificationDAO();
             notificationDAO.deleteNotification(Integer.parseInt(request.getParameter("id")))        ;
 
-            response.sendRedirect("notification");
+            response.sendRedirect("notification?state=true");
 
 
         } catch (Exception e) {

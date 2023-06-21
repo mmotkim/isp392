@@ -2,7 +2,6 @@ package Controller.Notification;
 
 import Dao.ActivityDAO;
 import Dao.NotificationDAO;
-import Entity.Activity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -70,7 +69,7 @@ public class NewNotification extends HttpServlet {
                 notificationDAO.addNotificationWithActivity(title, description, created, process, end, isActivity, activityId);
             }
 
-            response.sendRedirect("notification");
+            response.sendRedirect("notification?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 
