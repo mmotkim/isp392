@@ -17,8 +17,7 @@ import java.util.Map;
 
 @WebServlet(name = "notification", value = "/notification")
 public class ViewNotification extends HttpServlet {
-
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,9 +36,7 @@ public class ViewNotification extends HttpServlet {
             }
         }
 
-
         int count = notificationDAO.countNotifications();
-
 
         request.setAttribute("map", map);
         request.setAttribute("count", count);
@@ -47,9 +44,6 @@ public class ViewNotification extends HttpServlet {
         Object object = session.getAttribute("account");
 //        User u = (User) object;
         request.getRequestDispatcher("pages/notification/notification.jsp").forward(request, response);
-
-
-
     }
 
     @Override
