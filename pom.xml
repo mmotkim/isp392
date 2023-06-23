@@ -35,6 +35,7 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.2.3.Final</version>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>

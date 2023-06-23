@@ -175,6 +175,7 @@ public class NotificationDAO {
             notification.setActivity(isActivity);
             notification.setActivityId(activityId);
 
+
             transaction.commit();
 
 
@@ -187,6 +188,35 @@ public class NotificationDAO {
         }
     }
 
+    public void updateNotificationRemovedActivity(int id, String title, String description, Date processingDate, Date endDate){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Notification notification = entityManager.find(Notification.class, id);
+
+            notification.setTitle(title);
+            notification.setDescription(description);
+
+            notification.setProcessingDate(processingDate);
+            notification.setEndDate(endDate);
+            notification.setActivity(null);
+            notification.setActivityId(null);
+
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
     public Notification getNotification(int id){
         ArrayList<Notification> list = new ArrayList<>();
 

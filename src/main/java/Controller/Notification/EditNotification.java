@@ -65,7 +65,14 @@ public class EditNotification extends HttpServlet {
             NotificationDAO notificationDAO = new NotificationDAO();
 
             if (request.getParameter("activityId").equals("")) {
-                notificationDAO.updateNotification(id, title, description, process, end);
+                //If request is trying to remove activity
+                if(notificationDAO.getNotification(id).getActivityId()!=null){
+                    notificationDAO.updateNotificationRemovedActivity(id, title, description, process, end);
+                }
+                //If request haven't added an activity
+                else if(notificationDAO.getNotification(id).getActivityId()==null){
+                    notificationDAO.updateNotification(id, title, description, process, end);
+                }
             }
             else if (request.getParameter("activityId") != null){
                 boolean isActivity = true;

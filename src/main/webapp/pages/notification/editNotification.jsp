@@ -211,6 +211,7 @@
         for (let i = 0; i < radioButtons.length; i++) {
             radioButtons[i].checked = false;
         }
+        document.getElementById('activityId').value = "";
     }
 
     function setActivityId(selectedRecord) {
