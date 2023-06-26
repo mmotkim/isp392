@@ -20,6 +20,19 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
 </head>
+<style>
+    .bottom-left-alert {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .bottom-left-alert .alert {
+        position: relative;
+        left: 0;
+    }
+</style>
+
 
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
@@ -30,6 +43,16 @@
         <div class="arrow"></div>
     </a>
 </div>
+
+<div class="bottom-left-alert">
+
+    <%--Alert--%>
+    <div id="dateErrorAlert" class="alert alert-dismissible alert-danger fade" role="alert">
+        The End Date must be later than the Start Date. Please select valid dates.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
 
 <!-- Main body -->
 <div class="container" style="margin-top: 40px">
@@ -202,11 +225,18 @@
     function TDate() {
         var start = document.getElementById("process").value;
         var end = document.getElementById("end").value;
+        const alertElement = document.getElementById('dateErrorAlert');
 
         if (new Date(start).getTime() > new Date(end).getTime()) {
-            alert("Notification End date must be later than start date");
+            alertElement.classList.add('show');
+            if (document.activeElement === document.getElementById('end')) {
+                document.getElementById('end').value = '';
+            } else {
+                document.getElementById('process').value = '';
+            }
             return false;
         }
+        alertElement.classList.remove('show');
         return true;
     }
 </script>

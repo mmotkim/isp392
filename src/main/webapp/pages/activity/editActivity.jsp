@@ -39,7 +39,7 @@
         <div class="mb-4">
           <h5 class="card-title text-primary">
             <!-- Tong so luong Activity -->
-            1. Edit Activity Details. <span class="text-muted">(Activity ID: )</span>
+            1. Edit Activity Details. <span class="text-muted">(Activity ID: ${a.getActivityId()})</span>
           </h5>
         </div>
       </div>
@@ -54,7 +54,7 @@
 
             <label class="input-group-text" for="name">Enter Activity Name:</label>
             <input id="name" name="name" type="text" class="form-control" placeholder="Activity Name" aria-label="Your Activity Name"
-                   aria-describedby="basic-addon2" value="${a.getActivityId()}" required>
+                   aria-describedby="basic-addon2" value="${a.getName()}" required>
           </div>
           <div class="form-row input-group mb-3">
             <label class="input-group-text" for="description">Enter Activity Description:</label>
@@ -117,6 +117,17 @@
             </td>
             <td>Option 1</td>
             <td>A1</td>
+            <td>32</td>
+            <td>Thoa, Chung</td>
+          </tr>
+          <tr>
+            <td class="select-cell">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input">
+              </div>
+            </td>
+            <td>Option 2</td>
+            <td>A2</td>
             <td>32</td>
             <td>Thoa, Chung</td>
           </tr>

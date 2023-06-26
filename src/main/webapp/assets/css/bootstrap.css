@@ -4890,7 +4890,7 @@ textarea.form-control-lg {
   --bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
   --bs-alert-border-radius: var(--bs-border-radius);
   --bs-alert-link-color: inherit;
-  position: relative;
+  /*position: relative;*/
   padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
   margin-bottom: var(--bs-alert-margin-bottom);
   color: var(--bs-alert-color);
@@ -12258,4 +12258,9 @@ div.arrow:hover::before {
   transform: scale(0.8);
 }
 
+.bottom-left-alert {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
 /*# sourceMappingURL=bootstrap.css.map */

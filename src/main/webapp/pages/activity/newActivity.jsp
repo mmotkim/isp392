@@ -110,6 +110,15 @@
           <td>Option 1</td>
           <td>Description 1</td>
         </tr>
+        <tr>
+          <td class="select-cell">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input">
+            </div>
+          </td>
+          <td>Option 2</td>
+          <td>Description 1</td>
+        </tr>
         </tbody>
       </table>
     </div>

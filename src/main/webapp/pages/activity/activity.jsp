@@ -62,7 +62,7 @@
                     <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                         <thead>
                         <tr>
-                            <th scope="col" style="width: 50px">ID</th>
+                            <th scope="col" style="width: 50px">Number</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Type</th>
