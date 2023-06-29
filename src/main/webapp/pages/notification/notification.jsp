@@ -1,39 +1,24 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
-  <title>Title</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
-        integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-  />
-  <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
-          integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
-          crossorigin="anonymous"
-  />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
+  </head>
   <body class="bg-light">
     <jsp:include page="../../components/header.jsp" />
 
-
-
     <div class="">
       <div class="container">
-        <%--    Alert--%>
-        <c:if test ="${param.state eq 'true'}">
+        <%-- Alert--%>
+        <c:if test="${param.state eq 'true'}">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             Action completed without issues!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -77,23 +62,22 @@
                 <tbody>
                   <c:forEach var="t" items="${map}">
                     <!-- Dialog -->
-                    <dialog id="d${t.key.getNotificationId()}" >
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                              <button type="button" class="btn-close" onclick="d${t.key.getNotificationId()}.close()"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p>Are you sure you want to delete Notification ( ID: ${t.key.getNotificationId()})</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button class="btn btn-secondary" onclick="d${t.key.getNotificationId()}.close()">Cancel</button>
-                              <a href="./DeleteNotification?id=${t.key.getNotificationId()}" class="btn btn-primary" onclick="d${t.key.getNotificationId()}.close()">Delete</a>
-                            </div>
+                    <dialog id="d${t.key.getNotificationId()}">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-danger">Confirm Deletion</h5>
+                            <button type="button" class="btn-close" onclick="d${t.key.getNotificationId()}.close()"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Are you sure you want to delete Notification ( ID: ${t.key.getNotificationId()})</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="d${t.key.getNotificationId()}.close()">Cancel</button>
+                            <a href="./DeleteNotification?id=${t.key.getNotificationId()}" class="btn btn-primary" onclick="d${t.key.getNotificationId()}.close()">Delete</a>
                           </div>
                         </div>
-                      
+                      </div>
                     </dialog>
                     <tr>
                       <!-- ID -->
@@ -111,7 +95,7 @@
                         <ul class="list-inline mb-0">
                           <li class="list-inline-item">
                             <!-- Edit -->
-                            <a href="./EditNotification?notificationId=${t.key.getNotificationId()}"  title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                            <a href="./EditNotification?notificationId=${t.key.getNotificationId()}" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                           </li>
                           <li class="list-inline-item">
                             <!-- Delete -->
@@ -144,10 +128,15 @@
                 <li class="page-item active">
                   <a href="#" class="page-link">1</a>
                 </li>
-<%--                <li class="page-item"><a href="#" class="page-link">2</a></li>--%>
-<%--                <li class="page-item"><a href="#" class="page-link">3</a></li>--%>
-<%--                <li class="page-item"><a href="#" class="page-link">4</a></li>--%>
-<%--                <li class="page-item"><a href="#" class="page-link">5</a></li>--%>
+                <%--
+                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                --%> <%--
+                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                --%> <%--
+                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                --%> <%--
+                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                --%>
                 <li class="page-item">
                   <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
                 </li>
@@ -158,10 +147,8 @@
       </div>
     </div>
     <footer>
-      <jsp:include page="../../components/footer.jsp"/>
-
+      <jsp:include page="../../components/footer.jsp" />
     </footer>
-
 
     <script src="../../assets/js/bootstrap.bundle.js"></script>
   </body>
