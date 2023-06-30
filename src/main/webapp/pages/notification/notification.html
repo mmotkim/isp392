@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,20 +7,22 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
-      integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
     <link rel="stylesheet" href="../../assets/css/bootstrap.css" />
   </head>
   <body class="bg-light">
-    <jsp:include page="components/header.jsp" />
+    <jsp:include page="../../components/header.jsp" />
+
     <div class="">
       <div class="container">
+        <!-- Alert -->
+        <c:if test="${param.state eq 'true'}">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Action completed without issues!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </c:if>
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="mb-4">
@@ -45,56 +48,57 @@
               <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style="width: 50px">ID</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Created Date</th>
-                    <th scope="col">Processing Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Activity</th>
-                    <th scope="col">Action</th>
+                    <th class="col-auto" scope="col" style="width: 50px">Number</th>
+                    <th class="col-auto" scope="col">Title</th>
+                    <th class="col-auto" scope="col">Description</th>
+                    <th class="col-1" scope="col">Created Date</th>
+                    <th class="col-1" scope="col">Processing Date</th>
+                    <th class="col-1" scope="col">End Date</th>
+                    <th class="col-auto" scope="col">Activity</th>
+                    <th class="col-md-2" scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach var="t" items="${list}">
+                  <c:forEach var="t" items="${map}">
                     <!-- Dialog -->
-                    <dialog id="d" >  
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                              <button type="button" class="btn-close" onclick="d.close()"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p>Are you sure you want to delete Notification ( ID: )</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
-                              <button class="btn btn-primary" onclick="d.close()">Delete</button>
-                            </div>
+                    <dialog id="d${t.key.getNotificationId()}">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title text-danger">Confirm Deletion</h5>
+                            <button type="button" class="btn-close" onclick="d${t.key.getNotificationId()}.close()"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Are you sure you want to delete Notification ( ID: ${t.key.getNotificationId()})</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="d${t.key.getNotificationId()}.close()">Cancel</button>
+                            <a href="./DeleteNotification?id=${t.key.getNotificationId()}" class="btn btn-primary" onclick="d${t.key.getNotificationId()}.close()">Delete</a>
                           </div>
                         </div>
-                      
+                      </div>
                     </dialog>
                     <tr>
                       <!-- ID -->
-                      <td>${t.getNotificationId()}</td>
+                      <td>${t.key.getNotificationId()}</td>
                       <!-- Name -->
-                      <td>${t.getName()}</td>
+                      <td>${t.key.getTitle()}</td>
                       <!-- Description -->
-                      <td>${t.getDescription()}</td>
-                      <td>${t.getType()}</td>
-                      <td>${t.getType()}</td>
-                      <td>${t.getType()}</td>
+                      <td>${t.key.getDescription()}</td>
+                      <td>${t.key.getCreatedDate()}</td>
+                      <td>${t.key.getProcessingDate()}</td>
+                      <td>${t.key.getEndDate()}</td>
+                      <td>${t.value}</td>
 
                       <td class="justify-content-between ml-2">
                         <ul class="list-inline mb-0">
                           <li class="list-inline-item">
                             <!-- Edit -->
-                            <a href="#" onclick="d.showModal();" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                            <a href="./EditNotification?notificationId=${t.key.getNotificationId()}" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                           </li>
                           <li class="list-inline-item">
                             <!-- Delete -->
-                            <a href="./DeleteNotification?id=${t.getNotificationId()}" onclick="d.showModal();" title="Edit" class="px-2 text-primary"><i class="bx bx-trash-alt font-size-18"></i></a>
+                            <a href="#" onclick="d${t.key.getNotificationId()}.showModal();" title="Delete" class="px-2 text-primary"><i class="bx bx-trash-alt font-size-18"></i></a>
                           </li>
                           <!-- Other actions -->
                           <li class="list-inline-item dropdown">
@@ -112,7 +116,7 @@
         </div>
         <div class="row g-0 align-items-center pb-4">
           <div class="col-sm-6">
-            <div><p class="mb-sm-0">Showing 1 to 10 of 57 entries</p></div>
+            <div><p class="mb-sm-0">Showing 1 to 10 of ${count} entries</p></div>
           </div>
           <div class="col-sm-6">
             <div class="float-sm-end">
@@ -123,10 +127,15 @@
                 <li class="page-item active">
                   <a href="#" class="page-link">1</a>
                 </li>
+                <%--
                 <li class="page-item"><a href="#" class="page-link">2</a></li>
+                --%> <%--
                 <li class="page-item"><a href="#" class="page-link">3</a></li>
+                --%> <%--
                 <li class="page-item"><a href="#" class="page-link">4</a></li>
+                --%> <%--
                 <li class="page-item"><a href="#" class="page-link">5</a></li>
+                --%>
                 <li class="page-item">
                   <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
                 </li>
@@ -136,7 +145,10 @@
         </div>
       </div>
     </div>
+    <footer>
+      <jsp:include page="../../components/footer.jsp" />
+    </footer>
 
-    <script src="../../js/bootstrap.bundle.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.js"></script>
   </body>
 </html>
