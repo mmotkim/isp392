@@ -40,7 +40,7 @@ public class TeacherList extends HttpServlet {
         List<Users> list = teacher.listTeachers();
         request.setAttribute("listS1", list);
         Object object = session.getAttribute("account");
-        request.getRequestDispatcher("pages/student/student.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/teacherteacher/teacher.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
