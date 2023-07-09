@@ -11,7 +11,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
+    <style>
+      .sortable-title {
+        cursor: pointer;
+      }
+      .sortable-title::after {
+        display: inline-block;
+        content: '';
+        width: 0.5em;
+        height: 0.5em;
+        border-left: 0.3em solid transparent;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0.5em solid;
+        vertical-align: middle;
+        margin-left: 0.3em;
+        opacity: 0.5;
+      }
+      .sortable-title.asc::after {
+        border-bottom: none;
+        border-top: 0.5em solid;
+        opacity: 1;
+      }
+      .sortable-title.desc::after {
+        border-bottom: 0.5em solid;
+        border-top: none;
+        opacity: 1;
+        transform: rotate(180deg);
+      }
+    </style>
   </head>
+
   <body class="bg-light">
     <jsp:include page="../../components/header.jsp" />
 
@@ -43,19 +72,28 @@
             </div>
           </div>
         </div>
+
+<%--          Search--%>
+        <div class="d-flex align-items-center my-2" style="height: 3rem">
+          <span class="search-icon pe-1" style="cursor: pointer">
+            <i class="bi bi-search"></i>
+          </span>
+          <input id="searchInput" type="text" class="form-control ml-2" placeholder="Search by Title, Description or Activity">
+        </div>
+
         <div class="row">
           <div class="col-lg-16">
             <div class="table-responsive">
               <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                 <thead>
                   <tr>
-                    <th class="col-auto" scope="col" style="width: 50px">Number</th>
+                    <th class="col-1 sortable-title" onclick="sortTable(0)" scope="col" style="width: 50px">Number</th>
                     <th class="col-auto" scope="col">Title</th>
                     <th class="col-auto" scope="col">Description</th>
-                    <th class="col-1" scope="col">Created Date</th>
-                    <th class="col-1" scope="col">Processing Date</th>
-                    <th class="col-1" scope="col">End Date</th>
-                    <th class="col-auto" scope="col">Activity</th>
+                    <th class="col-1 sortable-title" onclick="sortTable(3)" scope="col">Created Date</th>
+                    <th class="col-1 sortable-title" onclick="sortTable(4)" scope="col">Processing Date</th>
+                    <th class="col-1 sortable-title" onclick="sortTable(5)" scope="col">End Date</th>
+                    <th class="col-auto sortable-title" onclick="sortTable(6)" scope="col">Activity</th>
                     <th class="col-md-2" scope="col">Action</th>
                   </tr>
                 </thead>
@@ -150,6 +188,63 @@
       <jsp:include page="../../components/footer.jsp" />
     </footer>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.getElementById('searchInput');
+        var searchIcon = document.querySelector('.search-icon');
+        searchIcon.addEventListener('click', function() {
+          searchInput.classList.toggle('active');
+        });
+
+        searchInput.addEventListener('input', function() {
+          var searchText = searchInput.value.toLowerCase();
+          var tableRows = document.querySelectorAll('table tbody tr');
+          tableRows.forEach(function(row) {
+            var title = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            var description = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+            var activity = row.querySelector('td:nth-child(7)').textContent.toLowerCase();
+            if (title.includes(searchText) || activity.includes(searchText) || description.includes(searchText)){
+              row.style.display = 'table-row';
+            } else {
+              row.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      function sortTable(columnIndex) {
+      var table = document.querySelector('table');
+      var tbody = table.tBodies[0];
+      var rows = Array.from(tbody.querySelectorAll('tr'));
+
+      rows.sort(function(a, b) {
+        var aValue = a.cells[columnIndex].textContent;
+        var bValue = b.cells[columnIndex].textContent;
+        if (columnIndex === 0) {
+          return aValue - bValue;
+        } else if (columnIndex === 2) {
+          return new Date(aValue) - new Date(bValue);
+        } else {
+          return aValue.localeCompare(bValue);
+        }
+      });
+
+      if (table.classList.contains('asc')) {
+        rows.reverse();
+        table.classList.remove('asc');
+        table.classList.add('desc');
+      } else {
+        table.classList.remove('desc');
+        table.classList.add('asc');
+      }
+
+      rows.forEach(function(row) {
+        tbody.appendChild(row);
+      });
+    }
+
+    </script>
     <script src="../../assets/js/bootstrap.bundle.js"></script>
+
   </body>
 </html>

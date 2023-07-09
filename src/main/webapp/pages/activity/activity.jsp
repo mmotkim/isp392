@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -23,7 +23,38 @@
             integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
+    <style>
+        .sortable-title {
+            cursor: pointer;
+        }
+
+        .sortable-title::after {
+            display: inline-block;
+            content: '';
+            width: 0.5em;
+            height: 0.5em;
+            border-left: 0.3em solid transparent;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0.5em solid;
+            vertical-align: middle;
+            margin-left: 0.3em;
+            opacity: 0.5;
+        }
+
+        .sortable-title.asc::after {
+            border-bottom: none;
+            border-top: 0.5em solid;
+            opacity: 1;
+        }
+
+        .sortable-title.desc::after {
+            border-bottom: 0.5em solid;
+            border-top: none;
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+    </style>
 </head>
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
@@ -31,7 +62,7 @@
     <div class="container">
         <div class="row align-items-center">
             <%--    Alert--%>
-            <c:if test ="${param.state eq 'true'}">
+            <c:if test="${param.state eq 'true'}">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     Action completed without issues!
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -56,34 +87,47 @@
                 </div>
             </div>
         </div>
+        <%--        Search--%>
+        <div class="d-flex align-items-center my-2" style="height: 3rem">
+          <span class="search-icon pe-1" style="cursor: pointer">
+            <i class="bi bi-search"></i>
+          </span>
+            <input id="searchInput" type="text" class="form-control ml-2"
+                   placeholder="Search by Title, Description or Type">
+        </div>
         <div class="row">
             <div class="col-lg-16">
                 <div class="table-responsive">
                     <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                         <thead>
                         <tr>
-                            <th scope="col" style="width: 50px">Number</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Action</th>
+                            <th class="sortable-title col-3" onclick="sortTable(0)" scope="col" style="width: 50px">Number</th>
+                            <th class="sortable-title col-auto" onclick="sortTable(1)" scope="col">Name</th>
+                            <th class="col-auto" scope="col">Description</th>
+                            <th class="sortable-title col-auto" onclick="sortTable(3)" scope="col">Type</th>
+                            <th class="col-auto" scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="t" items="${list}">
-                            <dialog id="d${t.getActivityId()}" >
+                            <dialog id="d${t.getActivityId()}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                                            <button type="button" class="btn-close" onclick="d${t.getActivityId()}.close()"></button>
+                                            <button type="button" class="btn-close"
+                                                    onclick="d${t.getActivityId()}.close()"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Are you sure you want to delete Activity <span class="text-muted">( ID: ${t.getActivityId()})</span></p>
+                                            <p>Are you sure you want to delete Activity <span
+                                                    class="text-muted">( ID: ${t.getActivityId()})</span></p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-secondary" onclick="d${t.getActivityId()}.close()">Cancel</button>
-                                            <a href="./DeleteActivity?id=${t.getActivityId()}" class="btn btn-primary" onclick="d${t.getActivityId()}.close()">
+                                            <button class="btn btn-secondary" onclick="d${t.getActivityId()}.close()">
+                                                Cancel
+                                            </button>
+                                            <a href="./DeleteActivity?id=${t.getActivityId()}" class="btn btn-primary"
+                                               onclick="d${t.getActivityId()}.close()">
                                                 Delete
                                             </a>
                                         </div>
@@ -165,10 +209,10 @@
                         <li class="page-item active">
                             <a href="#" class="page-link">1</a>
                         </li>
-<%--                        <li class="page-item"><a href="#" class="page-link">2</a></li>--%>
-<%--                        <li class="page-item"><a href="#" class="page-link">3</a></li>--%>
-<%--                        <li class="page-item"><a href="#" class="page-link">4</a></li>--%>
-<%--                        <li class="page-item"><a href="#" class="page-link">5</a></li>--%>
+                        <%--                        <li class="page-item"><a href="#" class="page-link">2</a></li>--%>
+                        <%--                        <li class="page-item"><a href="#" class="page-link">3</a></li>--%>
+                        <%--                        <li class="page-item"><a href="#" class="page-link">4</a></li>--%>
+                        <%--                        <li class="page-item"><a href="#" class="page-link">5</a></li>--%>
                         <li class="page-item">
                             <a href="#" class="page-link"
                             ><i class="mdi mdi-chevron-right"></i
@@ -183,6 +227,63 @@
 
 <jsp:include page="../../components/footer.jsp"/>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchInput = document.getElementById('searchInput');
+        var searchIcon = document.querySelector('.search-icon');
+        searchIcon.addEventListener('click', function () {
+            searchInput.classList.toggle('active');
+        });
+
+        searchInput.addEventListener('input', function () {
+            var searchText = searchInput.value.toLowerCase();
+            var tableRows = document.querySelectorAll('table tbody tr');
+            tableRows.forEach(function (row) {
+                var title = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                var description = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                var type = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+                if (title.includes(searchText) || activity.includes(searchText) || type.includes(searchText)) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    function sortTable(columnIndex) {
+        var table = document.querySelector('table');
+        var tbody = table.tBodies[0];
+        var rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort(function (a, b) {
+            var aValue = a.cells[columnIndex].textContent;
+            var bValue = b.cells[columnIndex].textContent;
+            if (columnIndex === 0) {
+                return aValue - bValue;
+            } else if (columnIndex === 2) {
+                return new Date(aValue) - new Date(bValue);
+            } else {
+                return aValue.localeCompare(bValue);
+            }
+        });
+
+        if (table.classList.contains('asc')) {
+            rows.reverse();
+            table.classList.remove('asc');
+            table.classList.add('desc');
+        } else {
+            table.classList.remove('desc');
+            table.classList.add('asc');
+        }
+
+        rows.forEach(function (row) {
+            tbody.appendChild(row);
+        });
+    }
+
+</script>
 
 <script src="../../assets/js/bootstrap.bundle.js"></script>
 
