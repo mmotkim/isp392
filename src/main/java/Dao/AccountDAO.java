@@ -136,15 +136,14 @@ public class AccountDAO {
     
     
     
-    public static void main(String[] args) {
-       Dao.AccountDAO dao = new Dao.AccountDAO();
-        String cid = "xuanvlhhe161250@fpt.edu.vn";
-        String pid = "25102002";
-        List<Users> list = dao.ListAccount();
-        Users b = dao.login(cid, pid);
-        System.out.println(b);
-        for (Users o : list) {
-            System.out.println(o);
-        }
+      public static void main(String[] args) {
+//       Dao.AccountDAO dao = new Dao.AccountDAO();
+//        List<Users> list = dao.ListAccount();
+//        for (Users o : list) {
+//            System.out.println(o.toString());
+//        }
+        AccountDAO dao = new AccountDAO();
+        Users a = dao.checkAccountExist("hainkhe160778@fpt.edu.vn");
+        System.out.println(a.toString());
     }
 }
