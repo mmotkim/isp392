@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-@IdClass(ClassactivityPK.class)
-public class Classactivity {
+@IdClass(ClassActivityPK.class)
+public class ClassActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "class_id", nullable = false)
@@ -48,7 +48,7 @@ public class Classactivity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Classactivity that = (Classactivity) o;
+        ClassActivity that = (ClassActivity) o;
 
         if (classId != that.classId) return false;
         if (activityId != that.activityId) return false;

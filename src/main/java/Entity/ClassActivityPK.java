@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 
 import java.io.Serializable;
 
-public class ClassactivityPK implements Serializable {
+public class ClassActivityPK implements Serializable {
     @Column(name = "class_id", nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class ClassactivityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClassactivityPK that = (ClassactivityPK) o;
+        ClassActivityPK that = (ClassActivityPK) o;
 
         if (classId != that.classId) return false;
         if (activityId != that.activityId) return false;
