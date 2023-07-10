@@ -22,9 +22,11 @@ public class ViewStudent extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        userDAO userDAO = new userDAO();
         StudentDAO studentDAO = new StudentDAO();
         List<Student> list = studentDAO.getStudentList();
         int count = studentDAO.sumOfStudent();
+        request.setAttribute("userDAO", userDAO);
         request.setAttribute("list", list);
         request.setAttribute("count", count);
         Object object = session.getAttribute("account");

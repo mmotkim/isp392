@@ -1,58 +1,55 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>Edit Student</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Adding a new Student</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
           integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
           integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
 </head>
 
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
 
+<%--Back--%>
 <div class="container pt-3">
     <a href="student" class="size-3">
         <div class="arrow" style=""></div>
     </a>
 </div>
 
-
+<%--Main Body--%>
 <div class="container" style="margin-top: 40px">
-
-    <form action="EditStudent" method="post">
-
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <h5 class="card-title text-primary">
-                        Edit Student Details. <span class="text-muted">(Student ID: ${a.getStudentId()})</span>
-                    </h5>
-                </div>
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="mb-4">
+                <h5 class="card-title">
+                    Add a new Teacher.
+                </h5>
             </div>
         </div>
+    </div>
+    <form action="NewTeacher" method="post">
+
+
         <div class="col">
             <div class="col-lg-16">
                 <div class="">
-                    <input name="id" id="id" type="hidden" value="${a.getStudentId()}">
 
                     <div class="form-row input-group mb-3 d-flex">
 
                         <label class="input-group-text" for="name">Enter Student Name:</label>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Parent Name"
-                               aria-label="Your Parent Name"
-                               aria-describedby="basic-addon2" value="${a.getStudentName()}" required>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Teacher Name"
+                               aria-label="Your Teacher Name"
+                               aria-describedby="basic-addon2" required>
                     </div>
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Gender</label>
@@ -65,33 +62,29 @@
                         <label class="input-group-text" for="dob">Enter Birthday:</label>
                         <input id="dob" name="dob" type="text" class="form-control" placeholder="DOB"
                                aria-label="Your DoB"
-                               aria-describedby="basic-addon2" value="${a.getDob()}">
+                               aria-describedby="basic-addon2">
                     </div>
 
-                    <div class="form-row input-group mb-3 d-flex">
-                        <label class="input-group-text">Active</label>
-                        <input type="radio" id="true1" name="active" value="Yes">
-                        <label for="true1">Active</label><br>
-                        <input type="radio" id="false1" name="active" value="No">
-                        <label for="false1">Inactive</label><br>
+                    <div class="form-row input-group mb-3">
+                        <label class="input-group-text" for="phone">Enter Phone:</label>
+                        <input id="phone" name="phone" type="text" class="form-control" placeholder="Phone" aria-label="Your Phone"
+                               aria-describedby="basic-addon2">
                     </div>
-
+                    <div class="form-row input-group mb-3">
+                        <label class="input-group-text" for="email">Enter Email:</label>
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Email" aria-label="Your Email"
+                               aria-describedby="basic-addon2">
+                    </div>
+                    <div class="form-row input-group mb-3">
+                        <label class="input-group-text" for="address">Enter Address:</label>
+                        <input id="address" name="address" type="text" class="form-control" placeholder="Address" aria-label="Your Address"
+                               aria-describedby="basic-addon2">
+                    </div>
 
                 </div>
             </div>
         </div>
-        <div class="col-md-6 pt-3">
-            <h5 class="card-title">
-                Other Informations:
-            </h5>
-            <h6 class="card-title text-muted pt-5" style="font-style: oblique">
-                Parent: ${userDAO.getFullNameByUserId(a.getParentId())}
-            </h6>
-            <h6>
-                Class: ${userDAO.getClassNameByClassId(a.getClassId())}
-            </h6>
-        </div>
-        <!-- Confirm Button -->
+
         <div class="col-md pt-3">
             <div class="d-flex  align-items-center justify-content-end gap mb-3">
                 <div>
@@ -100,10 +93,8 @@
                     </button>
                 </div>
                 <div>
-                    <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new"
-                            class=" btn btn-primary px-4 py-2"><i
-                            class="bi bi-check-lg me-1 "></i> Confirm Edit Student
-                    </button>
+                    <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
+                            class="bx bx-plus me-1 "></i> Confirm Create Teacher</button>
                 </div>
             </div>
         </div>
@@ -114,13 +105,6 @@
 
 </div>
 <jsp:include page="../../components/footer.jsp"/>
-
-<style>
-    .table-container {
-        max-height: 200px;
-        overflow-y: auto;
-    }
-</style>
 </body>
 
 </html>

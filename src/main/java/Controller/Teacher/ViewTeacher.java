@@ -7,7 +7,10 @@ package Controller.Teacher;
 
 
 import java.io.IOException;
+
+import Dao.StudentDAO;
 import Dao.userDAO;
+import Entity.Student;
 import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,8 +24,8 @@ import java.util.List;
  *
  * @author Admin
  */
-@WebServlet(name="ViewStudent", urlPatterns={"/ViewStudent"})
-public class TeacherList extends HttpServlet {
+@WebServlet(name="teacher", urlPatterns={"/teacher"})
+public class ViewTeacher extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,14 +36,14 @@ public class TeacherList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        userDAO teacher = new userDAO();
-        List<Users> list = teacher.listTeachers();
-        request.setAttribute("listS1", list);
+        userDAO teacherDAO = new userDAO();
+        List<Users> list = teacherDAO.listTeachers();
+        int count = teacherDAO.sumOfTeacher();
+        request.setAttribute("list", list);
+        request.setAttribute("count", count);
         Object object = session.getAttribute("account");
-        request.getRequestDispatcher("pages/teacherteacher/teacher.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/teacher/teacher.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -8,7 +8,7 @@
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
   />
-  <title>Parent</title>
+  <title>Teacher</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <link rel="stylesheet"
@@ -39,11 +39,19 @@
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title">
-            Parent List <span class="text-muted fw-normal ms-2"> ${count} </span>
+            Teacher List <span class="text-muted fw-normal ms-2"> ${count} </span>
           </h5>
         </div>
       </div>
+
       <div class="col-md-6">
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+          <div>
+            <a href="NewTeacher" class="btn btn-primary px-4 py-2"
+            ><i class="bx bx-plus me-1"></i> Add New Teacher</a
+            >
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -72,11 +80,11 @@
                       <button type="button" class="btn-close" onclick="d.close()"></button>
                     </div>
                     <div class="modal-body">
-                      <p>Are you sure you want to delete Notification <span class="text-muted">( ID: ${t.getUserId()})</span></p>
+                      <p>Are you sure you want to delete Teacher <span class="text-muted">( ID: ${t.getUserId()})</span></p>
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-secondary" onclick="d${t.getUserId()}.close()">Cancel</button>
-                      <a href="./DeleteParent?id=${t.getUserId()}" class="btn btn-primary" onclick="d.close()">
+                      <a href="./DeleteTeacher?id=${t.getUserId()}" class="btn btn-primary" onclick="d.close()">
                         Delete
                       </a>
                     </div>
@@ -101,7 +109,7 @@
                     <li class="list-inline-item">
                       <!-- Edit -->
                       <a
-                              href="./EditParent?id=${t.getUserId()}"
+                              href="./EditTeacher?id=${t.getUserId()}"
 
                               title="Edit"
                               class="px-2 text-primary"

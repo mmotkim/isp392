@@ -1,8 +1,8 @@
-package Controller.Student;
+package Controller.Teacher;
 
+import Dao.ClassDAO;
 import Dao.StudentDAO;
 import Dao.userDAO;
-import Entity.Student;
 import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,31 +10,34 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet(name = "EditStudent", value = "/EditStudent")
-public class EditStudent extends HttpServlet {
+@WebServlet(name = "NewTeacher", value = "/NewTeacher")
+public class NewTeacher extends HttpServlet {
     private String message;
 
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
-            StudentDAO studentDAO = new StudentDAO();
-            Student student = studentDAO.getStudentById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("a", student);
-            userDAO userDAO = new userDAO();
-            request.setAttribute("userDAO", userDAO);
 
-            request.getRequestDispatcher("pages/student/editStudent.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/teacher/newTeacher.jsp").forward(request, response);
 
 
         } catch (Exception e) {
         }
 
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        processRequest(request, response);
 
     }
 
@@ -45,8 +48,8 @@ public class EditStudent extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            int id = Integer.parseInt(request.getParameter("id")) ;
             String name = request.getParameter("name");
+
             Boolean gender;
             String genderValue = request.getParameter("gender");
             if (genderValue.equals("Male")) gender=true; else gender = false;
@@ -54,15 +57,12 @@ public class EditStudent extends HttpServlet {
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
-            Boolean active;
-            String activeValue = request.getParameter("active");
-            if (activeValue.equals("Yes")) active=true; else active = false;
-
-            userDAO userDAO = new userDAO();
-            userDAO.updateParent(id,name,gender,DoB,phone,email,address,active);
 
 
-            response.sendRedirect("./student?state=true");
+            userDAO parentDAO = new userDAO();
+            parentDAO.addUser(name,gender,DoB,phone,email,address,3);
+
+            response.sendRedirect("teacher?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 
