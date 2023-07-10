@@ -37,7 +37,7 @@
             <div class="col-md-6">
                 <div class="mb-4">
                     <h5 class="card-title text-primary">
-                        Edit Student Details. <span class="text-muted">(Student ID: ${a.getUserId()})</span>
+                        Edit Student Details. <span class="text-muted">(Student ID: ${a.getStudentId()})</span>
                     </h5>
                 </div>
             </div>
@@ -114,51 +114,6 @@
 
 </div>
 <jsp:include page="../../components/footer.jsp"/>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('search-input');
-        const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
-        const selectedRecords = new Set();
-
-        searchInput.addEventListener('input', function () {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            for (let i = 0; i < recordsList.length; i++) {
-                const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-                const teachers = recordsList[i].getElementsByTagName('td')[4].textContent.toLowerCase();
-                const shouldDisplay = name.includes(searchTerm) || teachers.includes(searchTerm);
-                recordsList[i].style.display = shouldDisplay ? 'table-row' : 'none';
-            }
-        });
-
-        const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
-        for (let i = 0; i < selectCheckboxes.length; i++) {
-            selectCheckboxes[i].addEventListener('click', function (event) {
-                event.stopPropagation();
-                const record = this.closest('tr');
-                if (this.checked) {
-                    selectedRecords.add(record);
-                } else {
-                    selectedRecords.delete(record);
-                }
-            });
-        }
-
-        const selectCells = document.getElementsByClassName('select-cell');
-        for (let i = 0; i < selectCells.length; i++) {
-            selectCells[i].addEventListener('click', function () {
-                const checkbox = this.querySelector('input[type="checkbox"]');
-                checkbox.checked = !checkbox.checked;
-                const record = this.closest('tr');
-                if (checkbox.checked) {
-                    selectedRecords.add(record);
-                } else {
-                    selectedRecords.delete(record);
-                }
-            });
-        }
-    });
-</script>
 
 <style>
     .table-container {

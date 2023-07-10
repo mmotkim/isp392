@@ -51,7 +51,7 @@ public class EditMeal extends HttpServlet {
 
 
 
-            response.sendRedirect("meal");
+            response.sendRedirect("meal?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

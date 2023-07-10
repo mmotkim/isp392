@@ -1,11 +1,11 @@
 package Entity;
-
 import jakarta.persistence.*;
 
 import java.sql.Date;
 
 @Entity
 @IdClass(ClassActivityPK.class)
+
 public class ClassActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -64,4 +64,5 @@ public class ClassActivity {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
+
 }

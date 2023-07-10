@@ -22,7 +22,7 @@ public class DeleteParent extends HttpServlet {
             userDAO userDAO = new userDAO();
             userDAO.deleteParent(Integer.parseInt(request.getParameter("id")));        ;
 
-            response.sendRedirect("parent");
+            response.sendRedirect("parent?state=true");
 
 
         } catch (Exception e) {

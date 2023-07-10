@@ -52,7 +52,7 @@ public class NewClass extends HttpServlet {
 
 
 
-            response.sendRedirect("class");
+            response.sendRedirect("class?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

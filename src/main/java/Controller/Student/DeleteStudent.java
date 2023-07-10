@@ -1,5 +1,6 @@
 package Controller.Student;
 
+import Dao.StudentDAO;
 import Dao.userDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,10 +20,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     response.setContentType("text/html;charset=UTF-8");
     try {
         HttpSession session = request.getSession();
-        userDAO userDAO = new userDAO();
-        userDAO.deleteParent(Integer.parseInt(request.getParameter("id")));        ;
+        StudentDAO studentDAO = new StudentDAO();
+        studentDAO.deleteStudent(Integer.parseInt(request.getParameter("id")));        ;
 
-        response.sendRedirect("parent");
+        response.sendRedirect("student?state=true");
 
 
     } catch (Exception e) {

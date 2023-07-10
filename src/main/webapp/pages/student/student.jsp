@@ -44,6 +44,13 @@
 
 <div class="container">
     <div class="row align-items-center">
+        <%--    Alert--%>
+        <c:if test="${param.state eq 'true'}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Action completed without issues!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
         <div class="col-md-6">
             <div class="mb-4">
                 <h5 class="card-title">
@@ -78,20 +85,21 @@
                     </thead>
                     <tbody>
                     <c:forEach var="t" items="${list}">
-                        <dialog id="d">
+                        <dialog id="d${t.getStudentId()}">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                                        <button type="button" class="btn-close" onclick="d.close()"></button>
+                                        <button type="button" class="btn-close"
+                                                onclick="d${t.getStudentId()}.close()"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure you want to delete Notification <span
-                                                class="text-muted">( ID: ${t.getClassId()})</span></p>
+                                        <p>Are you sure you want to delete Student <span
+                                                class="text-muted">( ID: ${t.getStudentId()})</span></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
-                                        <a href="./DeleteClass?id=${t.getClassId()}" class="btn btn-primary"
+                                        <button class="btn btn-secondary" onclick="d${t.getStudentId()}.close()">Cancel</button>
+                                        <a href="./DeleteStudent?id=${t.getStudentId()}" class="btn btn-primary"
                                            onclick="d.close()">
                                             Delete
                                         </a>
@@ -125,8 +133,8 @@
                                     <li class="list-inline-item">
                                         <!-- Delete -->
                                         <a
-                                                href="./DeleteStudent?id=${t.getStudentId()}"
-                                                onclick="d.showModal();"
+                                                href="#"
+                                                onclick="d${t.getStudentId()}.showModal();"
                                                 title="Delete"
                                                 class="px-2 text-danger"
                                         ><i class="bx bx-trash-alt font-size-18"></i

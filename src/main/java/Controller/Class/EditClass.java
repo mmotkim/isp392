@@ -57,7 +57,7 @@ public class EditClass extends HttpServlet {
 
 //            request.setAttribute("mess", "Update Information successfull");
 //            request.getRequestDispatcher("pages/class/class.jsp").forward(request, response);
-            response.sendRedirect("./class");
+            response.sendRedirect("./class?state=true");
 
         } catch (Exception e) {
             response.sendRedirect("./404.html");

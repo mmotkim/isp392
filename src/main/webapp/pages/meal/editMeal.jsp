@@ -48,6 +48,8 @@
     <div class="col">
       <div class="col-lg-16">
         <div class="">
+          <input name="id" id="id" type="hidden" value="${a.getMealId()}">
+
           <div class="form-row input-group mb-3 d-flex">
 
             <label class="input-group-text" for="description">Enter Meal Description:</label>

@@ -1,6 +1,8 @@
 package Controller.Student;
 
+import Dao.StudentDAO;
 import Dao.userDAO;
+import Entity.Student;
 import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,10 +23,10 @@ public class EditStudent extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            userDAO userDAO = new userDAO();
-            Users user = userDAO.getUserById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("a", user);
-            request.getRequestDispatcher("pages/parent/editParent.jsp").forward(request, response);
+            StudentDAO studentDAO = new StudentDAO();
+            Student student = studentDAO.getStudentById(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("a", student);
+            request.getRequestDispatcher("pages/student/editStudent.jsp").forward(request, response);
 
 
         } catch (Exception e) {
@@ -57,7 +59,7 @@ public class EditStudent extends HttpServlet {
             userDAO.updateParent(id,name,gender,DoB,phone,email,address,active);
 
 
-            response.sendRedirect("./parent");
+            response.sendRedirect("./student?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

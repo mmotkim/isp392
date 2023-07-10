@@ -58,7 +58,7 @@ public class EditParent extends HttpServlet {
             userDAO.updateParent(id,name,gender,DoB,phone,email,address,active);
 
 
-            response.sendRedirect("./parent");
+            response.sendRedirect("./parent?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

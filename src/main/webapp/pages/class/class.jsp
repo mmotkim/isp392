@@ -50,6 +50,12 @@
 
 <div class="container">
     <div class="row align-items-center">
+        <c:if test="${param.state eq 'true'}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Action completed without issues!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
         <div class="col-md-6">
             <div class="mb-4">
                 <h5 class="card-title">
@@ -83,28 +89,30 @@
                     </thead>
                     <tbody>
                     <c:forEach var="t" items="${list}">
-                        <div id="confirmModal" class="modal fade">
+                        <dialog id="d${t.getClassId()}">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                                        <button type="button" class="btn-close" onclick="d.close()"></button>
+                                        <button type="button" class="btn-close"
+                                                onclick="d${t.getClassId()}.close()"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure you want to delete Notification <span
+                                        <p>Are you sure you want to delete Class <span
                                                 class="text-muted">( ID: ${t.getClassId()})</span></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
+                                        <button class="btn btn-secondary" onclick="d${t.getClassId()}.close()">
+                                            Cancel
+                                        </button>
                                         <a href="./DeleteClass?id=${t.getClassId()}" class="btn btn-primary"
-                                           onclick="d.close()">
+                                           onclick="d${t.getClassId()}.close()">
                                             Delete
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                        </dialog>
                         <tr>
                             <!-- ID -->
                             <td>${t.getClassId()}</td>
@@ -129,8 +137,8 @@
                                         <!-- Delete -->
                                         <a
 <%--                                                href="#confirmModal"--%>
-                                                href="./DeleteClass?id=${t.getClassId()}"
-                                                onclick="d.showModal();"
+                                                href="#"
+                                                onclick="d${t.getClassId()}.showModal();"
                                                 title="Delete"
                                                 class="px-2 text-danger"
                                         ><i class="bx bx-trash-alt font-size-18"></i

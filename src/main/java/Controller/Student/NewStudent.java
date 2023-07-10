@@ -75,7 +75,7 @@ public class NewStudent extends HttpServlet {
             int parentId = listUser.get(listUser.size()-1).getUserId();
             studentDAO.addStudent(name,gender,DoB,true,parentId,2);
 
-            response.sendRedirect("student");
+            response.sendRedirect("student?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

@@ -139,4 +139,28 @@ public class StudentDAO {
         }
     }
 
+    public Student getStudentById(int id) {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        ArrayList<Student> list = new ArrayList<>();
+
+
+        try {
+            transaction.begin();
+
+            Student student = entityManager.createQuery("FROM Student WHERE id = " + id, Student.class).getSingleResult();
+
+            transaction.commit();
+            return student;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+
+        }
+    }
+
 }
