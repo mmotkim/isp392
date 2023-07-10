@@ -2,8 +2,8 @@ package Dao;
 
 import Entity.Activity;
 import Entity.ClassEntity;
-import Entity.Classactivity;
-import Entity.ClassactivityPK;
+import Entity.ClassActivity;
+import Entity.ClassActivityPK;
 import Utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -19,7 +19,7 @@ public class ClassActivityDAO {
         try {
             trans.begin();
 
-            Classactivity ca = new Classactivity();
+            ClassActivity ca = new ClassActivity();
             ca.setClassId(classEntity.getClassId());
             ca.setActivityId(activity.getActivityId());
             ca.setDate(date);
@@ -45,11 +45,11 @@ public class ClassActivityDAO {
         try {
             transaction.begin();
 
-            ClassactivityPK pk = new ClassactivityPK();
+            ClassActivityPK pk = new ClassActivityPK();
             pk.setClassId(classEntity.getClassId());
             pk.setActivityId(activity.getActivityId());
 
-            Classactivity ca = entityManager.find(Classactivity.class, pk);
+            ClassActivity ca = entityManager.find(ClassActivity.class, pk);
             entityManager.remove(ca);
 
             transaction.commit();
