@@ -42,27 +42,20 @@
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
 
-<%--<% if (request.getAttribute("mess") != null) { %>--%>
-<%--<div class="success-message">--%>
-<%--    <%= request.getAttribute("mess") %>--%>
-<%--</div>--%>
-<%--<% } %>--%>
-
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-6">
             <div class="mb-4">
                 <h5 class="card-title">
-                    Class List <span class="text-muted fw-normal ms-2"> ${count} </span>
+                    Student List <span class="text-muted fw-normal ms-2"> ${count} </span>
                 </h5>
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                 <div>
-                    <!-- Them Class -->
-                    <a href="NewClass" class="btn btn-primary px-4 py-2"
-                    ><i class="bx bx-plus me-1"></i> Add New Class</a
+                    <a href="NewStudent" class="btn btn-primary px-4 py-2"
+                    ><i class="bx bx-plus me-1"></i> Add New Student</a
                     >
                 </div>
             </div>
@@ -76,14 +69,16 @@
                     <tr>
                         <th scope="col" style="width: 50px">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Level</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">DoB</th>
+                        <th scope="col">Parent</th>
+                        <th scope="col">isActive</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="t" items="${list}">
-                        <div id="confirmModal" class="modal fade">
+                        <dialog id="d">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -103,22 +98,24 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </dialog>
 
                         <tr>
                             <!-- ID -->
-                            <td>${t.getClassId()}</td>
+                            <td>${t.getStudentId()}</td>
                             <!-- Name -->
-                            <td>${t.getClassName()}</td>
-                            <td>${t.getLevel()}</td>
-                            <td>${t.getStudentQuantity()}</td>
+                            <td>${t.getStudentName()}</td>
+                            <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
+                            <td>${t.getDob()}</td>
+                            <td>${t.getParentId()}</td>
+                            <td>${t.getActive().equals(1) ? "Active" : "Inactive"}</td>
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <!-- Edit -->
                                         <a
-                                                href="./EditClass?classId=${t.getClassId()}"
+                                                href="./EditStudent?id=${t.getStudentId()}"
 
                                                 title="Edit"
                                                 class="px-2 text-primary"
@@ -128,8 +125,7 @@
                                     <li class="list-inline-item">
                                         <!-- Delete -->
                                         <a
-<%--                                                href="#confirmModal"--%>
-                                                href="./DeleteClass?id=${t.getClassId()}"
+                                                href="./DeleteStudent?id=${t.getStudentId()}"
                                                 onclick="d.showModal();"
                                                 title="Delete"
                                                 class="px-2 text-danger"
@@ -151,8 +147,7 @@
                                             ><a class="dropdown-item" href="#"
                                         >Another action</a
                                         ><a class="dropdown-item" href="#"
-                                        >Something else here</a
-                                        >
+                                        >Something else here</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -197,12 +192,8 @@
 
 <jsp:include page="../../components/footer.jsp"/>
 
-<script>
-    $(document).ready(function () {
-        $("#confirmModal").modal("show");
-    });
-</script>
-<script src="../../js/bootstrap.bundle.js"></script>
+
+<script src="../../assets/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

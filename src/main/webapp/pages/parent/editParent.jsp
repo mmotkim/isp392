@@ -48,7 +48,7 @@
     <div class="col">
       <div class="col-lg-16">
         <div class="">
-          <input name="id" id="id" type="hidden" value="${a.getUserId()}">
+          <input name="parentId" id="parentId" type="hidden" value="${a.getUserId()}">
 
           <div class="form-row input-group mb-3 d-flex">
 
@@ -108,7 +108,7 @@
         </div>
         <div>
           <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
-                  class="bi bi-check-lg me-1 "></i> Confirm Edit Activity</button>
+                  class="bi bi-check-lg me-1 "></i> Confirm Edit Parent</button>
         </div>
       </div>
     </div>

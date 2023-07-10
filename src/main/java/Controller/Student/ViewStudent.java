@@ -1,82 +1,48 @@
-///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
-// */
-//
-//package Controller.Student;
-//
-//import Dao.studentDAO;
-//import Entity.Student;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.annotation.WebServlet;
-//import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-//import java.util.List;
-//
-///**
-// *
-// * @author Admin
-// */
-//@WebServlet(name="ViewStudent", urlPatterns={"/ViewStudent"})
-//public class ViewStudent extends HttpServlet {
-//
-//    /**
-//     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//         response.setContentType("text/html;charset=UTF-8");
-//        HttpSession session = request.getSession();
-//        StudentDAO studentDAO = new studentDAO();
-//        List<Student> list = studentDAO.listStudents();
-//        request.setAttribute("listS1", list);
-//        Object object = session.getAttribute("account");
-//        request.getRequestDispatcher("pages/student/student.jsp").forward(request, response);
-//    }
-//
-//    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-//    /**
-//     * Handles the HTTP <code>GET</code> method.
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        processRequest(request, response);
-//    }
-//
-//    /**
-//     * Handles the HTTP <code>POST</code> method.
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        processRequest(request, response);
-//    }
-//
-//    /**
-//     * Returns a short description of the servlet.
-//     * @return a String containing servlet description
-//     */
-//    @Override
-//    public String getServletInfo() {
-//        return "Short description";
-//    }// </editor-fold>
-//
-//}
+package Controller.Student;
+
+import Dao.StudentDAO;
+import Dao.userDAO;
+import Entity.Student;
+import Entity.Users;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet(name = "student", value = "/student")
+public class ViewStudent extends HttpServlet {
+    private String message;
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        StudentDAO studentDAO = new StudentDAO();
+        List<Student> list = studentDAO.getStudentList();
+        int count = studentDAO.sumOfStudent();
+        request.setAttribute("list", list);
+        request.setAttribute("count", count);
+        Object object = session.getAttribute("account");
+//        User u = (User) object;
+        request.getRequestDispatcher("pages/student/student.jsp").forward(request, response);
+
+
+
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        processRequest(request, response);
+
+    }
+
+
+    public void destroy() {
+    }
+}

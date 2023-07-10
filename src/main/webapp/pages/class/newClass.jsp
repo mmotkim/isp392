@@ -74,42 +74,6 @@
         </div>
       </div>
     </div>
-    <!--
-                    <div class="row align-items-center py-3">
-                        <div class="col-md-6">
-                            <div class="mb-4">
-                                <h5 class="card-title">
-                                    2. Assign the activity to a class,... or leave it empty for now.
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div >
-                        <div class="search-box mt-3 pt-3">
-                            <input type="text" id="search-input" class="form-control" placeholder="Search by Name">
-                        </div>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="col-auto">Select</th>
-                                    <th class="col-auto">Name</th>
-                                    <th class="col-auto">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody id="records-list">
-                                <tr>
-                                    <td class="select-cell">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input">
-                                        </div>
-                                    </td>
-                                    <td>Option 1</td>
-                                    <td>Description 1</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>-->
-
     <div class="col-md pt-3">
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         <div>

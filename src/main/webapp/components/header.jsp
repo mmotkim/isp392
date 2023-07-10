@@ -51,7 +51,7 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <span class="me-2">Logged in as: Mmotkim</span>
+                <span class="me-2">Logged in as: halison</span>
 
                 <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-bell"></i>

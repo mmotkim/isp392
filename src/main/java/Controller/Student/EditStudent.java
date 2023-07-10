@@ -1,4 +1,4 @@
-package Controller.Parent;
+package Controller.Student;
 
 import Dao.userDAO;
 import Entity.Users;
@@ -8,12 +8,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
 
-@WebServlet(name = "EditParent", value = "/EditParent")
-public class EditParent extends HttpServlet {
+@WebServlet(name = "EditStudent", value = "/EditStudent")
+public class EditStudent extends HttpServlet {
     private String message;
 
 
@@ -41,7 +40,7 @@ public class EditParent extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            int id = Integer.parseInt(request.getParameter("parentId")) ;
+            int id = Integer.parseInt(request.getParameter("id")) ;
             String name = request.getParameter("name");
             Boolean gender;
             String genderValue = request.getParameter("gender");

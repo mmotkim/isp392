@@ -69,58 +69,56 @@
             </div>
         </div>
         <div class="col-md-6 pt-3">
-            <div class="mb-6">
-                <h5 class="card-title">
-                    Students in class
-                </h5>
-                <h6 class="card-title text-muted pt-5" style="font-style: oblique">
-                    [Student Quantity: ${aClass.getStudentQuantity()} ]
-                </h6>
-                <h6 class="card-title text-muted pt-5" style="font-style: oblique">
-                    [Student List]
-                    <div class="table-responsive">
-                        <table class="table table-light table-nowrap align-middle table-borderless table-hover">
-                            <thead>
+            <h5 class="card-title">
+                Students in class
+            </h5>
+                [Student Quantity: ${aClass.getStudentQuantity()} ]
+            </h6>
+            <h6 class="card-title text-muted pt-5" style="font-style: oblique">
+                [Student List]
+                <div class="table-responsive">
+                    <table class="table table-light table-nowrap align-middle table-borderless table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 50px">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">DoB</th>
+                            <th scope="col">Gender</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="t" items="${listS}">
                             <tr>
-                                <th scope="col" style="width: 50px">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">DoB</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Address</th>
+                                <!-- ID -->
+                                <td>${t.getStudentId()}</td>
+                                <!-- Name -->
+                                <td>${t.getStudentName()}</td>
+                                <td>${t.getDob()}</td>
+                                <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="t" items="${listS}">
-                                <tr>
-                                    <!-- ID -->
-                                    <td>${t.getStudentId()}</td>
-                                    <!-- Name -->
-                                    <td>${t.getStudentName()}</td>
-                                    <td>${t.getDob()}</td>
-                                    <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
-                                    <td>${t.getAddress()}</td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
 
-                </h6>
-            </div>
+            </h6>
         </div>
         <input name="classId" id="classId" type="hidden" value="${aClass.getClassId()}">
         <div class="col-md pt-3">
             <div class="d-flex  align-items-center justify-content-end gap mb-3">
                 <div>
-                    <button href="class" data-bs-toggle="modal" class=" btn btn-primary"><i
+                    <button href="class" data-bs-toggle="modal" class="btn btn-primary"><i
                             class="bx bx-plus me-1 "></i> Cancel Changes
                     </button>
                 </div>
+                <div style="padding: 10px 10px">
+                    <p></p>
+                </div>
                 <div>
-                <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
-                        class="bx bx-plus me-1 "></i> Confirm Changes
-                </button>
-            </div>
+                    <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary">
+                        <i class="bx bx-plus me-1"></i> Confirm Changes
+                    </button>
+                </div>
             </div>
         </div>
 
