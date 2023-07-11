@@ -35,7 +35,7 @@ public class LoginControl extends HttpServlet {
         String email = request.getParameter("user");
         String password = request.getParameter("pass");
         AccountDAO dao = new AccountDAO();
-        Users a = dao.login(email, password);
+        Users a = dao.Login(email, password);
         if(a == null){
             request.setAttribute("mess", "wrong email or password");
             request.getRequestDispatcher("pages/account/login.jsp").forward(request, response);
