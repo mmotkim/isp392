@@ -51,30 +51,33 @@
 
                         <label class="input-group-text" for="name">Enter Student Name:</label>
                         <input id="name" name="name" type="text" class="form-control" placeholder="Parent Name"
-                               aria-label="Your Parent Name"
+                               aria-label="Your Student Name"
                                aria-describedby="basic-addon2" value="${a.getStudentName()}" required>
+                        <span id="name-error" class="error-message"></span>
+
                     </div>
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Gender</label>
-                        <input type="radio" id="true" name="gender" value="Male">
+                        <input type="radio" id="true" name="gender" value="Male" ${a.getGender() == true ? "checked" : "" }>
                         <label for="true">Male</label><br>
-                        <input type="radio" id="false" name="gender" value="Female">
+                        <input type="radio" id="false" name="gender" value="Female" ${ a.getGender() == false ? "checked" : "" }>
                         <label for="false">Female</label><br>
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="dob">Enter Birthday:</label>
-                        <input id="dob" name="dob" type="text" class="form-control" placeholder="DOB"
+                        <input id="dob" name="dob" type="date" class="form-control" placeholder="DOB"
                                aria-label="Your DoB"
                                aria-describedby="basic-addon2" value="${a.getDob()}">
                     </div>
 
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Active</label>
-                        <input type="radio" id="true1" name="active" value="Yes">
+                        <input type="radio" id="true1" name="active" value="Yes"  ${a.getActive() == true ? "checked" : "" }>
                         <label for="true1">Active</label><br>
-                        <input type="radio" id="false1" name="active" value="No">
+                        <input type="radio" id="false1" name="active" value="No"  ${a.getActive() == false ? "checked" : "" }>
                         <label for="false1">Inactive</label><br>
                     </div>
+                        <input id="classId" name="classId" type="text" class="form-control" hidden value="${a.getClassId()}">
 
 
                 </div>
@@ -120,7 +123,27 @@
         max-height: 200px;
         overflow-y: auto;
     }
+    .error-message {
+        color: red;
+    }
 </style>
+<script>
+   const form = document.querySelector("form");
+
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("name-error");
+
+    form.addEventListener("submit", function(event) {
+        const name = nameInput.value;
+        const validNamePattern = /^[a-zA-Z ]+$/; // Pattern to match only alphabets and spaces
+
+        if (!validNamePattern.test(name)) {
+            nameError.textContent = "Please enter a valid name using only alphabets and spaces";
+            event.preventDefault();
+        }
+    });
+
+    </script>
 </body>
 
 </html>

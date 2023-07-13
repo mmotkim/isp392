@@ -47,19 +47,36 @@ public class EditStudent extends HttpServlet {
 
             int id = Integer.parseInt(request.getParameter("id")) ;
             String name = request.getParameter("name");
+
+            name = name.trim();
+            StringBuilder result = new StringBuilder();
+            boolean capitalizeNextChar = true;
+
+            for (char c : name.toCharArray()) {
+                if (Character.isWhitespace(c)) {
+                    result.append(" ");
+                    capitalizeNextChar = true;
+                } else if (capitalizeNextChar) {
+                    result.append(Character.toUpperCase(c));
+                    capitalizeNextChar = false;
+                } else {
+                    result.append(Character.toLowerCase(c));
+                }
+            }
+            name = result.toString();
+
             Boolean gender;
             String genderValue = request.getParameter("gender");
             if (genderValue.equals("Male")) gender=true; else gender = false;
             String DoB = request.getParameter("dob");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
+
             Boolean active;
             String activeValue = request.getParameter("active");
             if (activeValue.equals("Yes")) active=true; else active = false;
+            String classId = request.getParameter("classId");
 
-            userDAO userDAO = new userDAO();
-            userDAO.updateParent(id,name,gender,DoB,phone,email,address,active);
+            StudentDAO studentDao = new StudentDAO();
+            studentDao.updateStudent(id,name,gender,DoB,active,Integer.parseInt(classId));
 
 
             response.sendRedirect("./student?state=true");

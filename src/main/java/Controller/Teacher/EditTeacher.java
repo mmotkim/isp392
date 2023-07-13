@@ -1,7 +1,5 @@
 package Controller.Teacher;
 
-import Dao.ClassDAO;
-import Dao.StudentDAO;
 import Dao.userDAO;
 import Entity.Users;
 import jakarta.servlet.ServletException;
@@ -10,14 +8,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet(name = "NewTeacher", value = "/NewTeacher")
-public class NewTeacher extends HttpServlet {
+@WebServlet(name = "EditTeacher", value = "/EditTeacher")
+public class EditTeacher extends HttpServlet {
     private String message;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -25,8 +20,10 @@ public class NewTeacher extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
-
-            request.getRequestDispatcher("pages/teacher/newTeacher.jsp").forward(request, response);
+            userDAO userDAO = new userDAO();
+            Users teacher = userDAO.getUserById(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("a", teacher);
+            request.getRequestDispatcher("pages/teacher/editTeacher.jsp").forward(request, response);
 
 
         } catch (Exception e) {
@@ -47,6 +44,7 @@ public class NewTeacher extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            int id = Integer.parseInt(request.getParameter("id")) ;
 
             String name = request.getParameter("name");
             name =name.trim();
@@ -73,11 +71,13 @@ public class NewTeacher extends HttpServlet {
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
+            Boolean active;
+            String activeValue = request.getParameter("active");
+            if (activeValue.equals("Yes")) active=true; else active = false;
 
 
-            userDAO parentDAO = new userDAO();
-            parentDAO.addUser(name,gender,DoB,phone,email,address.trim(),3);
-
+            userDAO teacherDAO = new userDAO();
+            teacherDAO.updateUser(id,name,gender,DoB,phone, email,address,active);
             response.sendRedirect("teacher?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");

@@ -49,6 +49,24 @@ public class NewStudent extends HttpServlet {
             HttpSession session = request.getSession();
 
             String name = request.getParameter("name");
+
+            name = name.trim();
+            StringBuilder result = new StringBuilder();
+            boolean capitalizeNextChar = true;
+
+            for (char c : name.toCharArray()) {
+                if (Character.isWhitespace(c)) {
+                    result.append(" ");
+                    capitalizeNextChar = true;
+                } else if (capitalizeNextChar) {
+                    result.append(Character.toUpperCase(c));
+                    capitalizeNextChar = false;
+                } else {
+                    result.append(Character.toLowerCase(c));
+                }
+            }
+            name = result.toString();
+
             Boolean gender;
             String genderValue = request.getParameter("gender");
             if (genderValue.equals("Male")) gender=true; else gender = false;
@@ -57,6 +75,25 @@ public class NewStudent extends HttpServlet {
 
 
             String parentName = request.getParameter("parentName");
+
+
+            parentName = parentName.trim();
+            StringBuilder resultParent = new StringBuilder();
+            boolean capitalizeNextChar2 = true;
+
+            for (char c : name.toCharArray()) {
+                if (Character.isWhitespace(c)) {
+                    resultParent.append(" ");
+                    capitalizeNextChar2 = true;
+                } else if (capitalizeNextChar2) {
+                    resultParent.append(Character.toUpperCase(c));
+                    capitalizeNextChar2 = false;
+                } else {
+                    resultParent.append(Character.toLowerCase(c));
+                }
+            }
+            parentName = resultParent.toString();
+
             Boolean genderParent;
             String genderParentValue = request.getParameter("genderParent");
             if (genderParentValue.equals("Male")) genderParent=true; else genderParent = false;

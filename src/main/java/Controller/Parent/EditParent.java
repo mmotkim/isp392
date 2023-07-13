@@ -43,6 +43,24 @@ public class EditParent extends HttpServlet {
 
             int id = Integer.parseInt(request.getParameter("parentId")) ;
             String name = request.getParameter("name");
+
+            name = name.trim();
+            StringBuilder result = new StringBuilder();
+            boolean capitalizeNextChar = true;
+
+            for (char c : name.toCharArray()) {
+                if (Character.isWhitespace(c)) {
+                    result.append(" ");
+                    capitalizeNextChar = true;
+                } else if (capitalizeNextChar) {
+                    result.append(Character.toUpperCase(c));
+                    capitalizeNextChar = false;
+                } else {
+                    result.append(Character.toLowerCase(c));
+                }
+            }
+            name = result.toString();
+
             Boolean gender;
             String genderValue = request.getParameter("gender");
             if (genderValue.equals("Male")) gender=true; else gender = false;
@@ -55,7 +73,7 @@ public class EditParent extends HttpServlet {
             if (activeValue.equals("Yes")) active=true; else active = false;
 
             userDAO userDAO = new userDAO();
-            userDAO.updateParent(id,name,gender,DoB,phone,email,address,active);
+            userDAO.updateUser(id,name,gender,DoB,phone,email,address,active);
 
 
             response.sendRedirect("./parent?state=true");

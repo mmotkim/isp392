@@ -52,12 +52,12 @@
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="create_date">Enter Create Date</label>
-                        <input name="create_date" id="create_date" type="text" class="form-control" placeholder="Create Date" aria-label="Your Create Date"
+                        <input name="create_date" id="create_date" type="date" class="form-control" placeholder="Create Date" aria-label="Your Create Date"
                                aria-describedby="basic-addon2">
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="date">Enter Create Date</label>
-                        <input name="date" id="date" type="text" class="form-control" placeholder="Date" aria-label="Your Date"
+                        <input name="date" id="date" type="date" class="form-control" placeholder="Date" aria-label="Your Date"
                                aria-describedby="basic-addon2">
                     </div>
 

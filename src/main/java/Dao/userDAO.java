@@ -140,7 +140,7 @@ public class userDAO {
         }
     }
 
-    public void updateParent(int id, String name, Boolean gender, String DoB, String phone, String email, String address, Boolean active) {
+    public void updateUser(int id, String name, Boolean gender, String DoB, String phone, String email, String address, Boolean active) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         try {
@@ -166,7 +166,7 @@ public class userDAO {
         }
     }
 
-    public void deleteParent(int id) {
+    public void deleteUser(int id) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         try {

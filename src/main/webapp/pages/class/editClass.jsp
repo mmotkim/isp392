@@ -57,8 +57,7 @@
                         <select name="level" id="level" type="text" class="form-select"
                                 placeholder="${aClass.getLevel()}" aria-label="Choose Class Level"
                                 aria-describedby="basic-addon2" required>
-
-                            <option value="${aClass.getLevel()}">${aClass.getLevel()}</option>
+                            <option value="${aClass.getLevel()}" selected>${aClass.getLevel()}</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -94,7 +93,7 @@
                                 <!-- Name -->
                                 <td>${t.getStudentName()}</td>
                                 <td>${t.getDob()}</td>
-                                <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
+                                <td>${t.getGender() == true ? "Male" : "Female"}</td>
                             </tr>
                         </c:forEach>
                         </tbody>

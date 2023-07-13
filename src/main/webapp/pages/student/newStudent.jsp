@@ -50,6 +50,8 @@
                         <input id="name" name="name" type="text" class="form-control" placeholder="Student Name"
                                aria-label="Your Student Name"
                                aria-describedby="basic-addon2" required>
+                        <span id="name-error" class="error-message"></span>
+
                     </div>
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Gender</label>
@@ -60,7 +62,7 @@
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="dob">Enter Birthday:</label>
-                        <input id="dob" name="dob" type="text" class="form-control" placeholder="DOB"
+                        <input id="dob" name="dob" type="date" class="form-control" placeholder="DOB"
                                aria-label="Your DoB"
                                aria-describedby="basic-addon2">
                     </div>
@@ -90,6 +92,8 @@
                         <label class="input-group-text" for="name">Enter Parent Name:</label>
                         <input id="parentName" name="parentName" type="text" class="form-control" placeholder="Parent Name" aria-label="Your Parent Name"
                                aria-describedby="basic-addon2" required>
+                        <span id="parentName-error" class="error-message"></span>
+
                     </div>
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Gender</label>
@@ -100,7 +104,7 @@
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="dob">Enter Birthday:</label>
-                        <input id="dobParent" name="dobParent" type="text" class="form-control" placeholder="DOB" aria-label="Your DoB"
+                        <input id="dobParent" name="dobParent" type="date" class="form-control" placeholder="DOB" aria-label="Your DoB"
                                aria-describedby="basic-addon2">
                     </div>
 
@@ -108,11 +112,15 @@
                         <label class="input-group-text" for="phone">Enter Phone:</label>
                         <input id="phone" name="phone" type="text" class="form-control" placeholder="Phone" aria-label="Your Phone"
                                aria-describedby="basic-addon2">
+                        <span id="phone-error" class="error-message"></span>
+
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="email">Enter Email:</label>
                         <input id="email" name="email" type="text" class="form-control" placeholder="Email" aria-label="Your Email"
                                aria-describedby="basic-addon2">
+                        <span id="email-error" class="error-message"></span>
+
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="address">Enter Address:</label>
@@ -153,46 +161,59 @@
 
 </div>
 <jsp:include page="../../components/footer.jsp"/>
+<style>
+    .error-message {
+        color: red;
+    }
+</style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('search-input');
-        const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
-        const selectedRecords = new Set();
+    const phoneInput = document.getElementById("phone");
+    const phoneError = document.getElementById("phone-error");
+    const form = document.querySelector("form");
 
-        searchInput.addEventListener('input', function () {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            for (let i = 0; i < recordsList.length; i++) {
-                const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-                recordsList[i].style.display = name.includes(searchTerm) ? 'table-row' : 'none';
-            }
-        });
+    form.addEventListener("submit", function(event) {
+        const phone = phoneInput.value;
+        const validPhonePattern = /^\d{10}$/; // Pattern to match a 10-digit phone number
 
-        const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
-        for (let i = 0; i < selectCheckboxes.length; i++) {
-            selectCheckboxes[i].addEventListener('click', function (event) {
-                event.stopPropagation();
-                const record = this.closest('tr');
-                if (this.checked) {
-                    selectedRecords.add(record);
-                } else {
-                    selectedRecords.delete(record);
-                }
-            });
+        if (!validPhonePattern.test(phone)) {
+            phoneError.textContent = "Please enter a valid 10-digit phone number";
+            event.preventDefault(); // Prevent form submission if phone number is invalid
         }
+    });
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("name-error");
 
-        const selectCells = document.getElementsByClassName('select-cell');
-        for (let i = 0; i < selectCells.length; i++) {
-            selectCells[i].addEventListener('click', function () {
-                const checkbox = this.querySelector('input[type="checkbox"]');
-                checkbox.checked = !checkbox.checked;
-                const record = this.closest('tr');
-                if (checkbox.checked) {
-                    selectedRecords.add(record);
-                } else {
-                    selectedRecords.delete(record);
-                }
-            });
+    form.addEventListener("submit", function(event) {
+        const name = nameInput.value;
+        const validNamePattern = /^[a-zA-Z ]+$/; // Pattern to match only alphabets and spaces
+
+        if (!validNamePattern.test(name)) {
+            nameError.textContent = "Please enter a valid name using only alphabets and spaces";
+            event.preventDefault();
+        }
+    });
+    const parentNameInput = document.getElementById("parentName");
+    const parentNameError = document.getElementById("parentName-error");
+
+    form.addEventListener("submit", function(event) {
+        const name = parentNameInput.value;
+        const validNamePattern = /^[a-zA-Z ]+$/; // Pattern to match only alphabets and spaces
+
+        if (!validNamePattern.test(name)) {
+            parentNameError.textContent = "Please enter a valid name using only alphabets and spaces";
+            event.preventDefault();
+        }
+    });
+    const emailInput = document.getElementById("email");
+    const emailError = document.getElementById("email-error");
+    form.addEventListener("submit", function(event) {
+        const email = emailInput.value;
+        const validEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Pattern to match a valid email address
+
+        if (!validEmailPattern.test(email)) {
+            emailError.textContent = "Please enter a valid email address";
+            event.preventDefault(); // Prevent form submission if email is invalid
         }
     });
 </script>

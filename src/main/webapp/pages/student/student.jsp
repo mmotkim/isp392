@@ -8,7 +8,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Class</title>
+    <title>Student</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link rel="stylesheet"
@@ -113,10 +113,10 @@
                             <td>${t.getStudentId()}</td>
                             <!-- Name -->
                             <td>${t.getStudentName()}</td>
-                            <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
+                            <td>${t.getGender() == true ? "Male" : "Female"}</td>
                             <td>${t.getDob()}</td>
                             <td>${userDAO.getFullNameByUserId(t.getParentId())}</td>
-                            <td>${t.getActive().equals(1) ? "Active" : "Inactive"}</td>
+                            <td>${t.getActive() == true ? "Active" : "Inactive"}</td>
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">

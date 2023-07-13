@@ -47,7 +47,25 @@ public class EditClass extends HttpServlet {
             HttpSession session = request.getSession();
 
             int id = Integer.parseInt(request.getParameter("classId")) ;
+
             String name = request.getParameter("name");
+            name = name.trim();
+            StringBuilder result = new StringBuilder();
+            boolean capitalizeNextChar = true;
+
+            for (char c : name.toCharArray()) {
+                if (Character.isWhitespace(c)) {
+                    result.append(" ");
+                    capitalizeNextChar = true;
+                } else if (capitalizeNextChar) {
+                    result.append(Character.toUpperCase(c));
+                    capitalizeNextChar = false;
+                } else {
+                    result.append(Character.toLowerCase(c));
+                }
+            }
+            name = result.toString();
+
             String level = request.getParameter("level");
 
             ClassDAO classDAO = new ClassDAO();
@@ -55,8 +73,6 @@ public class EditClass extends HttpServlet {
             classDAO.updateClass(id,name,Integer.parseInt(level));
 
 
-//            request.setAttribute("mess", "Update Information successfull");
-//            request.getRequestDispatcher("pages/class/class.jsp").forward(request, response);
             response.sendRedirect("./class?state=true");
 
         } catch (Exception e) {
