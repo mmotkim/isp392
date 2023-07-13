@@ -1,59 +1,53 @@
 package Dao;
 
 import Entity.Activity;
-import Entity.ClassEntity;
 import Entity.ClassActivity;
-import Entity.ClassActivityPK;
 import Utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
+import java.sql.Array;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ClassActivityDAO {
 
-    public void addActivityToClass(ClassEntity classEntity, Activity activity, Date date){
+    public void addActivityToClass(int classId, int activityId, Date date) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = entityManager.getTransaction();
-
         try {
             trans.begin();
 
-            ClassActivity ca = new ClassActivity();
-            ca.setClassId(classEntity.getClassId());
-            ca.setActivityId(activity.getActivityId());
-            ca.setDate(date);
-            entityManager.persist(ca);
+            ClassActivity classActivity = new ClassActivity();
+            classActivity.setActivityId(activityId);
+            classActivity.setClassId(classId);
+            classActivity.setDate(date);
 
 
+            entityManager.persist(classActivity);
             trans.commit();
-
-
         } finally {
-            if (trans.isActive()) {
-                trans.rollback();
-            }
             entityManager.close();
-
         }
     }
 
-    public void removeActivityFromClass(ClassEntity classEntity, Activity activity){
+    public void removeActivityFromClass(int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            ClassActivityPK pk = new ClassActivityPK();
-            pk.setClassId(classEntity.getClassId());
-            pk.setActivityId(activity.getActivityId());
+            ClassActivity classActivity = entityManager.find(ClassActivity.class, id);
 
-            ClassActivity ca = entityManager.find(ClassActivity.class, pk);
-            entityManager.remove(ca);
+            entityManager.remove(classActivity);
 
             transaction.commit();
-
 
         } finally {
             if (transaction.isActive()) {
@@ -62,6 +56,55 @@ public class ClassActivityDAO {
             entityManager.close();
 
         }
+    }
+
+    public void setSlot(int id, int slot){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            ClassActivity ca = entityManager.find(ClassActivity.class, id);
+
+            ca.setSlot(slot);
+
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+
+    }
+
+    public Map<LocalDate, List<Activity>> getActivitiesForWeek(int classId, LocalDate start, LocalDate end){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        Map<LocalDate, List<Activity>> activitiesMap = new HashMap<>();
+
+        TypedQuery<ClassActivity> query = entityManager.createQuery(
+                "SELECT ca FROM ClassActivity ca WHERE ca.classId = :classId AND ca.date BETWEEN :start AND :end",
+                ClassActivity.class
+        );
+        query.setParameter("classId", classId);
+        query.setParameter("start", start);
+        query.setParameter("end", end);
+
+        List<ClassActivity> classActivities = query.getResultList();
+
+        for (ClassActivity classActivity : classActivities) {
+            LocalDate date = classActivity.getDate().toLocalDate();
+            Activity activity = entityManager.find(Activity.class, classActivity.getActivityId());
+
+            activitiesMap.computeIfAbsent(date, k -> new ArrayList<>()).add(activity);
+        }
+
+        return activitiesMap;
+
     }
 
 

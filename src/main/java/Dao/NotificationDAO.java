@@ -5,6 +5,7 @@ import Utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -35,6 +36,38 @@ public class NotificationDAO {
 
             transaction.commit();
             return notifications;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+
+    }
+
+    public static void main(String[] args) {
+        NotificationDAO a = new NotificationDAO();
+        System.out.println(a.getActiveNotifications().toString());
+    }
+
+    public List<Notification> getActiveNotifications(){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            java.util.Date currentdate = new java.util.Date();
+            System.out.println(currentdate.toString());
+            String jpql = "SELECT n FROM Notification n WHERE n.endDate > :currentDate";
+            TypedQuery<Notification> query = entityManager.createQuery(jpql, Notification.class);
+            query.setParameter("currentDate", currentdate);
+
+            transaction.commit();
+            System.out.println(query.getResultList().toString());
+            return query.getResultList();
 
         } finally {
             if (transaction.isActive()) {

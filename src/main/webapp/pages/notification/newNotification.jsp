@@ -59,13 +59,13 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="title">Enter Notification Title:</label>
-              <input name="title" id="title" type="text" value="${n.getTitle()}" class="form-control" placeholder="Notification Name" aria-label="Your Notification Name" aria-describedby="basic-addon2" required />
+              <input maxlength="100" name="title" id="title" type="text" value="${n.getTitle()}" class="form-control" placeholder="Notification Name" aria-label="Your Notification Name" aria-describedby="basic-addon2" required />
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="description">Enter Notification Description:</label>
-              <input name="description" id="description" type="text" value="${n.getDescription()}" class="form-control" placeholder="Notification Description" aria-label="Your Notification Description" aria-describedby="basic-addon2" />
+              <input maxlength="250" name="description" id="description" type="text" value="${n.getDescription()}" class="form-control" placeholder="Notification Description" aria-label="Your Notification Description" aria-describedby="basic-addon2" />
             </div>
           </div>
         </div>
@@ -213,5 +213,6 @@
         return true;
       }
     </script>
+    <script src="../../assets/js/bootstrap.bundle.js"></script>
   </body>
 </html>

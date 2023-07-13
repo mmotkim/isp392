@@ -2,24 +2,27 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
+@Table(name = "activity", schema = "dbo", catalog = "ISP392_IS1701")
 public class Activity {
-    public Activity() {
-    }
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "activity_id")
+    @Column(name = "activity_id", nullable = false)
     private int activityId;
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, length = 100)
     private String name;
     @Basic
-    @Column(name = "description")
+    @Column(name = "description", nullable = true, length = 1000)
     private String description;
     @Basic
-    @Column(name = "type")
+    @Column(name = "type", nullable = true, length = 50)
     private String type;
+
+
 
     public String getType() {
         return type;
