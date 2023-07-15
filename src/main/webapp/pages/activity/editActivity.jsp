@@ -211,7 +211,6 @@
 
   var selectedValue = "${a.getType()}"; // Replace with your actual received value
 
-
   var selectElement = document.getElementById("type");
   selectElement.value = selectedValue;
 </script>

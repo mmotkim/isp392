@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,13 +39,19 @@ public class Calendar extends HttpServlet {
 
 
             if (request.getParameter("selectedDate") != null && request.getParameter("classId") != null){
+
+
                 String selectedDateString = request.getParameter("selectedDate");
                 int classId = Integer.parseInt(request.getParameter("classId"));
 
+                //selected parameters
+                ClassEntity selectedClass = classDAO.getClassById(classId);
+                request.setAttribute("sc", selectedClass);
+                request.setAttribute("sd", selectedDateString);
                 LocalDate selectedDate = LocalDate.parse(selectedDateString);
 
-                LocalDate startOfWeek = selectedDate.with(DayOfWeek.SUNDAY);
-                LocalDate endOfWeek = startOfWeek.plusDays(6);
+                LocalDate startOfWeek = selectedDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+                LocalDate endOfWeek = selectedDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
                 Map<LocalDate, List<Activity>> activitiesMap = caDAO.getActivitiesForWeek(classId, startOfWeek, endOfWeek);
 

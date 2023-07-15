@@ -90,6 +90,10 @@ public class ClassActivityDAO {
                 "SELECT ca FROM ClassActivity ca WHERE ca.classId = :classId AND ca.date BETWEEN :start AND :end",
                 ClassActivity.class
         );
+        System.out.println(start);
+        System.out.println(start.toString());
+        System.out.println(end.toString());
+        System.out.println(end);
         query.setParameter("classId", classId);
         query.setParameter("start", start);
         query.setParameter("end", end);

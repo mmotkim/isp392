@@ -18,14 +18,14 @@
     <div class="container text-left">
         <div class="row">
             <div class="col-lg-3">
-                <h2 class="mb-5 text-center">Calendar #4</h2>
+                <h2 class="mb-5 text-center"></h2>
                 <form action="calendar" method="GET">
                     <div class="form-group">
                         <label class="" for="classId">Choose Class:</label>
                         <select name="classId" id="classId" type="text" class="form-select"
                                 aria-label="Choose Class"
                                 aria-describedby="basic-addon2" required>
-                            <option value="">Class</option>
+                            <option value="">Select a class</option>
                             <c:forEach items="${classes}" var="c">
                                 <option value="${c.getClassId()}">${c.getClassId()} - ${c.getClassName()}</option>
                             </c:forEach>
@@ -35,14 +35,14 @@
                     </div>
                     <div class="form-group">
                         <label for="input">Select Date</label>
-                        <input name="selectedDate" type="text" class="form-control" id="input" placeholder="Select Date" onchange="selectDate(this.value)">
+                        <input name="selectedDate" value="${sd}" type="text" class="form-control" id="input" placeholder="Select Date" onchange="selectDate(this.value)">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Apply</button>
                 </form>
             </div>
             <div class="col-lg-9">
-                <h2 class="mb-5 text-center">Activities Table</h2>
+                <h2 class="mb-5 text-center">Schedule</h2>
                 <div class="week-list-container">
                     <table class="table week-list">
                         <thead>
@@ -58,8 +58,8 @@
                                 <c:set var="activities" value="${entry.value}" />
                                 <tr>
                                     <td class="day-label">
-                                        <div class="day-of-week">${day.key}</div>
-                                        <div class="date">${day.value}</div>
+                                        <div class="day-of-week">${day.getDayOfWeek()}</div>
+                                        <div class="date">${day.toString()}</div>
                                     </td>
                                     <td class="activities">
                                         <ul class="activities-list">
@@ -87,6 +87,7 @@
 <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="${pageContext.request.contextPath}/assets/js/rome.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
@@ -130,6 +131,11 @@
     function selectDate(date) {
         window.location.href = 'calendar?selectedDate=' + date + "&classId=1";
     }
+
+    var selectedValue = "${sc.getClassId()}"; // Replace with your actual received value
+
+    var selectElement = document.getElementById("type");
+    selectElement.value = selectedValue;
 </script>
 </body>
 </html>
