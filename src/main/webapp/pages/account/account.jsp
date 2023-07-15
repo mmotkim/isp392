@@ -8,7 +8,7 @@
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
   />
-  <title>Parent</title>
+  <title>User</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
   <link rel="stylesheet"
@@ -33,7 +33,7 @@
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title">
-            Account List <span class="text-muted fw-normal ms-2"> ${count} </span>
+            User List <span class="text-muted fw-normal ms-2"> ${count} </span>
           </h5>
         </div>
       </div>
@@ -48,8 +48,10 @@
             <tr>
               <th scope="col" style="width: 50px">ID</th>
               <th scope="col">Name</th>
+              <th scope="col">Gender</th>
               <th scope="col">Email</th>
-              <th scope="col">/</th>              <th scope="col">isActive</th>
+              <th scope="col">Role</th>
+              <th scope="col">isActive</th>
             </tr>
             </thead>
             <tbody>
@@ -66,7 +68,7 @@
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
-                      <a href="./DeleteParent?id=${o.getUserId()}" class="btn btn-primary" onclick="d.close()">
+                      <a href="./DeleteUser?id=${o.getUserId()}" class="btn btn-primary" onclick="d.close()">
                         Delete
                       </a>
                     </div>
@@ -81,6 +83,7 @@
                 <td>${o.getFullname()}</td>
                 <td>${o.getGender().equals(1) ? "Male" : "Female"}</td>
                 <td>${o.getEmail()}</td>
+                <td>${o.getRole()}</td>
                 <td>${o.getActive().equals(1) ? "Active" : "InActive"}</td>
 
                 <td class="justify-content-between ml-2">
@@ -88,7 +91,7 @@
                     <li class="list-inline-item">
                       <!-- Edit -->
                       <a
-                              href="./EditParent?id=${o.getUserId()}"
+                              href="./EditUser?id=${o.getUserId()}"
 
                               title="Edit"
                               class="px-2 text-primary"
@@ -98,7 +101,7 @@
                     <li class="list-inline-item">
                       <!-- Delete -->
                       <a
-                              href="./DeleteParent?id=${o.getUserId()}"
+                              href="./DeleteUser?id=${o.getUserId()}"
                               onclick="d.showModal();"
                               title="Delete"
                               class="px-2 text-danger"
