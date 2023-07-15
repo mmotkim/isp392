@@ -50,8 +50,10 @@ public class AccountDAO {
         try {
             trans.begin();
 
-            Users users = entityManager.find(Users.class, email);
-            users.getEmail();
+            Users user = entityManager.createQuery(
+                            "SELECT u from Users u WHERE u.email  like :email", Users.class).
+                    setParameter("email", email).getSingleResult();
+            user.getEmail();
 
             trans.commit();
 
@@ -72,8 +74,12 @@ public class AccountDAO {
         try {
             transaction.begin();
 
-            Users user = entityManager.createQuery("SELECT * FROM Users WHERE [email] = " + email + " AND [password] = " + pass+"", Users.class).getSingleResult();
-
+//            Users user = entityManager.createQuery("SELECT * FROM Users WHERE [email]  " + email + " AND [password] = " + pass+"", Users.class).getSingleResult();
+            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.email= :email AND u.password = :pass",Users.class);
+            Users user = query
+                    .setParameter("email", email)
+                    .setParameter("pass", pass)
+                    .getSingleResult();
             transaction.commit();
             return user;
 
@@ -95,10 +101,12 @@ public class AccountDAO {
         try {
             trans.begin();
 
-            Users users = entityManager.find(Users.class, email);
-
-            users.getPassword();
-            entityManager.persist(users);
+            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.password = :pass",Users.class);
+            Users user = query
+                    .setParameter("pass", pass)
+                    .getSingleResult();
+            user.getPassword();
+            entityManager.persist(user);
             trans.commit();
 
 
@@ -111,7 +119,52 @@ public class AccountDAO {
         }
         return null;
     }
-    public void changePass(String email, String pass){
+    public Users changePass(String email, String newpassword){
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            TypedQuery<Users> query = entityManager.createQuery("UPDATE  Users u set u.password = :pass WHERE u.email= :email   ",Users.class);
+            Users user = query
+                    .setParameter("email", email)
+                    .setParameter("pass", newpassword)
+                    .getSingleResult();
+            transaction.commit();
+            return user;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public void changePass2(String email, String newpassword){
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Users users = entityManager.find(Users.class, email);
+
+            users.setPassword(newpassword);
+            transaction.commit();
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public Users newaccount(String email, String pass){
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = entityManager.getTransaction();
@@ -119,11 +172,14 @@ public class AccountDAO {
         try {
             trans.begin();
 
-            Users users = entityManager.find(Users.class, email);
+            Users user = new Users();
+            user.setEmail(email);
+            user.setPassword(pass);
 
-            users.setPassword(pass);
-            entityManager.persist(users);
+            entityManager.persist(user);
+
             trans.commit();
+
 
         } finally {
             if (trans.isActive()) {
@@ -132,18 +188,26 @@ public class AccountDAO {
             entityManager.close();
 
         }
+        return null;
     }
     
     
-    
       public static void main(String[] args) {
-//       Dao.AccountDAO dao = new Dao.AccountDAO();
+       Dao.AccountDAO dao = new Dao.AccountDAO();
 //        List<Users> list = dao.ListAccount();
 //        for (Users o : list) {
 //            System.out.println(o.toString());
 //        }
-        AccountDAO dao = new AccountDAO();
-        Users a = dao.checkAccountExist("hainkhe160778@fpt.edu.vn");
-        System.out.println(a.toString());
+//        AccountDAO dao = new AccountDAO();
+//        Users a = dao.Login("ngai@gmail.com","12345");
+//        Users b = dao.changePass("ngai1@gmailcom","haiconvit");
+          String a = "ngai1@gmailcom";
+          String b = "haiconvit";
+        dao.changePass2(a,b);
+        if(b == null){
+            System.out.println("null");
+        }else {
+        System.out.println(b);
+    }
     }
 }
