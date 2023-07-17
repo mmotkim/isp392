@@ -48,7 +48,7 @@
       <div class="container">
         <%-- Alert--%>
         <c:if test="${param.state eq 'true'}">
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <div class="alert alert-success alert-dismissible inter fade show" role="alert">
             Action completed without issues!
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
@@ -87,7 +87,7 @@
               <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                 <thead>
                   <tr>
-                    <th class="col-1 sortable-title" onclick="sortTable(0)" scope="col" style="width: 50px">Number</th>
+                    <th class="col-1 sortable-title" onclick="sortTable(0)" scope="col" style="width: 100px">Number</th>
                     <th class="col-auto" scope="col">Title</th>
                     <th class="col-auto" scope="col">Description</th>
                     <th class="col-1 sortable-title" onclick="sortTable(3)" scope="col">Created Date</th>
@@ -244,7 +244,7 @@
     }
 
     </script>
-    <script src="../../assets/js/bootstrap.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
 
   </body>
 </html>

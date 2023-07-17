@@ -142,4 +142,28 @@ public class ActivityDAO {
         }
     }
 
+    public Activity getLast(){
+
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            String jpql = "SELECT a FROM Activity a ORDER BY a.activityId DESC";
+            Activity activity = entityManager.createQuery(jpql, Activity.class).setMaxResults(1).getSingleResult();
+
+            transaction.commit();
+            return activity;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally {
+            entityManager.close();
+        }
+    }
+
 }

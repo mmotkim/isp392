@@ -45,39 +45,47 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label class="" for="name">Enter Activity Name:</label>
+          <input name="name" id="name" type="text" class="form-control" placeholder="Activity Name"
+                 aria-label="Your Activity Name"
+                 aria-describedby="basic-addon2"
+                 value = "${a.getName()}" required>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label class="" for="type">Choose Activity Type:</label>
+          <select name="type" id="type" type="text" class="form-select"
+                  aria-label="Choose Activity Type"
+                  aria-describedby="basic-addon2" maxlength="100" required>
 
-    <div class="col">
-      <div class="col-lg-16">
-        <div class="">
-          <!-- Ten lop -->
-          <div class="form-row input-group mb-3 d-flex">
+            <option value="">Choose an activity type</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="meal">Meal</option>
+            <option value="study">Study</option>
+            <option value="skills">Skills</option>
+          </select>
+        </div>
 
-            <label class="input-group-text" for="name">Enter Activity Name:</label>
-            <input id="name" name="name" type="text" class="form-control" placeholder="Activity Name" aria-label="Your Activity Name"
-                   aria-describedby="basic-addon2" value="${a.getName()}" required>
-          </div>
-          <div class="form-row input-group mb-3">
-            <label class="input-group-text" for="description">Enter Activity Description:</label>
-            <input id="description" name="description" type="text" class="form-control" placeholder="Activity Description" aria-label="Your Activity Description"
-                   aria-describedby="basic-addon2" value="${a.getDescription()}">
-          </div>
+      </div>
+    </div>
 
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="type">Choose Activity Type:</label>
-            <select id="type" name="type" type="text" class="form-select" placeholder="Activity Type" aria-label="Choose Activity Type"
-                    aria-describedby="basic-addon2" required>
-
-              <option value="">Choose an activity type</option>
-              <option value="entertainment" selected >Entertainment</option>
-              <option value="meal" >Meal</option>
-              <option value="study">Study</option>
-              <option value="skills">Skills</option>
-            </select>
-          </div>
-
+    <div class="row py-2">
+      <div class="col-md-6">
+        <div class="form-group mb-3">
+          <label class="" for="description">Enter Activity Description:</label>
+          <input name="description" id="description" type="text" class="form-control"
+                 placeholder="Activity Description" aria-label="Your Activity Description"
+                 aria-describedby="basic-addon2"
+                 maxlength="1000"
+                 value="${a.getDescription()}">
         </div>
       </div>
     </div>
+
 
     <div class="row align-items-center py-3">
       <div class="col-md-6">
@@ -200,6 +208,11 @@
       });
     }
   });
+
+  var selectedValue = "${a.getType()}"; // Replace with your actual received value
+
+  var selectElement = document.getElementById("type");
+  selectElement.value = selectedValue;
 </script>
 
 <style>
@@ -209,6 +222,7 @@
   }
 </style>
 
+<script src="../../assets/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

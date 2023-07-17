@@ -2,22 +2,25 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "class", schema = "dbo", catalog = "ISP392_IS1701")
 public class ClassEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "class_id")
+    @Column(name = "class_id", nullable = false)
     private int classId;
     @Basic
-    @Column(name = "class_name")
+    @Column(name = "class_name", nullable = true, length = 100)
     private String className;
     @Basic
-    @Column(name = "level")
+    @Column(name = "level", nullable = true)
     private Integer level;
     @Basic
-    @Column(name = "student_quantity")
+    @Column(name = "student_quantity", nullable = true)
     private Integer studentQuantity;
+
 
     public int getClassId() {
         return classId;

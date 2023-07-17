@@ -4912,7 +4912,7 @@ textarea.form-control-lg {
   padding-right: 3rem;
 }
 .alert-dismissible .btn-close {
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   z-index: 2;
@@ -7233,6 +7233,9 @@ textarea.form-control-lg {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  /* added */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .vr {
@@ -12262,5 +12265,18 @@ div.arrow:hover::before {
   position: fixed;
   bottom: 10px;
   left: 10px;
+}
+
+.list-group-item:hover .overflow-ellipsis {
+  -webkit-line-clamp: unset;
+}
+
+.list-group-item .overflow-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: -webkit-line-clamp 0.3s;
 }
 /*# sourceMappingURL=bootstrap.css.map */

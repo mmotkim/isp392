@@ -6303,4 +6303,10 @@
   return index_umd;
 
 }));
+
+function isDatePassed(dateString) {
+  var date = new Date(dateString);
+  var today = new Date();
+  return date < today;
+}
 //# sourceMappingURL=bootstrap.bundle.js.map
