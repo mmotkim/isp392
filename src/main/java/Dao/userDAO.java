@@ -1,35 +1,101 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Dao;
 
-/**
- *
- * @author Admin
- */
-import Entity.Users;
 import Utils.HibernateUtils;
 import jakarta.persistence.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import Entity.*;
 
-public class AccountDAO {
+public class userDAO {
 
-
-    public List<Users> ListAccount(){
-        ArrayList<Users> list = new ArrayList<>();
+    public int sumOfUser() {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-        List account = new ArrayList<Users>();
+        Query countUser = entityManager.createNativeQuery("SELECT COUNT(*) FROM Users");
+        return ((Number) countUser.getSingleResult()).intValue();
+    }
+    public int sumOfParent() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        Query countParent = entityManager.createNativeQuery("SELECT COUNT(*) FROM Users where [Role]=4");
+        return ((Number) countParent.getSingleResult()).intValue();
+    }
+    public int sumOfTeacher() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM Users where [Role]=3");
+        return ((Number) count.getSingleResult()).intValue();
+    }
+    public int sumOfAdmin() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM Users where [Role]=2");
+        return ((Number) count.getSingleResult()).intValue();
+    }
+    public List<Users> listTeachers() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        List teachers = new ArrayList<Users>();
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Query query = entityManager.createNativeQuery("SELECT * FROM Users where [Role]=3", Users.class);
+            teachers = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            entityManager.close();
+
+        }
+
+        return teachers;
+    }
+    public List<Users> listParents() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        List parents = new ArrayList<Users>();
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Query query = entityManager.createNativeQuery("SELECT * FROM Users where [Role]=4", Users.class);
+            parents = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            entityManager.close();
+
+        }
+
+        return parents;
+    }
+    public Users UserProfile(int id) {
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
         try {
             transaction.begin();
 
-            Query query = entityManager.createNativeQuery("SELECT * FROM Users", Users.class);
-            account = query.getResultList();
-
+            TypedQuery<Users> query = entityManager.createQuery("select u from Users u  WHERE u.id= :id   ", Users.class);
+            Users users = query
+                    .setParameter("id", id)
+                    .getSingleResult();
             transaction.commit();
+            return users;
 
         } finally {
             if (transaction.isActive()) {
@@ -38,48 +104,19 @@ public class AccountDAO {
             entityManager.close();
 
         }
-        return account;
-
     }
-    
-        public Users checkAccountExist(String email){
 
-        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        EntityTransaction trans = entityManager.getTransaction();
-
-        try {
-            trans.begin();
-
-            Users user = entityManager.createQuery(
-                            "SELECT u from Users u WHERE u.email  like :email", Users.class).
-                    setParameter("email", email).getSingleResult();
-            user.getEmail();
-
-            trans.commit();
-
-
-        } finally {
-            if (trans.isActive()) {
-                trans.rollback();
-            }
-            entityManager.close();
-
-        }
-            return null;
-        }
-   public Users Login(String email, String pass){
+    public Users getUserById(int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         ArrayList<Users> list = new ArrayList<>();
+
+
         try {
             transaction.begin();
 
-//            Users user = entityManager.createQuery("SELECT * FROM Users WHERE [email]  " + email + " AND [password] = " + pass+"", Users.class).getSingleResult();
-            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.email= :email AND u.password = :pass",Users.class);
-            Users user = query
-                    .setParameter("email", email)
-                    .setParameter("pass", pass)
-                    .getSingleResult();
+            Users user = entityManager.createQuery("FROM Users WHERE id = " + id, Users.class).getSingleResult();
+
             transaction.commit();
             return user;
 
@@ -89,107 +126,77 @@ public class AccountDAO {
             }
             entityManager.close();
 
-        }
-
-    }
-
-    public Users checkPass(String email, String pass){
-
-        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        EntityTransaction trans = entityManager.getTransaction();
-
-        try {
-            trans.begin();
-
-            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.password = :pass",Users.class);
-            Users user = query
-                    .setParameter("pass", pass)
-                    .getSingleResult();
-            user.getPassword();
-            entityManager.persist(user);
-            trans.commit();
-
-
-        } finally {
-            if (trans.isActive()) {
-                trans.rollback();
-            }
-            entityManager.close();
 
         }
-        return null;
     }
-    public Users changePass(String email, String newpassword){
-
+    public void updateParent(int id, String name, Boolean gender, String DoB, String phone, String email, String address, Boolean active){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-
         try {
             transaction.begin();
 
-            TypedQuery<Users> query = entityManager.createQuery("UPDATE  Users u set u.password = :pass WHERE u.email= :email   ",Users.class);
-            Users user = query
-                    .setParameter("email", email)
-                    .setParameter("pass", newpassword)
-                    .getSingleResult();
-            transaction.commit();
-            return user;
-
-        } finally {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            entityManager.close();
-
-        }
-    }
-    public void changePass2(String email, String newpassword){
-
-        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-
-        try {
-            transaction.begin();
-
-            Users users = entityManager.find(Users.class, email);
-
-            users.setPassword(newpassword);
-            transaction.commit();
-
-        } finally {
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-            entityManager.close();
-
-        }
-    }
-    public Users newaccount(String email, String pass){
-
-        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-        EntityTransaction trans = entityManager.getTransaction();
-
-        try {
-            trans.begin();
-
-            Users user = new Users();
+            Users user = entityManager.find(Users.class, id);
+            user.setFullname(name);
+            user.setGender(gender);
+            //format yyyy-mm-dd
+            user.setDob(Date.valueOf(DoB));
+            user.setPhone(phone);
             user.setEmail(email);
-            user.setPassword(pass);
-
-            entityManager.persist(user);
-
-            trans.commit();
+            user.setAddress(address);
+            user.setActive(active);
+            transaction.commit();
 
 
         } finally {
-            if (trans.isActive()) {
-                trans.rollback();
+            if (transaction.isActive()) {
+                transaction.rollback();
             }
             entityManager.close();
 
         }
-        return null;
     }
-    
-    
+    public void deleteParent(int id){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+
+            Users user = entityManager.find(Users.class, id);
+            entityManager.remove(user);
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public Users ParentProfile(int id) {
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            TypedQuery<Users> query = entityManager.createQuery("select u from Users u  WHERE u.id= :id   ", Users.class);
+            Users parent = query
+                    .setParameter("id", id)
+                    .getSingleResult();
+            transaction.commit();
+            return parent;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
 }
