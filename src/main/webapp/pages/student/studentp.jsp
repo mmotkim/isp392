@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Edit Parent</title>
+    <title>Student Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
           integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -23,7 +23,7 @@
 <jsp:include page="../../components/header.jsp"/>
 
 <div class="container pt-3">
-    <a href="parent" class="size-3">
+    <a href="ViewStudent" class="size-3">
         <div class="arrow" style=""></div>
     </a>
 </div>
@@ -48,36 +48,40 @@
         <div class="col">
             <div class="col-lg-16">
                 <div class="">
-                    <input name="id" id="id" type="hidden" value="${s1.getUserId()}">
+                    <input name="id" id="id" type="hidden" value="${s1.getStudentId()}">
 
                     <div class="form-row input-group mb-3 d-flex">
 
                         <label class="input-group-text">Studenr Name:</label>
-                        <td>${s1.getStudentName()}</td>
+                        <li id="name" name="name"  class="form-control"  aria-label=""
+                               aria-describedby="basic-addon2"  >${s1.getStudentName()}</li>
                     </div>
+<%--                    <div class="form-row input-group mb-3 d-flex">--%>
+<%--                        <label class="input-group-text">Gender</label>--%>
+<%--                        <li id="Class" name="Class"  class="form-control" placeholder="Class" aria-label="Your Class"--%>
+<%--                            aria-describedby="basic-addon2" >${s1.()}</li>--%>
+<%--                    </div>--%>
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Gender</label>
-                        <c:if test="${s1.getGender.equa(True)}" >Male</c:if>
-                        <c:if test="${s1.getGender.equa(False)}" >Female</c:if>
+                        <li id="gender" name="gender"  class="form-control" placeholder="gender" aria-label="Your gender"
+                            aria-describedby="basic-addon2" >${s1.getGender() ? "Male" : "Female"}</li>
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text">Enter Birthday:</label>
-                        <input id="dob" name="dob" type="text" class="form-control" placeholder="DOB" aria-label="Your DoB"
-                               aria-describedby="basic-addon2" value="${s1.getDob()}">
+                        <li id="dob" name="dob"  class="form-control" placeholder="DOB" aria-label="Your DoB"
+                               aria-describedby="basic-addon2" >${s1.getDob()}</li>
                     </div>
 
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text">Enter Address:</label>
-                        <input id="address" name="address" type="text" class="form-control" placeholder="Address" aria-label="Your Address"
-                               aria-describedby="basic-addon2" value="${s1.getAddress()}">
+                        <li id="address" name="address"  class="form-control" placeholder="Address" aria-label="Your Address"
+                               aria-describedby="basic-addon2">${s1.getAddress()}</li>
                     </div>
 
                     <div class="form-row input-group mb-3 d-flex">
                         <label class="input-group-text">Active</label>
-                        <input type="radio" id="true1" name="active" value="Yes">
-                        <label for="true1">Active</label><br>
-                        <input type="radio" id="false1" name="active" value="No">
-                        <label for="false1">Inactive</label><br>
+                        <li id="Active" name="Active"  class="form-control" placeholder="Active" aria-label="Your Active"
+                            aria-describedby="basic-addon2" >${s1.isActive() ? "Active" : "Inactive"}</li>
                     </div>
 
 
@@ -86,19 +90,7 @@
         </div>
 
         <!-- Confirm Button -->
-        <div class="col-md pt-3">
-            <div class="d-flex  align-items-center justify-content-end gap mb-3">
-                <div>
-                    <button href="parent" data-bs-toggle="modal" class=" btn btn-primary"><i
-                            class="bx bx-plus me-1 "></i> Cancel Changes
-                    </button>
-                </div>
-                <div>
-                    <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
-                            class="bi bi-check-lg me-1 "></i> Confirm Edit Activity</button>
-                </div>
-            </div>
-        </div>
+
 
 
     </form>

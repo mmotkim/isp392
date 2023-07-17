@@ -81,10 +81,10 @@
                 <td>${o.getUserId()}</td>
                 <!-- Name -->
                 <td>${o.getFullname()}</td>
-                <td>${o.getGender().equals(1) ? "Male" : "Female"}</td>
+                <td>${o.getGender() ? "Male" : "Female"}</td>
                 <td>${o.getEmail()}</td>
                 <td>${o.getRole()}</td>
-                <td>${o.getActive().equals(1) ? "Active" : "InActive"}</td>
+                <td>${o.getActive() ? "Active" : "InActive"}</td>
 
                 <td class="justify-content-between ml-2">
                   <ul class="list-inline mb-0">
@@ -119,8 +119,8 @@
                       ><i class="bx bx-dots-vertical-rounded"></i
                       ></a>
                       <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="#">Action</a
-                        ><a class="dropdown-item" href="#"
+                        <a class="dropdown-item" href="UserProfile?Userid=${o.getUserId()}">View Profile</a>
+                        <a class="dropdown-item" href="#"
                       >Another action</a
                       ><a class="dropdown-item" href="#"
                       >Something else here</a

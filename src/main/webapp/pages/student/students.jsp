@@ -8,7 +8,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Student</title>
+    <title>User</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link rel="stylesheet"
@@ -48,20 +48,29 @@
                         <tr>
                             <th scope="col" style="width: 50px">ID</th>
                             <th scope="col">Name</th>
-                            <th scope="col">DOB</th>
                             <th scope="col">Gender</th>
                             <th scope="col">isActive</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="o" items="${listS1}">
+                            <a href="StudentProfile?StudentId=${o.getStudentId()}"></a>
                             <dialog id="d" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title text-danger">Confirm Deletion</h5>
                                             <button type="button" class="btn-close" onclick="d.close()"></button>
-
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete Student <span class="text-muted">( ID: ${o.getStudentId()})</span></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
+                                            <a href="./DeleteUser?id=${o.getStudentId()}" class="btn btn-primary" onclick="d.close()">
+                                                Delete
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </dialog>
@@ -71,8 +80,8 @@
                                 <td>${o.getStudentId()}</td>
                                 <!-- Name -->
                                 <td>${o.getStudentName()}</td>
-                                <td>${o.getGender().equals("True") ? "Male" : "Female"}</td>
-                                <td>${o.getActive().equals(1) ? "Active" : "InActive"}</td>
+                                <td>${o.getGender() ? "Male" : "Female"}</td>
+                                <td>${o.isActive() ? "Active" : "InActive"}</td>
 
                                 <td class="justify-content-between ml-2">
                                     <ul class="list-inline mb-0">
@@ -107,12 +116,9 @@
                                             ><i class="bx bx-dots-vertical-rounded"></i
                                             ></a>
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="#">Action</a
-                                                ><a class="dropdown-item" href="#"
-                                            >Another action</a
-                                            ><a class="dropdown-item" href="#"
-                                            >Something else here</a
-                                            >
+                                                <a class="dropdown-item" href="StudentProfile?StudentId=${o.getStudentId()}">View Profile</a>
+                                                <a class="dropdown-item" href="ParentProfile?Parentid=${o.getParentId()}">View Parent</a>
+                                                <a class="dropdown-item" href="Class?Classid=${o.getClassId()}">View class</a>
                                             </div>
                                         </li>
                                     </ul>
