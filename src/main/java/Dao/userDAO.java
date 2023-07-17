@@ -82,6 +82,30 @@ public class userDAO {
 
         return parents;
     }
+    public Users UserProfile(int id) {
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            TypedQuery<Users> query = entityManager.createQuery("select u from Users u  WHERE u.id= :id   ", Users.class);
+            Users users = query
+                    .setParameter("id", id)
+                    .getSingleResult();
+            transaction.commit();
+            return users;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
     public Users getUserById(int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -151,5 +175,28 @@ public class userDAO {
 
         }
     }
+    public Users ParentProfile(int id) {
 
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            TypedQuery<Users> query = entityManager.createQuery("select u from Users u  WHERE u.id= :id   ", Users.class);
+            Users parent = query
+                    .setParameter("id", id)
+                    .getSingleResult();
+            transaction.commit();
+            return parent;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    
 }
