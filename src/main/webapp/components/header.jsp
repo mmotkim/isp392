@@ -70,8 +70,8 @@
                     <ul class="dropdown-menu" aria-labelledby="managerDropdown">
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/notification') ? 'link-primary' : ''}" href="notification">Notifications</a></li>
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/activity') ? 'link-primary' : ''}" href="activity">Activity</a></li>
-                        <li><a class="dropdown-item" href="class">Classes</a></li>
-                        <li><a class="dropdown-item" href="meal">Meal</a></li>
+                        <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/class') ? 'link-primary' : ''}" href="class">Classes</a></li>
+                        <li><a class="dropdown-item " href="meal">Meal</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
