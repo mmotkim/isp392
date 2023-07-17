@@ -1,6 +1,8 @@
-package Controller.Parent;
+package Controller.Student;
 
+import Dao.StudentDAO;
 import Dao.userDAO;
+import Entity.Student;
 import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,12 +10,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
 
-@WebServlet(name = "EditParent", value = "/EditParent")
-public class EditParent extends HttpServlet {
+@WebServlet(name = "EditStudent", value = "/EditStudent")
+public class EditStudent extends HttpServlet {
     private String message;
 
 
@@ -22,10 +23,13 @@ public class EditParent extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
+            StudentDAO studentDAO = new StudentDAO();
+            Student student = studentDAO.getStudentById(Integer.parseInt(request.getParameter("id")));
+            request.setAttribute("a", student);
             userDAO userDAO = new userDAO();
-            Users user = userDAO.getUserById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("a", user);
-            request.getRequestDispatcher("pages/parent/editParent.jsp").forward(request, response);
+            request.setAttribute("userDAO", userDAO);
+
+            request.getRequestDispatcher("pages/student/editStudent.jsp").forward(request, response);
 
 
         } catch (Exception e) {
@@ -41,7 +45,7 @@ public class EditParent extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            int id = Integer.parseInt(request.getParameter("parentId")) ;
+            int id = Integer.parseInt(request.getParameter("id")) ;
             String name = request.getParameter("name");
 
             name = name.trim();
@@ -65,18 +69,16 @@ public class EditParent extends HttpServlet {
             String genderValue = request.getParameter("gender");
             if (genderValue.equals("Male")) gender=true; else gender = false;
             String DoB = request.getParameter("dob");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
+
             Boolean active;
             String activeValue = request.getParameter("active");
             if (activeValue.equals("Yes")) active=true; else active = false;
 
-            userDAO userDAO = new userDAO();
-            userDAO.updateUser(id,name,gender,DoB,phone,email,address,active);
+            StudentDAO studentDao = new StudentDAO();
+            studentDao.updateStudent(id,name,gender,DoB,active);
 
 
-            response.sendRedirect("./parent?state=true");
+            response.sendRedirect("./student?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

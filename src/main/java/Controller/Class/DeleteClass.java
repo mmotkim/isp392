@@ -22,10 +22,13 @@ public class DeleteClass extends HttpServlet {
             ClassDAO classDAO = new ClassDAO();
             classDAO.deleteClass(Integer.parseInt(request.getParameter("id")));        ;
 
-            response.sendRedirect("class");
+            response.sendRedirect("class?state=true");
 
 
         } catch (Exception e) {
+            e.printStackTrace(); // Ghi lại lỗi ra output console
+            response.sendRedirect("./404.html");
+
         }
 
     }
