@@ -20,9 +20,9 @@ public class DeleteParent extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             userDAO userDAO = new userDAO();
-            userDAO.deleteParent(Integer.parseInt(request.getParameter("id")));        ;
+            userDAO.deleteUser(Integer.parseInt(request.getParameter("id")));        ;
 
-            response.sendRedirect("parent");
+            response.sendRedirect("parent?state=true");
 
 
         } catch (Exception e) {

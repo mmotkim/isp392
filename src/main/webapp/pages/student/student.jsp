@@ -8,7 +8,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Class</title>
+    <title>Student</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link rel="stylesheet"
@@ -42,14 +42,9 @@
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
 
-<%--<% if (request.getAttribute("mess") != null) { %>--%>
-<%--<div class="success-message">--%>
-<%--    <%= request.getAttribute("mess") %>--%>
-<%--</div>--%>
-<%--<% } %>--%>
-
 <div class="container">
     <div class="row align-items-center">
+        <%--    Alert--%>
         <c:if test="${param.state eq 'true'}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 Action completed without issues!
@@ -59,16 +54,15 @@
         <div class="col-md-6">
             <div class="mb-4">
                 <h5 class="card-title">
-                    Class List <span class="text-muted fw-normal ms-2"> ${count} </span>
+                    Student List <span class="text-muted fw-normal ms-2"> ${count} </span>
                 </h5>
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
                 <div>
-                    <!-- Them Class -->
-                    <a href="NewClass" class="btn btn-primary px-4 py-2"
-                    ><i class="bx bx-plus me-1"></i> Add New Class</a
+                    <a href="NewStudent" class="btn btn-primary px-4 py-2"
+                    ><i class="bx bx-plus me-1"></i> Add New Student</a
                     >
                 </div>
             </div>
@@ -82,51 +76,54 @@
                     <tr>
                         <th scope="col" style="width: 50px">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Level</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">DoB</th>
+                        <th scope="col">Parent</th>
+                        <th scope="col">isActive</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="t" items="${list}">
-                        <dialog id="d${t.getClassId()}">
+                        <dialog id="d${t.getStudentId()}">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title text-danger">Confirm Deletion</h5>
                                         <button type="button" class="btn-close"
-                                                onclick="d${t.getClassId()}.close()"></button>
+                                                onclick="d${t.getStudentId()}.close()"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Are you sure you want to delete Class <span
-                                                class="text-muted">( ID: ${t.getClassId()})</span></p>
+                                        <p>Are you sure you want to delete Student <span
+                                                class="text-muted">( ID: ${t.getStudentId()})</span></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" onclick="d${t.getClassId()}.close()">
-                                            Cancel
-                                        </button>
-                                        <a href="./DeleteClass?id=${t.getClassId()}" class="btn btn-primary"
-                                           onclick="d${t.getClassId()}.close()">
+                                        <button class="btn btn-secondary" onclick="d${t.getStudentId()}.close()">Cancel</button>
+                                        <a href="./DeleteStudent?id=${t.getStudentId()}" class="btn btn-primary"
+                                           onclick="d.close()">
                                             Delete
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </dialog>
+
                         <tr>
                             <!-- ID -->
-                            <td>${t.getClassId()}</td>
+                            <td>${t.getStudentId()}</td>
                             <!-- Name -->
-                            <td>${t.getClassName()}</td>
-                            <td>${t.getLevel()}</td>
-                            <td>${t.getStudentQuantity()}</td>
+                            <td>${t.getStudentName()}</td>
+                            <td>${t.getGender() == true ? "Male" : "Female"}</td>
+                            <td>${t.getDob()}</td>
+                            <td>${userDAO.getFullNameByUserId(t.getParentId())}</td>
+                            <td>${t.getActive() == true ? "Active" : "Inactive"}</td>
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">
                                     <li class="list-inline-item">
                                         <!-- Edit -->
                                         <a
-                                                href="./EditClass?classId=${t.getClassId()}"
+                                                href="./EditStudent?id=${t.getStudentId()}"
 
                                                 title="Edit"
                                                 class="px-2 text-primary"
@@ -136,9 +133,8 @@
                                     <li class="list-inline-item">
                                         <!-- Delete -->
                                         <a
-<%--                                                href="#confirmModal"--%>
                                                 href="#"
-                                                onclick="d${t.getClassId()}.showModal();"
+                                                onclick="d${t.getStudentId()}.showModal();"
                                                 title="Delete"
                                                 class="px-2 text-danger"
                                         ><i class="bx bx-trash-alt font-size-18"></i
@@ -155,12 +151,11 @@
                                         ><i class="bx bx-dots-vertical-rounded"></i
                                         ></a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="./StudentInClass?classId=${t.getClassId()}">Student in class</a
+                                            <a class="dropdown-item" href="#">Action</a
                                             ><a class="dropdown-item" href="#"
                                         >Another action</a
                                         ><a class="dropdown-item" href="#"
-                                        >Something else here</a
-                                        >
+                                        >Something else here</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -205,12 +200,8 @@
 
 <jsp:include page="../../components/footer.jsp"/>
 
-<script>
-    $(document).ready(function () {
-        $("#confirmModal").modal("show");
-    });
-</script>
-<script src="../../js/bootstrap.bundle.js"></script>
+
+<script src="../../assets/js/bootstrap.bundle.js"></script>
 </body>
 
 </html>

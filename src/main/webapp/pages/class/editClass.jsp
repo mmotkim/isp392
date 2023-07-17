@@ -51,14 +51,15 @@
                         <input name="name" id="name" type="text" class="form-control" value="${aClass.getClassName()}"
                                aria-label="Your Class Name"
                                aria-describedby="basic-addon2" required>
+                        <span id="name-error" class="error-message"></span>
+
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="level">Choose Class Level:</label>
                         <select name="level" id="level" type="text" class="form-select"
                                 placeholder="${aClass.getLevel()}" aria-label="Choose Class Level"
                                 aria-describedby="basic-addon2" required>
-
-                            <option value="${aClass.getLevel()}">${aClass.getLevel()}</option>
+                            <option value="${aClass.getLevel()}" selected>${aClass.getLevel()}</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -69,58 +70,56 @@
             </div>
         </div>
         <div class="col-md-6 pt-3">
-            <div class="mb-6">
-                <h5 class="card-title">
-                    Students in class
-                </h5>
-                <h6 class="card-title text-muted pt-5" style="font-style: oblique">
-                    [Student Quantity: ${aClass.getStudentQuantity()} ]
-                </h6>
-                <h6 class="card-title text-muted pt-5" style="font-style: oblique">
-                    [Student List]
-                    <div class="table-responsive">
-                        <table class="table table-light table-nowrap align-middle table-borderless table-hover">
-                            <thead>
+            <h5 class="card-title">
+                Students in class
+            </h5>
+                [Student Quantity: ${aClass.getStudentQuantity()} ]
+            </h6>
+            <h6 class="card-title text-muted pt-5" style="font-style: oblique">
+                [Student List]
+                <div class="table-responsive">
+                    <table class="table table-light table-nowrap align-middle table-borderless table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 50px">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">DoB</th>
+                            <th scope="col">Gender</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="t" items="${listS}">
                             <tr>
-                                <th scope="col" style="width: 50px">ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">DoB</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Address</th>
+                                <!-- ID -->
+                                <td>${t.getStudentId()}</td>
+                                <!-- Name -->
+                                <td>${t.getStudentName()}</td>
+                                <td>${t.getDob()}</td>
+                                <td>${t.getGender() == true ? "Male" : "Female"}</td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="t" items="${listS}">
-                                <tr>
-                                    <!-- ID -->
-                                    <td>${t.getStudentId()}</td>
-                                    <!-- Name -->
-                                    <td>${t.getStudentName()}</td>
-                                    <td>${t.getDob()}</td>
-                                    <td>${t.getGender().equals(1) ? "Male" : "Female"}</td>
-                                    <td>${t.getAddress()}</td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
 
-                </h6>
-            </div>
+            </h6>
         </div>
         <input name="classId" id="classId" type="hidden" value="${aClass.getClassId()}">
         <div class="col-md pt-3">
             <div class="d-flex  align-items-center justify-content-end gap mb-3">
                 <div>
-                    <button href="class" data-bs-toggle="modal" class=" btn btn-primary"><i
+                    <button href="class" data-bs-toggle="modal" class="btn btn-primary"><i
                             class="bx bx-plus me-1 "></i> Cancel Changes
                     </button>
                 </div>
+                <div style="padding: 10px 10px">
+                    <p></p>
+                </div>
                 <div>
-                <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary"><i
-                        class="bx bx-plus me-1 "></i> Confirm Changes
-                </button>
-            </div>
+                    <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary">
+                        <i class="bx bx-plus me-1"></i> Confirm Changes
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -128,7 +127,26 @@
     </form>
 </div>
 <jsp:include page="../../components/footer.jsp"/>
+<script>
+    const form = document.querySelector("form");
 
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("name-error");
+    form.addEventListener("submit", function(event) {
+        const name = nameInput.value.trim(); // Loại bỏ khoảng trắng thừa từ đầu và cuối tên
+        const validNamePattern = /^[^\s]+$/; // Pattern để không cho phép tên chỉ toàn dấu cách
+
+        if (name === "") {
+            nameError.textContent = "Name is required";
+            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên trống
+        } else if (!validNamePattern.test(name)) {
+            nameError.textContent = "Please enter a valid name";
+            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên chỉ toàn dấu cách
+        } else {
+            nameError.textContent = ""; // Xóa thông báo lỗi nếu tên hợp lệ
+        }
+    });
+</script>
 </body>
 
 </html>

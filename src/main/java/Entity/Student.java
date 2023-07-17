@@ -20,17 +20,14 @@ public class Student {
     @Column(name = "gender", nullable = true)
     private Boolean gender;
     @Basic
-    @Column(name = "address", nullable = true, length = 500)
-    private String address;
-    @Basic
     @Column(name = "parent_id", nullable = true)
     private Integer parentId;
     @Basic
     @Column(name = "isActive", nullable = false)
     private boolean isActive;
     @Basic
-    @Column(name = "class_id", nullable = false)
-    private int classId;
+    @Column(name = "class_id", nullable = true)
+    private Integer classId;
 
     public int getStudentId() {
         return studentId;
@@ -64,14 +61,6 @@ public class Student {
         this.gender = gender;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Integer getParentId() {
         return parentId;
     }
@@ -80,7 +69,7 @@ public class Student {
         this.parentId = parentId;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return isActive;
     }
 
@@ -88,11 +77,11 @@ public class Student {
         isActive = active;
     }
 
-    public int getClassId() {
+    public Integer getClassId() {
         return classId;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
@@ -105,12 +94,11 @@ public class Student {
 
         if (studentId != student.studentId) return false;
         if (isActive != student.isActive) return false;
-        if (classId != student.classId) return false;
         if (studentName != null ? !studentName.equals(student.studentName) : student.studentName != null) return false;
         if (dob != null ? !dob.equals(student.dob) : student.dob != null) return false;
         if (gender != null ? !gender.equals(student.gender) : student.gender != null) return false;
-        if (address != null ? !address.equals(student.address) : student.address != null) return false;
         if (parentId != null ? !parentId.equals(student.parentId) : student.parentId != null) return false;
+        if (classId != null ? !classId.equals(student.classId) : student.classId != null) return false;
 
         return true;
     }
@@ -121,10 +109,9 @@ public class Student {
         result = 31 * result + (studentName != null ? studentName.hashCode() : 0);
         result = 31 * result + (dob != null ? dob.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
         result = 31 * result + (isActive ? 1 : 0);
-        result = 31 * result + classId;
+        result = 31 * result + (classId != null ? classId.hashCode() : 0);
         return result;
     }
 }
