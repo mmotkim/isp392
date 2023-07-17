@@ -1,5 +1,7 @@
-package Controller.Parent;
+package Controller.Teacher;
 
+import Dao.ClassDAO;
+import Dao.StudentDAO;
 import Dao.userDAO;
 import Entity.Users;
 import jakarta.servlet.ServletException;
@@ -11,26 +13,31 @@ import jakarta.servlet.http.HttpSession;
 import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet(name = "EditParent", value = "/EditParent")
-public class EditParent extends HttpServlet {
+@WebServlet(name = "NewTeacher", value = "/NewTeacher")
+public class NewTeacher extends HttpServlet {
     private String message;
 
-
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
-            userDAO userDAO = new userDAO();
-            Users user = userDAO.getUserById(Integer.parseInt(request.getParameter("id")));
-            request.setAttribute("a", user);
-            request.getRequestDispatcher("pages/parent/editParent.jsp").forward(request, response);
+
+            request.getRequestDispatcher("pages/teacher/newTeacher.jsp").forward(request, response);
 
 
         } catch (Exception e) {
         }
 
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        processRequest(request, response);
 
     }
 
@@ -41,10 +48,8 @@ public class EditParent extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            int id = Integer.parseInt(request.getParameter("parentId")) ;
             String name = request.getParameter("name");
-
-            name = name.trim();
+            name =name.trim();
             StringBuilder result = new StringBuilder();
             boolean capitalizeNextChar = true;
 
@@ -68,15 +73,12 @@ public class EditParent extends HttpServlet {
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
-            Boolean active;
-            String activeValue = request.getParameter("active");
-            if (activeValue.equals("Yes")) active=true; else active = false;
-
-            userDAO userDAO = new userDAO();
-            userDAO.updateUser(id,name,gender,DoB,phone,email,address,active);
 
 
-            response.sendRedirect("./parent?state=true");
+            userDAO parentDAO = new userDAO();
+            parentDAO.addUser(name,gender,DoB,phone,email,address.trim(),3);
+
+            response.sendRedirect("teacher?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

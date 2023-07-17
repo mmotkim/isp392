@@ -44,16 +44,32 @@ public class NewClass extends HttpServlet {
             HttpSession session = request.getSession();
 
                 String name = request.getParameter("name");
+            name = name.trim();
+            StringBuilder result = new StringBuilder();
+            boolean capitalizeNextChar = true;
+
+            for (char c : name.toCharArray()) {
+                if (Character.isWhitespace(c)) {
+                    result.append(" ");
+                    capitalizeNextChar = true;
+                } else if (capitalizeNextChar) {
+                    result.append(Character.toUpperCase(c));
+                    capitalizeNextChar = false;
+                } else {
+                    result.append(Character.toLowerCase(c));
+                }
+            }
+            name = result.toString();
                 String level = request.getParameter("level");
-                String quantity = request.getParameter("quantity");
 
             ClassDAO classDAO = new ClassDAO();
-            classDAO.addClass(name,Integer.parseInt(level) ,Integer.parseInt(quantity));
+            classDAO.addClass(name,Integer.parseInt(level) , 0);
 
 
 
-            response.sendRedirect("class");
+            response.sendRedirect("class?state=true");
         } catch (Exception e) {
+            e.printStackTrace();
             response.sendRedirect("./404.html");
 
         }
