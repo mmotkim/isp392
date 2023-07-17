@@ -192,22 +192,5 @@ public class AccountDAO {
     }
     
     
-      public static void main(String[] args) {
-       Dao.AccountDAO dao = new Dao.AccountDAO();
-//        List<Users> list = dao.ListAccount();
-//        for (Users o : list) {
-//            System.out.println(o.toString());
-//        }
-//        AccountDAO dao = new AccountDAO();
-//        Users a = dao.Login("ngai@gmail.com","12345");
-//        Users b = dao.changePass("ngai1@gmailcom","haiconvit");
-          String a = "ngai1@gmailcom";
-          String b = "haiconvit";
-        dao.changePass2(a,b);
-        if(b == null){
-            System.out.println("null");
-        }else {
-        System.out.println(b);
-    }
-    }
+     
 }
