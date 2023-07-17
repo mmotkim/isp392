@@ -26,6 +26,9 @@ public class DeleteClass extends HttpServlet {
 
 
         } catch (Exception e) {
+            e.printStackTrace(); // Ghi lại lỗi ra output console
+            response.sendRedirect("./404.html");
+
         }
 
     }

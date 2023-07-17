@@ -37,6 +37,9 @@ public class StudentInClass extends HttpServlet {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("./404.html");
+
         }
 
 
@@ -46,7 +49,7 @@ public class StudentInClass extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     public void destroy() {
