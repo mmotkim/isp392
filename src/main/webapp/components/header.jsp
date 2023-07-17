@@ -35,9 +35,9 @@
                 </a>
             </div>
 
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white ">
                 <!-- for all -->
-                <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+                <li><a href="../index.jsp" class="nav-link px-2 link-secondary">Home</a></li>
 
                 <!-- for headmaster only
             <li><a href="#" class="nav-link px-2 link-light">Dashboard</a></li>
@@ -46,8 +46,12 @@
             <li><a href="#" class="nav-link px-2 link-light">Students</a></li>
             <li><a href="#" class="nav-link px-2 link-light">Parents</a></li> -->
                 <!-- for admin only -->
-                <li><a href="#" class="nav-link px-2 link-light">Manager</a></li>
-                <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
+                        <li><a href="class" class="nav-link px-2 link-light">Classes</a></li>
+                        <li><a href="activity" class="nav-link px-2 link-light">Activity</a></li>
+                        <li><a href="teacher" class="nav-link px-2 link-light">Teachers</a></li>
+                        <li><a href="student" class="nav-link px-2 link-light">Students</a></li>
+                        <li><a href="parent" class="nav-link px-2 link-light">Parents</a></li>
+                <li><a href="ListAccount" class="nav-link px-2 link-light">Accounts</a></li>
             </ul>
 
             <div class="col-md-3 text-end">

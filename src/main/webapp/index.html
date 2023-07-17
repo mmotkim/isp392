@@ -1,13 +1,94 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JSP - Hello World</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+        }
+
+        .btn-container {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .btn::after {
+            content: '\203A';
+            font-size: 40px;
+            text-align: center;
+            line-height: 40px;
+            color: #ff6b6b;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn:hover::after {
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h1>Welcome to My Website</h1>
+<div class="btn-container">
+
+<button class="btn" onclick="redirectToJSP()">Go to Homepage</button>
+</div>
+<script>
+    function redirectToJSP() {
+        window.location.href = "index.jsp";
+    }
+</script>
 </body>
 </html>
+

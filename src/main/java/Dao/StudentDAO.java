@@ -20,16 +20,16 @@ public class StudentDAO {
     public List<Student> getStudentList() {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-        List<Student> studentList = new ArrayList<Student>();
+
 
         try {
             transaction = entityManager.getTransaction();
             transaction.begin();
 
-            Query query = entityManager.createQuery("SELECT s FROM Student s");
-            studentList = query.getResultList();
+            List<Student> studentList = entityManager.createQuery("FROM Student ", Student.class).getResultList();
 
             transaction.commit();
+            return studentList;
         } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
@@ -38,7 +38,6 @@ public class StudentDAO {
 
         }
 
-        return studentList;
     }
     public List<Student> getStudentListByClass(int classId) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
@@ -68,7 +67,66 @@ public class StudentDAO {
 
         return studentList;
     }
-    public void updateStudent(int id, String name, Boolean gender, String DoB, Boolean active, int classId){
+    public List<Student> getStudentListWithNullClassId() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        List<Student> studentList = new ArrayList<>();
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            String queryString = "FROM Student WHERE classId IS NULL";
+            TypedQuery<Student> query = entityManager.createQuery(queryString, Student.class);
+            studentList = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+        }
+
+        return studentList;
+    }
+
+//public List<Student> getStudentListByClass(Integer classId) {
+//    EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+//    EntityTransaction transaction = entityManager.getTransaction();
+//    List<Student> studentList = new ArrayList<>();
+//
+//    try {
+//        transaction = entityManager.getTransaction();
+//        transaction.begin();
+//
+//        String queryString = "FROM Student WHERE classId = :classId OR classId IS NULL";
+//        TypedQuery<Student> query = entityManager.createQuery(queryString, Student.class);
+//        query.setParameter("classId", classId);
+//        studentList = query.getResultList();
+//
+//        transaction.commit();
+//    } catch (Exception e) {
+//        if (transaction != null) {
+//            transaction.rollback();
+//        }
+//        e.printStackTrace();
+//    } finally {
+//        if (transaction.isActive()) {
+//            transaction.rollback();
+//        }
+//        entityManager.close();
+//    }
+//
+//    return studentList;
+//}
+
+    public void updateStudent(int id, String name, Boolean gender, String DoB, Boolean active){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         try {
@@ -79,7 +137,6 @@ public class StudentDAO {
             student.setGender(gender);
             student.setDob(Date.valueOf(DoB));
             student.setActive(active);
-            student.setClassId(classId);
             transaction.commit();
 
 
@@ -111,7 +168,48 @@ public class StudentDAO {
 
         }
     }
-    public void addStudent(String name, Boolean gender, String DoB, Boolean active, int parentId, int classId){
+    public void deleteStudentFromClass(int id){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+
+            Student student = entityManager.find(Student.class, id);
+            student.setClassId(null);
+            entityManager.persist(student);
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public void addStudentIntoClass(int id, int class_id){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+
+            Student student = entityManager.find(Student.class, id);
+            student.setClassId(class_id);
+            entityManager.persist(student);
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
+    public void addStudent(String name, Boolean gender, String DoB, Boolean active, int parentId){
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = entityManager.getTransaction();
@@ -124,7 +222,6 @@ public class StudentDAO {
             student.setDob(Date.valueOf(DoB));
             student.setActive(active);
             student.setParentId(parentId);
-            student.setClassId(classId);
             entityManager.persist(student);
 
             trans.commit();
@@ -161,6 +258,11 @@ public class StudentDAO {
 
 
         }
+    }
+
+    public static void main(String[] args) {
+        StudentDAO s = new StudentDAO();
+        s.addStudent("test", true, "2023-12-10", true, 30);
     }
 
 }

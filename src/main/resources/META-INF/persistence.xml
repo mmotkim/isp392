@@ -13,6 +13,7 @@
         <class>Entity.ClassActivity</class>
         <class>Entity.ClassActivityPK</class>
         <class>Entity.Notification</class>
+        <class>Entity.StudentEntity</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:sqlserver://localhost:100;database=ISP392_IS1701;encrypt=false"/>
             <property name="toplink.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>

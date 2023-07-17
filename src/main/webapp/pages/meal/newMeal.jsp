@@ -49,6 +49,8 @@
                         <label class="input-group-text" for="description">Enter Meal Description:</label>
                         <input name="description" id="description" type="text" class="form-control" placeholder="Description" aria-label="Your Meal Description"
                                aria-describedby="basic-addon2" required>
+                        <span id="name-error" class="error-message"></span>
+
                     </div>
                     <div class="form-row input-group mb-3">
                         <label class="input-group-text" for="create_date">Enter Create Date</label>
@@ -83,44 +85,26 @@
 <jsp:include page="../../components/footer.jsp"/>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const searchInput = document.getElementById('search-input');
-        const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
-        const selectedRecords = new Set();
+    const form = document.querySelector("form");
 
-        searchInput.addEventListener('input', function () {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            for (let i = 0; i < recordsList.length; i++) {
-                const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-                recordsList[i].style.display = name.includes(searchTerm) ? 'table-row' : 'none';
-            }
-        });
+    const nameInput = document.getElementById("description");
+    const nameError = document.getElementById("name-error");
+    form.addEventListener("submit", function(event) {
+        const name = nameInput.value.trim();
+        const validNamePattern = /^[^\s]+$/;
 
-        const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
-        for (let i = 0; i < selectCheckboxes.length; i++) {
-            selectCheckboxes[i].addEventListener('click', function (event) {
-                event.stopPropagation();
-                const record = this.closest('tr');
-                if (this.checked) {
-                    selectedRecords.add(record);
-                } else {
-                    selectedRecords.delete(record);
-                }
-            });
+        if (name === "") {
+            nameError.textContent = "Name is required";
+            event.preventDefault();
+        } else if (!validNamePattern.test(name)) {
+            nameError.textContent = "Please enter a valid name";
+            event.preventDefault();
+        } else if(name.length>=750){
+            nameError.textContent = "Input must smaller than 750 character";
+            event.preventDefault();
         }
-
-        const selectCells = document.getElementsByClassName('select-cell');
-        for (let i = 0; i < selectCells.length; i++) {
-            selectCells[i].addEventListener('click', function () {
-                const checkbox = this.querySelector('input[type="checkbox"]');
-                checkbox.checked = !checkbox.checked;
-                const record = this.closest('tr');
-                if (checkbox.checked) {
-                    selectedRecords.add(record);
-                } else {
-                    selectedRecords.delete(record);
-                }
-            });
+        else {
+            nameError.textContent = "";
         }
     });
 </script>

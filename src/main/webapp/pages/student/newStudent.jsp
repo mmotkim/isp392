@@ -183,7 +183,20 @@
     });
     const nameInput = document.getElementById("name");
     const nameError = document.getElementById("name-error");
+    form.addEventListener("submit", function(event) {
+        const name = nameInput.value.trim(); // Loại bỏ khoảng trắng thừa từ đầu và cuối tên
+        const validNamePattern = /^[^\s]+$/; // Pattern để không cho phép tên chỉ toàn dấu cách
 
+        if (name === "") {
+            nameError.textContent = "Name is required";
+            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên trống
+        } else if (validNamePattern.test(name)) {
+            nameError.textContent = "Please enter a valid name";
+            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên chỉ toàn dấu cách
+        } else {
+            nameError.textContent = ""; // Xóa thông báo lỗi nếu tên hợp lệ
+        }
+    });
     form.addEventListener("submit", function(event) {
         const name = nameInput.value;
         const validNamePattern = /^[a-zA-Z ]+$/; // Pattern to match only alphabets and spaces
@@ -195,7 +208,20 @@
     });
     const parentNameInput = document.getElementById("parentName");
     const parentNameError = document.getElementById("parentName-error");
+    form.addEventListener("submit", function(event) {
+        const name = parentNameInput.value.trim();
+        const validNamePattern = /^[^\s]+$/;
 
+        if (name === "") {
+            parentNameError.textContent = "Name is required";
+            event.preventDefault();
+        } else if (validNamePattern.test(name)) {
+            parentNameError.textContent = "Please enter a valid name";
+            event.preventDefault();
+        } else {
+            parentNameError.textContent = "";
+        }
+    });
     form.addEventListener("submit", function(event) {
         const name = parentNameInput.value;
         const validNamePattern = /^[a-zA-Z ]+$/; // Pattern to match only alphabets and spaces

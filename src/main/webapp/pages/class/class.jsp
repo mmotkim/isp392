@@ -155,7 +155,7 @@
                                         ><i class="bx bx-dots-vertical-rounded"></i
                                         ></a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">Action</a
+                                            <a class="dropdown-item" href="./StudentInClass?classId=${t.getClassId()}">Student in class</a
                                             ><a class="dropdown-item" href="#"
                                         >Another action</a
                                         ><a class="dropdown-item" href="#"

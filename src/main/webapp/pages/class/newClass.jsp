@@ -57,6 +57,7 @@
                     aria-describedby="basic-addon2" required>
 
               <option value="">Choose an class level</option>
+              <option value="0">0</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -84,5 +85,26 @@
 <jsp:include page="../../components/footer.jsp"/>
 
 </body>
+<script>
+  const form = document.querySelector("form");
+
+  const nameInput = document.getElementById("name");
+  const nameError = document.getElementById("name-error");
+  form.addEventListener("submit", function(event) {
+    const name = nameInput.value.trim(); // Loại bỏ khoảng trắng thừa từ đầu và cuối tên
+    const validNamePattern = /^[^\s]+$/; // Pattern để không cho phép tên chỉ toàn dấu cách
+
+    if (name === "") {
+      nameError.textContent = "Name is required";
+      event.preventDefault(); // Ngăn chặn việc nộp form nếu tên trống
+    } else if (!validNamePattern.test(name)) {
+      nameError.textContent = "Please enter a valid name";
+      event.preventDefault(); // Ngăn chặn việc nộp form nếu tên chỉ toàn dấu cách
+    } else {
+      nameError.textContent = ""; // Xóa thông báo lỗi nếu tên hợp lệ
+    }
+  });
+</script>
+
 
 </html>

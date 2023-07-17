@@ -73,10 +73,9 @@ public class EditStudent extends HttpServlet {
             Boolean active;
             String activeValue = request.getParameter("active");
             if (activeValue.equals("Yes")) active=true; else active = false;
-            String classId = request.getParameter("classId");
 
             StudentDAO studentDao = new StudentDAO();
-            studentDao.updateStudent(id,name,gender,DoB,active,Integer.parseInt(classId));
+            studentDao.updateStudent(id,name,gender,DoB,active);
 
 
             response.sendRedirect("./student?state=true");

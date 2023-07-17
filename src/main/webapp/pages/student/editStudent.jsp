@@ -77,8 +77,6 @@
                         <input type="radio" id="false1" name="active" value="No"  ${a.getActive() == false ? "checked" : "" }>
                         <label for="false1">Inactive</label><br>
                     </div>
-                        <input id="classId" name="classId" type="text" class="form-control" hidden value="${a.getClassId()}">
-
 
                 </div>
             </div>
@@ -91,7 +89,7 @@
                 Parent: ${userDAO.getFullNameByUserId(a.getParentId())}
             </h6>
             <h6>
-                Class: ${userDAO.getClassNameByClassId(a.getClassId())}
+                Class: ${a.getClassId() == null ? 'Pending' : userDAO.getClassNameByClassId(a.getClassId())}
             </h6>
         </div>
         <!-- Confirm Button -->
@@ -132,7 +130,22 @@
 
     const nameInput = document.getElementById("name");
     const nameError = document.getElementById("name-error");
+   form.addEventListener("submit", function(event) {
+       const name = nameInput.value.trim(); // Loại bỏ khoảng trắng thừa từ đầu và cuối tên
+       const validNamePattern = /^[^\s]+$/; // Pattern để không cho phép tên chỉ toàn dấu cách
 
+       if (name === "") {
+           nameError.textContent = "Name is required";
+           event.preventDefault(); // Ngăn chặn việc nộp form nếu tên trống
+       }
+       // else if (validNamePattern.test(name)) {
+       //     nameError.textContent = "Please enter a valid name";
+       //     event.preventDefault(); // Ngăn chặn việc nộp form nếu tên chỉ toàn dấu cách
+       // }
+       else {
+           nameError.textContent = ""; // Xóa thông báo lỗi nếu tên hợp lệ
+       }
+   });
     form.addEventListener("submit", function(event) {
         const name = nameInput.value;
         const validNamePattern = /^[a-zA-Z ]+$/; // Pattern to match only alphabets and spaces

@@ -51,6 +51,8 @@
                         <input name="name" id="name" type="text" class="form-control" value="${aClass.getClassName()}"
                                aria-label="Your Class Name"
                                aria-describedby="basic-addon2" required>
+                        <span id="name-error" class="error-message"></span>
+
                     </div>
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="level">Choose Class Level:</label>
@@ -125,7 +127,26 @@
     </form>
 </div>
 <jsp:include page="../../components/footer.jsp"/>
+<script>
+    const form = document.querySelector("form");
 
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("name-error");
+    form.addEventListener("submit", function(event) {
+        const name = nameInput.value.trim(); // Loại bỏ khoảng trắng thừa từ đầu và cuối tên
+        const validNamePattern = /^[^\s]+$/; // Pattern để không cho phép tên chỉ toàn dấu cách
+
+        if (name === "") {
+            nameError.textContent = "Name is required";
+            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên trống
+        } else if (!validNamePattern.test(name)) {
+            nameError.textContent = "Please enter a valid name";
+            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên chỉ toàn dấu cách
+        } else {
+            nameError.textContent = ""; // Xóa thông báo lỗi nếu tên hợp lệ
+        }
+    });
+</script>
 </body>
 
 </html>

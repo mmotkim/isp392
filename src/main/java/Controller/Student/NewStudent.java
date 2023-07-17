@@ -110,7 +110,7 @@ public class NewStudent extends HttpServlet {
             List<Users> listUser = new ArrayList<>();
             listUser = parentDAO.listUsers();
             int parentId = listUser.get(listUser.size()-1).getUserId();
-            studentDAO.addStudent(name,gender,DoB,true,parentId,2);
+            studentDAO.addStudent(name,gender,DoB,true,parentId);
 
             response.sendRedirect("student?state=true");
         } catch (Exception e) {
