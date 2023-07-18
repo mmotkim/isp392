@@ -77,8 +77,8 @@
                 <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
             </ul>
 
-            <div class="col-md-3 text-end">
-                <span class="me-2">Logged in as: Mmotkim</span>
+            <div class="col-md-4 text-end ">
+                <p class="me-2">Logged in as: Mmotkim</p>
 
                 <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-bell"></i>

@@ -32,6 +32,10 @@
                 a {
                     z-index: 2;
                 }
+
+                .popover-content-template {
+                    display: none;
+                }
             </style>
         </head>
 
@@ -83,10 +87,11 @@
                                                 <c:set var="activities" value="${entry.value}" />
                                                 <tr>
                                                     <td class="col-auto">
-                                                        <div class=" day-of-week">MONDAY</div>
+                                                        <div class="day-of-week">MONDAY</div>
                                                         <div class="date">10/09/2003</div>
                                                     </td>
                                                     <td class="col-lg-8 activities">
+                                                        <!-- each activity -->
                                                         <ul class="classactivities list-group activities-list py-1">
                                                             <div class="list-group-item list-group-item-action">
                                                                 <div class="d-flex flex-row justify-content-between align-items-center "
@@ -99,10 +104,6 @@
                                                                         <i class="bi bi-caret-down text-primary"
                                                                             style="font-size: 21px"></i>
                                                                     </div>
-
-
-
-
                                                                 </div>
 
 
@@ -111,29 +112,48 @@
                                                                     <div
                                                                         class="justify-content-between d-flex pb-1 align-items-center">
                                                                         Description
-                                                                        <div class="d-flex">
+                                                                        <div class="d-flex align-items-center">
                                                                             <a href="#" title="Edit Activity"
                                                                                 class="link-primary "><i
-                                                                                    class="bx bx-pencil px-2 "
+                                                                                    class="bx bx-pencil pe-3"
                                                                                     style="font-size: 18px"></i></a>
                                                                             <a href="#"
                                                                                 title="Remove Activity from Class"
                                                                                 class="link-primary "><i
-                                                                                    class="bi bi-x-lg "
+                                                                                    class="bi bi-x-lg pe-3"
                                                                                     style="font-size: 18px"></i></a>
-
+                                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                                                title="Set Slot" class="link-primary ">
+                                                                                <i class="bi bi-calendar2-week"
+                                                                                    style="font-size: 17px"></i></a>
                                                                         </div>
-
                                                                     </div>
-
                                                                 </div>
                                                             </div>
-
-
                                                         </ul>
-                                                        
+
                                                     </td>
                                                 </tr>
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="slotModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h5 class="modal-title" id="slotModalLabel">Enter Slot Number</h5>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                          <form id="slotForm">
+                                                            <input type="number" name="classId" id="classIdInput" value="" class="d-none">
+                                                            <input type="number" name="slot" id="slotInput" min="1" max="6" placeholder="Enter slot number (1->6)" class="form-control">
+                                                          </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                          <button type="button" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                             </c:forEach>
                                         </c:if>
                                         <c:if test="${empty activitiesMap}">
@@ -148,6 +168,8 @@
                     </div>
                 </div>
             </div>
+
+
 
             <script src="../assets/js/jquery-3.3.1.min.js"></script>
             <script src="../assets/js/popper.min.js"></script>
@@ -202,73 +224,22 @@
                 selectElement.value = selectedValue;
 
 
-                // Get all the class elements
-                const classElements = document.querySelectorAll('.class');
+                function showPopover(classId) {
+                    const slotForm = document.getElementById('slotForm');
+                    const classIdInput = document.getElementById('classIdInput');
+                    const slotInput = document.getElementById('slotInput');
 
-                // Add event listeners for drag and drop events
-                classElements.forEach(classElement => {
-                    classElement.addEventListener('dragstart', handleDragStart);
-                    classElement.addEventListener('dragover', handleDragOver);
-                    classElement.addEventListener('drop', handleDrop);
-                });
+                    classIdInput.value = classId;
+                    slotInput.value = '';
 
-                let draggedClass = null;
-
-                // Function to handle the drag start event
-                function handleDragStart(event) {
-                    draggedClass = event.target;
-                    event.dataTransfer.setData('text/plain', draggedClass.textContent);
-                }
-
-                // Function to handle the drag over event
-                function handleDragOver(event) {
-                    event.preventDefault();
-                }
-
-                // Function to handle the drop event
-                function handleDrop(event) {
-                    event.preventDefault();
-                    const targetClass = event.target;
-
-                    // Swap the class text content between the dragged class and the target class
-                    const temp = draggedClass.textContent;
-                    draggedClass.textContent = targetClass.textContent;
-                    targetClass.textContent = temp;
-
-                    // Show the confirmation modal after the first drag and drop action
-                    showConfirmationModal();
-                }
-
-                // Function to show the confirmation modal
-                function showConfirmationModal() {
-                    $('#confirmationModal').modal('show');
-                }
-
-                // Add event listener for the Apply button click event
-                const applyChangesBtn = document.getElementById('applyChangesBtn');
-                applyChangesBtn.addEventListener('click', handleApplyChanges);
-
-                // Function to handle the Apply button click event
-                function handleApplyChanges() {
-                    const updatedClassList = [];
-                    classElements.forEach(classElement => {
-                        updatedClassList.push(classElement.textContent);
+                    const popover = new bootstrap.Popover(event.target, {
+                        container: 'body',
+                        content: slotForm,
+                        placement: 'top',
+                        html: true,
                     });
 
-                    // Create a hidden form to send the new class order list to the servlet
-                    const form = document.createElement('form');
-                    form.setAttribute('method', 'POST');
-                    form.setAttribute('action', '/your-servlet-url');
-
-                    const classOrderInput = document.createElement('input');
-                    classOrderInput.setAttribute('type', 'hidden');
-                    classOrderInput.setAttribute('name', 'classOrder');
-                    classOrderInput.setAttribute('value', JSON.stringify(updatedClassList));
-
-                    form.appendChild(classOrderInput);
-                    document.body.appendChild(form);
-
-                    form.submit();
+                    popover.show();
                 }
 
             </script>

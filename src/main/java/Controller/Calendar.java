@@ -4,6 +4,7 @@ import Dao.ActivityDAO;
 import Dao.ClassActivityDAO;
 import Dao.ClassDAO;
 import Entity.Activity;
+import Entity.ClassActivity;
 import Entity.ClassEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +19,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,15 +53,19 @@ public class Calendar extends HttpServlet {
                 LocalDate startOfWeek = selectedDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
                 LocalDate endOfWeek = selectedDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
-                Map<LocalDate, List<Activity>> activitiesMap = caDAO.getActivitiesForWeek(classId, startOfWeek, endOfWeek);
+                Map<ClassActivity, List<Activity>> activitiesMap = caDAO.getActivitiesForWeek(classId, startOfWeek, endOfWeek);
 
+                ArrayList<LocalDate> weekdays = caDAO.getDatesOfWeek(startOfWeek);
                 request.setAttribute("activitiesMap", activitiesMap);
+                request.setAttribute("weekdays", weekdays);
                 request.setAttribute("startOfWeek", startOfWeek.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 request.setAttribute("endOfWeek", endOfWeek.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
 
                 request.setAttribute("classes", list);
                 request.getRequestDispatcher("pages/calendar.jsp").forward(request, response);
+
+
             }
             else {
                 request.setAttribute("classes", list);
@@ -87,15 +91,19 @@ public class Calendar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-//            HttpSession session = request.getSession();
-//            ActivityDAO activityDAO = new ActivityDAO();
-//            ClassActivityDAO caDAO = new ClassActivityDAO();
-//            ClassDAO classDAO = new ClassDAO();
-//
-//            String name = request.getParameter("name").trim();
-//            String description = request.getParameter("description").trim();
-//            String type = request.getParameter("type").trim();
-//
+            HttpSession session = request.getSession();
+            ActivityDAO activityDAO = new ActivityDAO();
+            ClassActivityDAO caDAO = new ClassActivityDAO();
+            ClassDAO classDAO = new ClassDAO();
+
+            int slotId = Integer.parseInt(request.getParameter("slotId"));
+            String slot = request.getParameter("slot");
+
+            String date = request.getParameter("dateInput");
+            if (!date.isEmpty()) caDAO.rescheduleDate(slotId, LocalDate.parse(date));
+            if (!slot.isEmpty()) caDAO.rescheduleSlot(slotId, Integer.parseInt(slot));
+
+
 //            activityDAO.addActivity(name, description, type);
 //            String selectedIds = request.getParameter("selectedIds");
 //            if (selectedIds != null && !selectedIds.isEmpty()) {
@@ -106,6 +114,8 @@ public class Calendar extends HttpServlet {
 //                    caDAO.addActivityToClass(idNum, activityDAO.getLast().getActivityId(), today);
 //                }
 //            }
+
+
 
 
             response.sendRedirect("calendar");
