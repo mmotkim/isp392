@@ -1,13 +1,16 @@
+package Controller.Teacher;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controller.Account;
 
-import Dao.AccountDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+
+
+import Dao.userDAO;
+import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,10 +23,10 @@ import java.util.List;
  *
  * @author Admin
  */
-@WebServlet(name="ListAccount", urlPatterns={"/ListAccount"})
-public class ListAccount extends HttpServlet {
-   
-    /** 
+@WebServlet(name="ViewStudent", urlPatterns={"/ViewStudent"})
+public class UserProfile extends HttpServlet {
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
@@ -31,18 +34,18 @@ public class ListAccount extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("userId"));
         HttpSession session = request.getSession();
-        AccountDAO dao = new AccountDAO();
-        List<Entity.Users> listA2 = dao.ListAccount();
-        request.setAttribute("listA2", listA2);
+        userDAO dao = new userDAO();
+        Users U1 = dao.getUserById1(id);
+        request.setAttribute("U1", U1);
         Object object = session.getAttribute("account");
-        request.getRequestDispatcher("pages/account/account.jsp").forward(request, response);
-    } 
+        request.getRequestDispatcher("pages/user/userp.jsp").forward(request, response);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -51,11 +54,11 @@ public class ListAccount extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -64,11 +67,11 @@ public class ListAccount extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
      * @return a String containing servlet description
      */
@@ -78,3 +81,4 @@ public class ListAccount extends HttpServlet {
     }// </editor-fold>
 
 }
+

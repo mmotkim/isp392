@@ -67,6 +67,7 @@
             font-size: 16px;
             margin-bottom: 30px;
         }
+
         body {
             height: 100%;
             margin: 0;
