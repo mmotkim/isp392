@@ -48,7 +48,9 @@ public class EditActivity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        boolean state = true;
         try {
+
             HttpSession session = request.getSession();
 
                 int activityId = Integer.parseInt(request.getParameter("activityId")) ;
@@ -67,13 +69,15 @@ public class EditActivity extends HttpServlet {
                 for (String id : ids) {
                     int idNum = Integer.parseInt(id);
                     Date today = Date.valueOf(LocalDate.now());
-                    caDAO.addActivityToClass(idNum, activityDAO.getLast().getActivityId(), today);
+                    if (!caDAO.addActivityToClass(idNum, activityDAO.getLast().getActivityId(), today)){
+                        state = false;
+                    };
                 }
             }
 
 
 
-            response.sendRedirect("./activity?state=true");
+            response.sendRedirect("./activity?state=" + state);
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

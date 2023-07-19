@@ -118,7 +118,7 @@ public class Calendar extends HttpServlet {
 
 
 
-            response.sendRedirect("calendar");
+            response.sendRedirect("calendar?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

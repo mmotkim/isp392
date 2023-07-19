@@ -54,7 +54,7 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
                 <!-- for all -->
-                <li><a href="../index.jsp" class="nav-link px-2 link-light ${pageContext.request.contextPath == '/home' ? 'link-secondary' : ''}">Home</a></li>
+                <li><a href="../index.jsp" class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/home') ? 'link-secondary' : ''}">Home</a></li>
 
                 <!-- for headmaster only
             <li><a href="#" class="nav-link px-2 link-light">Dashboard</a></li>
@@ -75,6 +75,7 @@
                     </ul>
                 </li>
                 <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
+                <li><a  class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/calendar') ? 'link-primary' : ''}" href="calendar">Calendar</a></li>
             </ul>
 
             <div class="col-md-4 text-end ">

@@ -31,16 +31,24 @@
 
 <jsp:include page="../components/header.jsp"/>
 <%-- Alert--%>
-<c:if test="${param.state eq 'true'}">
-    <div class="alert alert-success alert-dismissible inter fade show" role="alert">
-        Action completed without issues!
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</c:if>
-<div class="content">
+
+<div class="">
     <div class="container text-left">
+        <c:if test="${param.state eq 'true'}">
+            <div class="alert alert-success alert-dismissible inter fade show" role="alert">
+                Action completed without issues!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
         <div class="row">
+
             <div class="col-lg-3">
+                <div class="mb-4">
+                    <h5 class="card-title text-primary">
+                        <!-- Tong so luong Activity -->
+                        Select a class and its date.
+                    </h5>
+                </div>
                 <h2 class="mb-5 text-center"></h2>
                 <form action="calendar" method="GET">
                     <div class="form-group">
@@ -49,24 +57,23 @@
                                 aria-label="Choose Class" aria-describedby="basic-addon2" required>
                             <option value="">Select a class</option>
                             <c:forEach items="${classes}" var="c">
-                                <option value="${c.getClassId()}">${c.getClassId()} - ${c.getClassName()}
-                                </option>
+                                <option value="${c.getClassId()}">${c.getClassId()} - ${c.getClassName()}</option>
                             </c:forEach>
 
 
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group py-2">
                         <label for="input">Select Date</label>
                         <input name="selectedDate" value="${sd}" type="text" class="form-control" id="input"
                                placeholder="Select Date" onchange="selectDate(this.value)">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Apply</button>
+                    <button type="submit" class="btn btn-primary py-2">Apply</button>
                 </form>
             </div>
             <div class="col-lg-9">
-                <h2 class="mb-5 text-center">Schedule</h2>
+                <h2 class="mb-5 text-center card-title text-primary">Schedule</h2>
                 <div class="week-list-container">
                     <table class="table week-list" id="itemTable">
                         <thead>
@@ -99,7 +106,7 @@
                                                                 <a class=""
                                                                    style="display: block; color: inherit"
                                                                    data-bs-toggle="collapse"
-                                                                   href="#${ca.getSlotId()}${loop.index}"><span></span>${activity.getName()}
+                                                                   href="#${ca.getSlotId()}${loop.index}"><span></span>${ca.getSlot()}. ${activity.getName()}
                                                                 </a>
                                                                 <div class=" flex-end" style="">
                                                                     <!-- Collapse Icon -->
@@ -114,7 +121,8 @@
                                                                 <div class="justify-content-between d-flex pb-1 align-items-center">
                                                                         ${activity.getDescription()}
                                                                     <div class="d-flex align-items-center">
-                                                                        <a href="./EditActivity?activityId=${ca.getActivityId()}" title="Edit Activity"
+                                                                        <a href="./EditActivity?activityId=${ca.getActivityId()}"
+                                                                           title="Edit Activity"
                                                                            class="link-primary "><i
                                                                                 class="bx bx-pencil pe-3"
                                                                                 style="font-size: 18px"></i></a>
@@ -140,32 +148,39 @@
                                                         <div class="modal-dialog modal-dialog-scrollable">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="slotModalLabel">Reschedule activity for the class</h5>
+                                                                    <h5 class="modal-title" id="slotModalLabel">
+                                                                        Reschedule activity for the class</h5>
                                                                     <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form id="slotForm" action="Calendar" method="post">
+                                                                    <form id="slotForm" action="calendar" method="post">
                                                                         <input type="hidden" name="slotId"
                                                                                id="activityId"
                                                                                value="${ca.getSlotId()}">
-                                                                        <input type="date" name="dateInput" id="dateInput"
+                                                                        <input type="date" name="dateInput"
+                                                                               id="dateInput"
                                                                                placeholder="Enter new date"
                                                                                class="form-control">
                                                                         <input type="number" name="slot" id="slotInput"
                                                                                min="1" max="6"
                                                                                placeholder="Enter slot number (1->6)"
                                                                                class="form-control">
+
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    data-bs-dismiss="modal">Close
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="btn btn-primary">
+                                                                                Confirm
+                                                                            </button>
+                                                                        </div>
                                                                     </form>
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Close
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-primary">Submit
-                                                                    </button>
-                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -173,8 +188,6 @@
 
 
                                             </c:if>
-
-
 
 
                                         </c:forEach>
@@ -197,8 +210,8 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="${pageContext.request.contextPath}/assets/js/rome.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>

@@ -10,10 +10,7 @@ import jakarta.persistence.TypedQuery;
 import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ClassActivityDAO {
 
@@ -31,20 +28,27 @@ public class ClassActivityDAO {
             classActivity.setDate(date);
             classActivity.setSlot(1);
 
-            ClassActivity caCheck = entityManager.find(ClassActivity.class, classActivity);
-            for (int i = 1; i <= 7 ; i++) {
-                if (caCheck.getSlot() == classActivity.getSlot()){
-                    classActivity.setSlot(i + 1);
+
+            TypedQuery<ClassActivity> query = entityManager.createQuery("FROM ClassActivity WHERE classId = :classId AND date = :date", ClassActivity.class);
+            query.setParameter("classId", classActivity.getClassId());
+            query.setParameter("date", classActivity.getDate());
+
+            List<ClassActivity> slotList = query.getResultList();
+            for (int i = 0; i < slotList.size() ; i++) {
+                if (slotList.get(i).getSlot() == classActivity.getSlot()){
+                    classActivity.setSlot(classActivity.getSlot()+1);
                 }
-                if (i == 7){
+                else if (i == 5){
                     state = false;
                     entityManager.close();
                     trans.commit();
                     return state;
                 }
+                else break;
             }
-
             entityManager.persist(classActivity);
+
+
             trans.commit();
         } finally {
             entityManager.close();
@@ -116,16 +120,12 @@ public class ClassActivityDAO {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        Map<ClassActivity, List<Activity>> activitiesMap = new HashMap<>();
+        LinkedHashMap<ClassActivity, List<Activity>> activitiesMap = new LinkedHashMap<>();
 
         TypedQuery<ClassActivity> query = entityManager.createQuery(
-                "SELECT ca FROM ClassActivity ca WHERE ca.classId = :classId AND ca.date BETWEEN :start AND :end ORDER BY slot",
+                "SELECT ca FROM ClassActivity ca WHERE ca.classId = :classId AND ca.date BETWEEN :start AND :end ORDER BY slot asc",
                 ClassActivity.class
         );
-        System.out.println(start);
-        System.out.println(start.toString());
-        System.out.println(end.toString());
-        System.out.println(end);
         query.setParameter("classId", classId);
         query.setParameter("start", start);
         query.setParameter("end", end);
@@ -161,27 +161,6 @@ public class ClassActivityDAO {
         }
 
         return datesOfWeek;
-    }
-
-//    public ClassActivity getClassActivityByAttributes(int classId, int activityId, LocalDate date) {
-//        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
-//        EntityTransaction transaction = entityManager.getTransaction();
-//
-//        TypedQuery<ClassActivity> query = entityManager.createQuery("SELECT ca FROM ClassActivity ca WHERE ca.classId = :classId AND ca.activityId = :activityId AND ca.date = :date", ClassActivity.class);
-//
-//        query.setParameter("classId", classId);
-//        query.setParameter("activityId", activityId);
-//        query.setParameter("date", date);
-//
-//
-//
-//    }
-
-//
-
-    public static void main(String[] args) {
-        ClassActivityDAO ca = new ClassActivityDAO();
-        ca.rescheduleSlot(2, 2);
     }
 
 

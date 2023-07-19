@@ -33,7 +33,7 @@
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title">
-            User List <span class="text-muted fw-normal ms-2"> ${count} </span>
+            User List <span class="text-muted fw-normal ms-2">  </span>
           </h5>
         </div>
       </div>
