@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Le Vu
+  Date: 19/07/2023
+  Time: 07:42
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -7,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <title>Edit Meal</title>
+  <title>Edit Ate Status</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
         integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -23,7 +30,7 @@
 <jsp:include page="../../components/header.jsp"/>
 
 <div class="container pt-3">
-  <a href="meal" class="size-3">
+  <a href="ateStatus" class="size-3">
     <div class="arrow" style=""></div>
   </a>
 </div>
@@ -32,13 +39,13 @@
 
 <div class="container" style="margin-top: 40px">
 
-  <form action="EditMeal" method="post">
+  <form action="EditAteStatus" method="post">
 
     <div class="row align-items-center">
       <div class="col-md-6">
         <div class="mb-4">
           <h5 class="card-title text-primary">
-            Edit Meal Details. <span class="text-muted">(Meal ID: ${a.getMealId()})</span>
+            Edit Ate Status Details.
           </h5>
         </div>
       </div>
@@ -48,25 +55,32 @@
     <div class="col">
       <div class="col-lg-16">
         <div class="">
-          <input name="id" id="id" type="hidden" value="${a.getMealId()}">
+          <input name="stuId" id="stuId" type="hidden" value="${a.getStudentId()}">
+          <input name="mealId" id="mealId" type="hidden" value="${a.getMealId()}">
 
           <div class="form-row input-group mb-3 d-flex">
-
-            <label class="input-group-text" for="description">Enter Meal Description:</label>
-            <input name="description" id="description" type="text" class="form-control" placeholder="Description" aria-label="Your Meal Description"
-                   aria-describedby="basic-addon2" required value="${a.getMealDescription()}">
+            <label class="input-group-text" for="status">Select Student Status:</label>
+            <select name="status" id="status" class="form-select" aria-label="Student's Ate Status" required>
+              <option value="" ${a.getStatus() == null ? 'selected' : ''}>Select Status</option>0
+              <option value="finished" ${a.getStatus().equals("finished") ? 'selected' : ''}>Finished</option>
+              <option value="more-than-half" ${a.getStatus().equals("more-than-half") ? 'selected' : ''}>More than half</option>
+              <option value="half" ${a.getStatus().equals("half") ? 'selected' : ''}>Half</option>
+              <option value="less" ${a.getStatus().equals("less") ? 'selected' : ''}>Less</option>
+              <option value="did-not-eat" ${a.getStatus().equals("did-not-eat") ? 'selected' : ''}>Did not eat</option>
+              <!-- Add more options as needed -->
+            </select>
             <span id="name-error" class="error-message"></span>
+          </div>
 
+          <div class="form-row input-group mb-3">
+            <label class="input-group-text" for="reason">Enter Reason</label>
+            <input name="reason" id="reason" type="text" class="form-control" placeholder="Reason" aria-label="Reason"
+                   aria-describedby="basic-addon2" value="${a.getReason()}">
           </div>
           <div class="form-row input-group mb-3">
-            <label class="input-group-text" for="create_date">Enter Create Date</label>
-            <input name="create_date" id="create_date" type="date" class="form-control" placeholder="Create Date" aria-label="Your Create Date"
-                   aria-describedby="basic-addon2" value="${a.getCreatedDate()}">
-          </div>
-          <div class="form-row input-group mb-3">
-            <label class="input-group-text" for="date">Enter Create Date</label>
-            <input name="date" id="date" type="date" class="form-control" placeholder="Date" aria-label="Your Date"
-                   aria-describedby="basic-addon2" value="${a.getDate()}">
+            <label class="input-group-text" for="date">Date</label>
+            <input name="date" id="date" type="date" class="form-control" placeholder="Date" aria-label="Date"
+                   aria-describedby="basic-addon2" value="${meal.getDate()}">
           </div>
 
         </div>
@@ -78,7 +92,7 @@
       <div class="d-flex  align-items-center justify-content-end gap mb-3">
         <div>
           <button type="submit" data-bs-toggle="modal" data-bs-target=".add-new" class=" btn btn-primary px-4 py-2"><i
-                  class="bi bi-check-lg me-1 "></i> Confirm Edit Meal</button>
+                  class="bi bi-check-lg me-1 "></i> Confirm Edit Ate Status</button>
         </div>
       </div>
     </div>
@@ -89,27 +103,6 @@
 
 </div>
 <jsp:include page="../../components/footer.jsp"/>
-
-<script>
-  const form = document.querySelector("form");
-
-  const nameInput = document.getElementById("description");
-  const nameError = document.getElementById("name-error");
-  form.addEventListener("submit", function(event) {
-    const name = nameInput.value.trim();
-    const validNamePattern = /^[^\s]+$/;
-
-    if (name === "") {
-      nameError.textContent = "Name is required";
-      event.preventDefault();
-    } else if (validNamePattern.test(name)) {
-      nameError.textContent = "Please enter a valid name";
-      event.preventDefault();
-    } else {
-      nameError.textContent = "";
-    }
-  });
-</script>
 
 <style>
   .table-container{
