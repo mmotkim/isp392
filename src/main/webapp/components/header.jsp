@@ -54,7 +54,7 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
                 <!-- for all -->
-                <li><a href="../index.jsp" class="nav-link px-2 link-light ${pageContext.request.contextPath == '/home' ? 'link-secondary' : ''}">Home</a></li>
+                <li><a href="../index.jsp" class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/home') ? 'link-secondary' : ''}">Home</a></li>
 
                 <!-- for headmaster only
             <li><a href="#" class="nav-link px-2 link-light">Dashboard</a></li>
@@ -70,15 +70,16 @@
                     <ul class="dropdown-menu" aria-labelledby="managerDropdown">
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/notification') ? 'link-primary' : ''}" href="notification">Notifications</a></li>
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/activity') ? 'link-primary' : ''}" href="activity">Activity</a></li>
-                        <li><a class="dropdown-item" href="class">Classes</a></li>
-                        <li><a class="dropdown-item" href="meal">Meal</a></li>
+                        <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/class') ? 'link-primary' : ''}" href="class">Classes</a></li>
+                        <li><a class="dropdown-item " href="meal">Meal</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
+                <li><a  class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/calendar') ? 'link-primary' : ''}" href="calendar">Calendar</a></li>
             </ul>
 
-            <div class="col-md-3 text-end">
-                <span class="me-2">Logged in as: Mmotkim</span>
+            <div class="col-md-4 text-end ">
+                <p class="me-2">Logged in as: Mmotkim</p>
 
                 <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-bell"></i>

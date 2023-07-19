@@ -117,28 +117,19 @@
           </tr>
           </thead>
           <tbody id="records-list">
-          <tr>
-            <td class="select-cell">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-              </div>
-            </td>
-            <td>Option 1</td>
-            <td>A1</td>
-            <td>32</td>
-            <td>Thoa, Chung</td>
-          </tr>
-          <tr>
-            <td class="select-cell">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-              </div>
-            </td>
-            <td>Option 2</td>
-            <td>A2</td>
-            <td>32</td>
-            <td>Thoa, Chung</td>
-          </tr>
+          <c:forEach var="t" items="${list2}">
+            <tr>
+              <td class="select-cell">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input">
+                </div>
+              </td>
+              <td>${t.getClassId()}</td>
+              <td>${t.getClassName()}</td>
+              <td>${t.getLevel()}</td>
+              <td>${t.getStudentQuantity()}</td>
+            </tr>
+          </c:forEach>
 
           </tbody>
         </table>
@@ -158,6 +149,7 @@
       </div>
     </div>
 
+    <input type="hidden" name="selectedIds" id="selectedIdsInput">
 
   </form>
 
@@ -166,46 +158,53 @@
 <jsp:include page="../../components/footer.jsp"/>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search-input');
     const recordsList = document.getElementById('records-list').getElementsByTagName('tr');
     const selectedRecords = new Set();
 
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', function () {
       const searchTerm = searchInput.value.trim().toLowerCase();
       for (let i = 0; i < recordsList.length; i++) {
-        const name = recordsList[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-        const teachers = recordsList[i].getElementsByTagName('td')[4].textContent.toLowerCase();
-        const shouldDisplay = name.includes(searchTerm) || teachers.includes(searchTerm);
-        recordsList[i].style.display = shouldDisplay ? 'table-row' : 'none';
+        const name = recordsList[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+        recordsList[i].style.display = name.includes(searchTerm) ? 'table-row' : 'none';
       }
     });
 
     const selectCheckboxes = document.querySelectorAll('.select-cell input[type="checkbox"]');
     for (let i = 0; i < selectCheckboxes.length; i++) {
-      selectCheckboxes[i].addEventListener('click', function(event) {
+      selectCheckboxes[i].addEventListener('click', function (event) {
         event.stopPropagation();
         const record = this.closest('tr');
-        if (this.checked) {
-          selectedRecords.add(record);
-        } else {
-          selectedRecords.delete(record);
-        }
+        const id = record.getElementsByTagName('td')[1].textContent;
+        handleRecordSelection(id, this.checked);
       });
     }
 
     const selectCells = document.getElementsByClassName('select-cell');
     for (let i = 0; i < selectCells.length; i++) {
-      selectCells[i].addEventListener('click', function() {
+      selectCells[i].addEventListener('click', function () {
         const checkbox = this.querySelector('input[type="checkbox"]');
         checkbox.checked = !checkbox.checked;
         const record = this.closest('tr');
-        if (checkbox.checked) {
-          selectedRecords.add(record);
-        } else {
-          selectedRecords.delete(record);
-        }
+        const id = record.getElementsByTagName('td')[1].textContent;
+        handleRecordSelection(id, checkbox.checked);
+
       });
+    }
+
+    function handleRecordSelection(id, isChecked) {
+      if (isChecked) {
+        selectedRecords.add(id);
+        saveRecords(selectedRecords);
+      } else {
+        selectedRecords.delete(id);
+        saveRecords(selectedRecords);
+      }
+    }
+
+    function saveRecords(selectedRecords) {
+      document.getElementById('selectedIdsInput').value = Array.from(selectedRecords).join(',');
     }
   });
 

@@ -3,9 +3,7 @@ package Controller.Activity;
 import Dao.ActivityDAO;
 import Dao.ClassActivityDAO;
 import Dao.ClassDAO;
-import Dao.NotificationDAO;
 import Entity.ClassEntity;
-import Entity.Activity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -54,6 +52,7 @@ public class NewActivity extends HttpServlet {
             ActivityDAO activityDAO = new ActivityDAO();
             ClassActivityDAO caDAO = new ClassActivityDAO();
             ClassDAO classDAO = new ClassDAO();
+            String state = "true";
 
             String name = request.getParameter("name").trim();
             String description = request.getParameter("description").trim();
@@ -66,12 +65,14 @@ public class NewActivity extends HttpServlet {
                 for (String id : ids) {
                     int idNum = Integer.parseInt(id);
                     Date today = Date.valueOf(LocalDate.now());
-                    caDAO.addActivityToClass(idNum, activityDAO.getLast().getActivityId(), today);
+                    if (!caDAO.addActivityToClass(idNum, activityDAO.getLast().getActivityId(), today)){
+                        state = "false";
+                    };
                 }
             }
 
 
-            response.sendRedirect("activity?state=true");
+            response.sendRedirect("activity?state=" + state);
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 
