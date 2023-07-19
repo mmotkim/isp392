@@ -19,6 +19,7 @@ public class ViewParent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession();
         userDAO userDAO = new userDAO();
         List<Users> list = userDAO.listParents();
