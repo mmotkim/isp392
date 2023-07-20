@@ -112,7 +112,7 @@
         </div>
 
         <input value="${n.getNotificationId()}" name="notificationId" type="hidden" />
-        <input type="hidden" id="activityId" name="activityId" />
+        <input value="${n.getActivityId()}" type="hidden" id="activityId" name="activityId" />
 
         <!-- Confirm Button -->
         <div class="col-md pt-3">

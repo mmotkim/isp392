@@ -54,7 +54,7 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
                 <!-- for all -->
-                <li><a href="../index.jsp" class="nav-link px-2 link-light ${pageContext.request.contextPath == '/home' ? 'link-secondary' : ''}">Home</a></li>
+                <li><a href="../index.jsp" class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/home') ? 'link-secondary' : ''}">Home</a></li>
 
                 <!-- for headmaster only
             <li><a href="#" class="nav-link px-2 link-light">Dashboard</a></li>
@@ -70,17 +70,16 @@
                     <ul class="dropdown-menu" aria-labelledby="managerDropdown">
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/notification') ? 'link-primary' : ''}" href="notification">Notifications</a></li>
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/activity') ? 'link-primary' : ''}" href="activity">Activity</a></li>
-                        <li><a class="dropdown-item" href="class">Classes</a></li>
-                        <li><a class="dropdown-item" href="student">Students</a></li>
-                        <li><a class="dropdown-item" href="parent">Parent</a></li>
-                        <li><a class="dropdown-item" href="meal">Meal</a></li>
+                        <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/class') ? 'link-primary' : ''}" href="class">Classes</a></li>
+                        <li><a class="dropdown-item " href="meal">Meal</a></li>
                     </ul>
                 </li>
                 <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
+                <li><a  class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/calendar') ? 'link-primary' : ''}" href="calendar">Calendar</a></li>
             </ul>
 
-            <div class="col-md-3 text-end">
-                <span class="me-2">Logged in as: Halison</span>
+            <div class="col-md-4 text-end ">
+                <p class="me-2">Logged in as: Mmotkim</p>
 
                 <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-bell"></i>
@@ -92,24 +91,24 @@
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
                     <c:forEach var="t" items="${notifs}">
-                        <ul class="list-group">
-                            <a href="./EditNotification?notificationId=${t.key.getNotificationId()}" class="list-group-item list-group-item-action"
-                            ><div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1 me-2">${t.key.getTitle()}</h5>
-                                <small>${t.key.getProcessingDate()}</small>
-                            </div>
-                                <p class="mb-1 overflow-ellipsis" style="max-width: 300px">${t.key.getDescription()}</p>
-                                <small>
-                                    <c:if test="${t.value.equals(null)}">
-                                        No activity attached
-                                    </c:if>
-                                    <c:if test="${t.value != null}">
-                                        ${t.value}
-                                    </c:if>
-                                    <span class="alert-warning"></span>
-                                </small>
-                            </a>
-                        </ul>
+                    <ul class="list-group">
+                        <a href="./EditNotification?notificationId=${t.key.getNotificationId()}" class="list-group-item list-group-item-action"
+                        ><div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 me-2">${t.key.getTitle()}</h5>
+                            <small>${t.key.getProcessingDate()}</small>
+                        </div>
+                            <p class="mb-1 overflow-ellipsis" style="max-width: 300px">${t.key.getDescription()}</p>
+                            <small>
+                                <c:if test="${t.value.equals(null)}">
+                                    No activity attached
+                                </c:if>
+                                <c:if test="${t.value != null}">
+                                    ${t.value}
+                                </c:if>
+                                <span class="alert-warning"></span>
+                            </small>
+                        </a>
+                    </ul>
                     </c:forEach>
                 </div>
             </div>

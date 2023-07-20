@@ -38,7 +38,7 @@ public class LogoutControl extends HttpServlet {
         HttpSession session = request.getSession(false);
 //        session.removeAttribute("acc");
         session.invalidate();
-        response.sendRedirect("Home");
+        response.sendRedirect("pages/account/login.jsp");
 
     }
 
