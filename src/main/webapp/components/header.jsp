@@ -73,6 +73,7 @@
                         <li><a class="dropdown-item" href="class">Classes</a></li>
                         <li><a class="dropdown-item" href="student">Students</a></li>
                         <li><a class="dropdown-item" href="parent">Parent</a></li>
+                        <li><a class="dropdown-item" href="teacher">Teacher</a></li>
                         <li><a class="dropdown-item" href="meal">Meal</a></li>
                     </ul>
                 </li>
