@@ -15,7 +15,7 @@ public class Home extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        response.sendRedirect("pages/index.jsp");
+        response.sendRedirect("index.jsp");
     }
 
     @Override
