@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "RemoveActivityFromClass", value = "/RemoveActivity")
+@WebServlet(name = "RemoveActivityFromClass", value = "/RemoveActivityFromClass")
 public class RemoveActivityFromClass {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

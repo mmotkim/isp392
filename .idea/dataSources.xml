@@ -67,7 +67,7 @@ C:/net/isp392_2023_summer_is1701_group4-main/src/main/resources/META-INF/persist
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://localhost:1433;database=ISP392_IS1701;encrypt=false</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://localhost:100;database=ISP392_IS1701;encrypt=false</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

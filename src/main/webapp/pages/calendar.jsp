@@ -106,7 +106,7 @@
                                                                 <a class=""
                                                                    style="display: block; color: inherit"
                                                                    data-bs-toggle="collapse"
-                                                                   href="#${ca.getSlotId()}${loop.index}"><span></span>${ca.getSlot()}. ${activity.getName()}
+                                                                   href="#${ca.getSlotId()}${loop.index}"><span></span>${activity.getName()}
                                                                 </a>
                                                                 <div class=" flex-end" style="">
                                                                     <!-- Collapse Icon -->
