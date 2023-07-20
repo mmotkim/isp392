@@ -158,8 +158,8 @@
                                             <a class="dropdown-item" href="./StudentInClass?classId=${t.getClassId()}">Student in class</a
                                             ><a class="dropdown-item" href="./ateStatus?classId=${t.getClassId()}"
                                         >Ate Status In Class</a
-                                        ><a class="dropdown-item" href="#"
-                                        >Something else here</a
+                                        ><a class="dropdown-item" href="./attendance?classId=${t.getClassId()}"
+                                        >Attendance In Class</a
                                         >
                                         </div>
                                     </li>

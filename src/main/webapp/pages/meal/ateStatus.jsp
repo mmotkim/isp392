@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Meal</title>
+    <title>Ate Status</title>
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -22,6 +22,14 @@
 </head>
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
+
+<%--Back--%>
+<div class="container pt-3">
+    <a href="class" class="size-3">
+        <div class="arrow" style=""></div>
+    </a>
+</div>
+
 <div class="container">
     <div class="row align-items-center">
         <c:if test="${param.state eq 'true'}">

@@ -3,7 +3,9 @@ package Dao;
 import Utils.HibernateUtils;
 import jakarta.persistence.*;
 import Entity.ClassEntity;
+import Entity.Attendance;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +126,103 @@ public class ClassDAO {
 
             transaction.commit();
             return getClass;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+        public List<Attendance> getAllAttendanceByClassId(int classId) {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            List<Attendance> attendance = entityManager.createQuery(
+                            "SELECT attendance FROM Attendance attendance JOIN Student student On attendance.studentId=student.studentId " +
+                                    "WHERE student.classId = :classId ",
+                            Attendance.class)
+                    .setParameter("classId", classId)
+                    .getResultList();
+
+            transaction.commit();
+            return attendance;
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+        }
+    }
+
+    public void setPresent (int studentId, Date date){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.studentId = :stuId AND a.date = :date", Attendance.class)
+                    .setParameter("stuId", studentId)
+                    .setParameter("date", date)
+                    .getSingleResult();
+            attendance.setStatus(true);
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public void setAbsent (int studentId, Date date){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.studentId = :stuId AND a.date = :date", Attendance.class)
+                    .setParameter("stuId", studentId)
+                    .setParameter("date", date)
+                    .getSingleResult();
+            attendance.setStatus(false);
+
+            transaction.commit();
+
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public void setAttendance (int studentId, Date date, Boolean atten){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.studentId = :stuId AND a.date = :date", Attendance.class)
+                    .setParameter("stuId", studentId)
+                    .setParameter("date", date)
+                    .getSingleResult();
+            attendance.setStatus(atten);
+
+            transaction.commit();
+
 
         } finally {
             if (transaction.isActive()) {
