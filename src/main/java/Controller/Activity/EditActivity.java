@@ -69,7 +69,7 @@ public class EditActivity extends HttpServlet {
                 for (String id : ids) {
                     int idNum = Integer.parseInt(id);
                     Date today = Date.valueOf(LocalDate.now());
-                    if (!caDAO.addActivityToClass(idNum, activityDAO.getLast().getActivityId(), today)){
+                    if (!caDAO.addActivityToClass(idNum, activityId, today)){
                         state = false;
                     };
                 }

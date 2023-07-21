@@ -70,6 +70,34 @@
     </div>
     <div class="row">
         <div class="col-lg-16">
+            <!-- Search -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+      <span class="input-group-text">
+        <i class="bi bi-search"></i>
+      </span>
+                        <input id="searchInput" type="text" class="form-control" placeholder="Search by Name or Parent Name">
+                    </div>
+                </div>
+            </div>
+            <!-- Sort -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="sortSelect" class="form-label">Sort by:</label>
+                    <select id="sortSelect" class="form-select">
+                        <option value="nameAsc">Name (Ascending)</option>
+                        <option value="nameDesc">Name (Descending)</option>
+                        <option value="parentAsc">Parent Name (Ascending)</option>
+                        <option value="parentDesc">Parent Name (Descending)</option>
+                        <option value="dobAsc">DoB (Ascending)</option>
+                        <option value="dobDesc">DoB (Descending)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table -->
+
             <div class="table-responsive">
                 <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                     <thead>
@@ -200,7 +228,84 @@
 
 <jsp:include page="../../components/footer.jsp"/>
 
+<script>
+    // Get all table rows
+    const tableRows = document.querySelectorAll('.table tbody tr');
 
+    // Get the search input element
+    const searchInput = document.getElementById('searchInput');
+
+    // Handle input event on search input
+    searchInput.addEventListener('input', () => {
+        const searchText = searchInput.value.toLowerCase();
+
+        // Filter table rows based on search text
+        tableRows.forEach(row => {
+            const nameColumn = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            const parentColumn = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+
+            if (nameColumn.includes(searchText) || parentColumn.includes(searchText)) {
+                row.style.display = 'table-row';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+<script>
+    // Get the sort select element
+    const sortSelect = document.getElementById('sortSelect');
+
+    // Handle change event on sort select
+    sortSelect.addEventListener('change', () => {
+        const sortValue = sortSelect.value;
+
+        // Sort table rows based on selected option
+        tableRows.forEach(row => {
+            const nameColumn = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+            const parentColumn = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+            const dobColumn = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+
+            row.style.display = 'table-row';
+            if (sortValue === 'nameAsc') {
+                row.setAttribute('data-sort-value', nameColumn);
+            } else if (sortValue === 'nameDesc') {
+                row.setAttribute('data-sort-value', nameColumn);
+            } else if (sortValue === 'parentAsc') {
+                row.setAttribute('data-sort-value', parentColumn);
+            } else if (sortValue === 'parentDesc') {
+                row.setAttribute('data-sort-value', parentColumn);
+            } else if (sortValue === 'dobAsc') {
+                row.setAttribute('data-sort-value', dobColumn);
+            } else if (sortValue === 'dobDesc') {
+                row.setAttribute('data-sort-value', dobColumn);
+            }
+        });
+
+        // Sort the table rows
+        const sortedRows = Array.from(tableRows);
+        if (sortValue === 'nameAsc' || sortValue === 'parentAsc' || sortValue === 'dobAsc') {
+            sortedRows.sort((a, b) => {
+                const valueA = a.getAttribute('data-sort-value');
+                const valueB = b.getAttribute('data-sort-value');
+                return valueA.localeCompare(valueB);
+            });
+        } else if (sortValue === 'nameDesc' || sortValue === 'parentDesc' || sortValue === 'dobDesc') {
+            sortedRows.sort((a, b) => {
+                const valueA = a.getAttribute('data-sort-value');
+                const valueB = b.getAttribute('data-sort-value');
+                return valueB.localeCompare(valueA);
+            });
+        }
+
+        // Reorder the table rows
+        const tbody = document.querySelector('.table tbody');
+        tbody.innerHTML = '';
+        sortedRows.forEach(row => {
+            tbody.appendChild(row);
+        });
+    });
+</script>
 <script src="../../assets/js/bootstrap.bundle.js"></script>
 </body>
 

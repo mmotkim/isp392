@@ -108,7 +108,7 @@ public class NewStudent extends HttpServlet {
             parentDAO.addUser(parentName,genderParent,dobParent,phone,email,address,4);
 
             List<Users> listUser = new ArrayList<>();
-            listUser = parentDAO.listUsers();
+            listUser = parentDAO.listParents();
             int parentId = listUser.get(listUser.size()-1).getUserId();
             studentDAO.addStudent(name,gender,DoB,true,parentId);
 

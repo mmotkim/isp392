@@ -95,6 +95,34 @@ public class StudentDAO {
 
         return studentList;
     }
+    public List<Student> getListActiveStudents() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        List<Student> studentList = new ArrayList<Student>();
+
+        try {
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+
+            Query query = entityManager.createQuery("FROM Student WHERE isActive = " + true, Student.class);
+            studentList = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+
+        return studentList;
+    }
 
 //public List<Student> getStudentListByClass(Integer classId) {
 //    EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();

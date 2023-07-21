@@ -136,7 +136,7 @@
                                     <li class="list-inline-item">
                                         <!-- Delete -->
                                         <a
-<%--                                                href="#confirmModal"--%>
+                                            <%--                                                href="#confirmModal"--%>
                                                 href="#"
                                                 onclick="d${t.getClassId()}.showModal();"
                                                 title="Delete"
@@ -156,10 +156,10 @@
                                         ></a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" href="./StudentInClass?classId=${t.getClassId()}">Student in class</a
-                                            ><a class="dropdown-item" href="#"
-                                        >Another action</a
-                                        ><a class="dropdown-item" href="#"
-                                        >Something else here</a
+                                            ><a class="dropdown-item" href="./ateStatus?classId=${t.getClassId()}"
+                                        >Ate Status In Class</a
+                                        ><a class="dropdown-item" href="./attendance?classId=${t.getClassId()}"
+                                        >Attendance In Class</a
                                         >
                                         </div>
                                     </li>

@@ -14,6 +14,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
         integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
+
 </head>
 
 <body>
@@ -39,10 +40,28 @@
         Students in class ${aClass.getClassName()}
       </h5>
       <h6>
-      [Student Quantity: ${aClass.getStudentQuantity()}]
+        [Student Quantity: ${aClass.getStudentQuantity()}]
       </h6>
       <h6 class="card-title text-muted pt-5" style="font-style: oblique">
         [Student List]
+        <!-- Search -->
+        <div class="d-flex align-items-center my-2" style="height: 3rem">
+  <span class="search-icon pe-1" style="cursor: pointer">
+    <i class="bi bi-search"></i>
+  </span>
+          <input id="deleteSearchInput" type="text" class="form-control ml-2" placeholder="Search by Name">
+        </div>
+
+        <div>
+          <label for="deleteSortTable">Sort by:</label>
+          <select id="deleteSortTable">
+            <option value="deleteName" data-sort-direction="asc">Name (Ascending)</option>
+            <option value="deleteName" data-sort-direction="desc">Name (Descending)</option>
+            <option value="deleteDob" data-sort-direction="asc">DoB (Ascending)</option>
+            <option value="deleteDob" data-sort-direction="desc">DoB (Descending)</option>
+          </select>
+        </div>
+        <!-- Table -->
         <div class="table-responsive">
           <table class="table table-light table-nowrap align-middle table-borderless table-hover">
             <thead>
@@ -55,7 +74,7 @@
               <th scope="col">Gender</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="deleteStudentTableBody">
             <c:forEach var="student" items="${listS}">
               <tr>
                 <td>
@@ -105,6 +124,27 @@
       </h5>
       <h6 class="card-title text-muted pt-5" style="font-style: oblique">
         [Student List]
+
+        <%--        Search--%>
+        <div class="d-flex align-items-center my-2" style="height: 3rem">
+          <span class="search-icon pe-1" style="cursor: pointer">
+            <i class="bi bi-search"></i>
+          </span>
+          <input id="searchInput" type="text" class="form-control ml-2"
+                 placeholder="Search by Name">
+        </div>
+
+        <div>
+          <label for="sortTable">Sort by:</label>
+          <select id="sortTable">
+            <option value="name" data-sort-direction="asc">Name (Ascending)</option>
+            <option value="name" data-sort-direction="desc">Name (Descending)</option>
+            <option value="dob" data-sort-direction="asc">DoB (Ascending)</option>
+            <option value="dob" data-sort-direction="desc">DoB (Descending)</option>
+          </select>
+        </div>
+
+        <!--Table-->
         <div class="table-responsive">
           <table class="table table-light table-nowrap align-middle table-borderless table-hover">
             <thead>
@@ -117,7 +157,7 @@
               <th scope="col">Gender</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="studentTableBody">
             <c:forEach var="student" items="${listPending}">
               <tr>
                 <td>
@@ -151,81 +191,175 @@
       </div>
     </div>
   </form>
-
 </div>
+<script>
+  // Lấy danh sách tất cả các sinh viên từ server-side
+  let allStudents = [
+    <c:forEach var="student" items="${listPending}">
+    {
+      id: ${student.getStudentId()},
+      name: "${student.getStudentName()}",
+      dob: "${student.getDob()}",
+      gender: "${student.getGender() ? 'Male' : 'Female'}"
+    },
+    </c:forEach>
+  ];
+
+  // Lấy phần tử input tìm kiếm
+  const searchInput = document.getElementById('searchInput');
+
+  // Xử lý sự kiện khi nhập liệu vào input tìm kiếm
+  searchInput.addEventListener('input', () => {
+    const searchText = searchInput.value.trim().toLowerCase();
+
+    // Lọc danh sách sinh viên dựa trên từ khóa tìm kiếm
+    const filteredStudents = allStudents.filter(student => student.name.toLowerCase().includes(searchText));
+
+    // Hiển thị chỉ các hàng chứa sinh viên đã lọc, ẩn các hàng còn lại
+    const tableRows = document.querySelectorAll('form[action="AddStudentsIntoClass"] tbody tr');
+    tableRows.forEach(row => {
+      const studentName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+      row.style.display = filteredStudents.some(student => student.name.toLowerCase() === studentName) ? 'table-row' : 'none';
+    });
+  });
+</script>
+
 <jsp:include page="../../components/footer.jsp"/>
 <script>
-  // Lấy tất cả các checkbox trong form DeleteStudentFromClass
+  const sortTableSelect = document.getElementById('sortTable');
+  const tableBody = document.getElementById('studentTableBody');
+  const tableRows = Array.from(tableBody.getElementsByTagName('tr'));
+
+  sortTableSelect.addEventListener('change', () => {
+    const sortBy = sortTableSelect.value;
+    const sortDirection = sortTableSelect.options[sortTableSelect.selectedIndex].getAttribute('data-sort-direction');
+
+    if (sortBy === 'name') {
+      tableRows.sort((a, b) => {
+        const cellA = a.querySelector(`td:nth-child(2)`).textContent.trim();
+        const cellB = b.querySelector(`td:nth-child(2)`).textContent.trim();
+        return sortDirection === 'asc' ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      });
+    } else if (sortBy === 'dob') {
+      tableRows.sort((a, b) => {
+        const cellA = a.querySelector(`td:nth-child(3)`).textContent.trim();
+        const cellB = b.querySelector(`td:nth-child(3)`).textContent.trim();
+        return sortDirection === 'asc' ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      });
+    }
+
+    tableRows.forEach(row => tableBody.appendChild(row));
+  });
+</script>
+<script>
+  // Lấy danh sách tất cả các sinh viên từ server-side
+  let deleteAllStudents = [
+    <c:forEach var="student" items="${listS}">
+    {
+      id: ${student.getStudentId()},
+      name: "${student.getStudentName()}",
+      dob: "${student.getDob()}",
+      gender: "${student.getGender() ? 'Male' : 'Female'}"
+    },
+    </c:forEach>
+  ];
+
+  // Lấy phần tử input tìm kiếm
+  const deleteSearchInput = document.getElementById('deleteSearchInput');
+
+  // Xử lý sự kiện khi nhập liệu vào input tìm kiếm
+  deleteSearchInput.addEventListener('input', () => {
+    const searchText = deleteSearchInput.value.trim().toLowerCase();
+
+    // Lọc danh sách sinh viên dựa trên từ khóa tìm kiếm
+    const deleteFilteredStudents = deleteAllStudents.filter(student => student.name.toLowerCase().includes(searchText));
+
+    // Hiển thị chỉ các hàng chứa sinh viên đã lọc, ẩn các hàng còn lại
+    const deleteTableRows = document.querySelectorAll('form[action="DeleteStudentFromClass"] tbody tr');
+    deleteTableRows.forEach(row => {
+      const studentName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+      row.style.display = deleteFilteredStudents.some(student => student.name.toLowerCase() === studentName) ? 'table-row' : 'none';
+    });
+  });
+  const deleteSortTableSelect = document.getElementById('deleteSortTable');
+  const deleteTableBody = document.getElementById('deleteStudentTableBody');
+  const deleteTableRows = Array.from(deleteTableBody.getElementsByTagName('tr'));
+
+  deleteSortTableSelect.addEventListener('change', () => {
+    const deleteSortBy = deleteSortTableSelect.value;
+    const deleteSortDirection = deleteSortTableSelect.options[deleteSortTableSelect.selectedIndex].getAttribute('data-sort-direction');
+
+    if (deleteSortBy === 'deleteName') {
+      deleteTableRows.sort((a, b) => {
+        const cellA = a.querySelector(`td:nth-child(2)`).textContent.trim();
+        const cellB = b.querySelector(`td:nth-child(2)`).textContent.trim();
+        return deleteSortDirection === 'asc' ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      });
+    } else if (deleteSortBy === 'deleteDob') {
+      deleteTableRows.sort((a, b) => {
+        const cellA = a.querySelector(`td:nth-child(3)`).textContent.trim();
+        const cellB = b.querySelector(`td:nth-child(3)`).textContent.trim();
+        return deleteSortDirection === 'asc' ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      });
+    }
+
+    deleteTableRows.forEach(row => deleteTableBody.appendChild(row));
+  });
+</script>
+
+<script>
   const deleteCheckboxes = document.querySelectorAll('form[action="DeleteStudentFromClass"] input[name="selectedDeleteStudents"]');
-
-  // Lấy tất cả các checkbox trong form AddStudentsIntoClass
   const addCheckboxes = document.querySelectorAll('form[action="AddStudentsIntoClass"] input[name="selectedStudents"]');
-
-  // Lấy checkbox ở đầu trong form DeleteStudentFromClass
   const deleteSelectAllCheckbox = document.getElementById('select-all-delete-checkbox');
-
-  // Lấy checkbox ở đầu trong form AddStudentIntoClass
   const addSelectAllCheckbox = document.getElementById('select-all-checkbox');
 
-  // Thiết lập sự kiện thay đổi cho checkbox ở đầu trong form DeleteStudentFromClass
   deleteSelectAllCheckbox.addEventListener('change', () => {
     const isChecked = deleteSelectAllCheckbox.checked;
 
-    // Đặt trạng thái tích cho tất cả các checkbox trong form DeleteStudentFromClass
     deleteCheckboxes.forEach(checkbox => {
       checkbox.checked = isChecked;
     });
   });
 
-  // Thiết lập sự kiện thay đổi cho checkbox ở đầu trong form AddStudentIntoClass
   addSelectAllCheckbox.addEventListener('change', () => {
     const isChecked = addSelectAllCheckbox.checked;
 
-    // Đặt trạng thái tích cho tất cả các checkbox trong form AddStudentIntoClass
     addCheckboxes.forEach(checkbox => {
       checkbox.checked = isChecked;
     });
   });
 
-  // Lấy form DeleteStudentFromClass
   const deleteForm = document.querySelector('form[action="DeleteStudentFromClass"]');
 
-  // Xử lý sự kiện nút Delete được nhấn trong form DeleteStudentFromClass
   deleteForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // Lấy danh sách sinh viên được chọn trong form DeleteStudentFromClass
     const selectedDeleteStudentIds = Array.from(deleteCheckboxes)
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.value);
 
-    // Gán danh sách sinh viên được chọn vào input hidden trong form DeleteStudentFromClass
     const selectedDeleteStudentIdsInput = deleteForm.querySelector('input[name="selectedDeleteStudentIds"]');
     selectedDeleteStudentIdsInput.value = selectedDeleteStudentIds.join(',');
 
-    // Gửi form DeleteStudentFromClass
     deleteForm.submit();
   });
 
-  // Lấy form AddStudentIntoClass
   const addForm = document.querySelector('form[action="AddStudentsIntoClass"]');
 
-  // Xử lý sự kiện nút Add được nhấn trong form AddStudentsIntoClass
   addForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // Lấy danh sách sinh viên được chọn trong form AddStudentsIntoClass
     const selectedStudentIds = Array.from(addCheckboxes)
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.value);
 
-    // Gán danh sách sinh viên được chọn vào input hidden trong form AddStudentsIntoClass
     const selectedStudentIdsInput = addForm.querySelector('input[name="selectedNewStudentIds"]');
     selectedStudentIdsInput.value = selectedStudentIds.join(',');
 
-    // Gửi form AddStudentsIntoClass
     addForm.submit();
   });
+
+
 </script>
 
 </body>

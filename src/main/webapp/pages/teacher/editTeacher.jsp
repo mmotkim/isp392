@@ -54,7 +54,7 @@
             <label class="input-group-text" for="name">Enter Teacher Name:</label>
             <input id="name" name="name" type="text" class="form-control" placeholder="Teacher Name"
                    aria-label="Your Teacher Name"
-                   aria-describedby="basic-addon2" required value="${a.getFullName()}">
+                   aria-describedby="basic-addon2" required value="${a.getFullname()}">
             <span id="name-error" class="error-message"></span>
           </div>
 
