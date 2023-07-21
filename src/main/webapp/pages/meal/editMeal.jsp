@@ -97,13 +97,9 @@
   const nameError = document.getElementById("name-error");
   form.addEventListener("submit", function(event) {
     const name = nameInput.value.trim();
-    const validNamePattern = /^[^\s]+$/;
 
     if (name === "") {
       nameError.textContent = "Name is required";
-      event.preventDefault();
-    } else if (validNamePattern.test(name)) {
-      nameError.textContent = "Please enter a valid name";
       event.preventDefault();
     } else {
       nameError.textContent = "";

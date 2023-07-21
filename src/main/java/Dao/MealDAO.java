@@ -49,7 +49,7 @@ public class MealDAO {
 
     }
 
-    public void addMeal(String meal_description, Date created_date, Date date){
+    public void addMeal(String meal_description, String created_date, String date){
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = entityManager.getTransaction();
@@ -60,8 +60,11 @@ public class MealDAO {
             Meal meal = new Meal();
 
             meal.setMealDescription(meal_description);
-            meal.setCreatedDate(created_date);
-            meal.setDate(date);
+            if(created_date.isBlank() || created_date.isEmpty()) ;
+            else meal.setCreatedDate(Date.valueOf(created_date));
+
+            if(date.isBlank() || date.isEmpty()) ;
+            else meal.setDate(Date.valueOf(date));
 
             entityManager.persist(meal);
 

@@ -184,17 +184,12 @@
     const nameInput = document.getElementById("name");
     const nameError = document.getElementById("name-error");
     form.addEventListener("submit", function(event) {
-        const name = nameInput.value.trim(); // Loại bỏ khoảng trắng thừa từ đầu và cuối tên
-        const validNamePattern = /^[^\s]+$/; // Pattern để không cho phép tên chỉ toàn dấu cách
-
+        const name = nameInput.value.trim();
         if (name === "") {
             nameError.textContent = "Name is required";
-            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên trống
-        } else if (validNamePattern.test(name)) {
-            nameError.textContent = "Please enter a valid name";
-            event.preventDefault(); // Ngăn chặn việc nộp form nếu tên chỉ toàn dấu cách
+            event.preventDefault();
         } else {
-            nameError.textContent = ""; // Xóa thông báo lỗi nếu tên hợp lệ
+            nameError.textContent = "";
         }
     });
     form.addEventListener("submit", function(event) {

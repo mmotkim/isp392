@@ -48,7 +48,7 @@ public class NewMeal extends HttpServlet {
                 String date = request.getParameter("date");
 
             MealDAO mealDAO = new MealDAO();
-            mealDAO.addMeal(description, Date.valueOf(create_date),Date.valueOf(date));
+            mealDAO.addMeal(description, create_date,date);
 
 
             response.sendRedirect("meal");
