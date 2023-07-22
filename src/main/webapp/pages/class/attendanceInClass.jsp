@@ -125,49 +125,39 @@
 </div>
 <jsp:include page="../../components/footer.jsp" />
 <script>
-  const filterDateInput = document.getElementById('filterDate');
+  // Lấy danh sách các hàng trong bảng
   const tableRows = document.querySelectorAll('.table tbody tr');
 
-  // Function to filter the table rows by the given date
+  // Lấy input chứa ngày lọc
+  const filterDateInput = document.getElementById('filterDate');
+
+  // Hàm để lọc bảng dựa trên ngày
   function filterTableRowsByDate(filterDate) {
     tableRows.forEach(row => {
-      const rowDate = row.querySelector('td:nth-child(3)').textContent;
+      const rowDate = row.querySelector('td:nth-child(2)').textContent;
 
       if (filterDate === '') {
-        row.style.display = ''; // Show all rows if the filter is empty
+        row.style.display = ''; // Hiển thị tất cả các hàng nếu không có ngày lọc
       } else if (rowDate === filterDate) {
-        row.style.display = '';
+        row.style.display = ''; // Hiển thị hàng nếu ngày khớp với ngày lọc
       } else {
-        row.style.display = 'none';
+        row.style.display = 'none'; // Ẩn hàng nếu ngày không khớp với ngày lọc
       }
     });
   }
 
-  // Set the default value of the date input to today
-  const today = new Date().toISOString().split('T')[0];
-  filterDateInput.value = today;
-
-  // Trigger the filtering function with today's date on page load
-  filterTableRowsByDate(today);
-
+  // Xử lý sự kiện khi người dùng thay đổi ngày lọc
   filterDateInput.addEventListener('change', () => {
     const filterDate = filterDateInput.value;
     filterTableRowsByDate(filterDate);
   });
-</script><script>
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-  checkboxes.forEach(checkbox => {
-    // Add event listener to each checkbox
-    checkbox.addEventListener('change', () => {
-      // Find the adjacent hidden input element
-      const hiddenInput = checkbox.nextElementSibling;
-
-      // Update the value of the hidden input based on the checkbox state
-      hiddenInput.value = checkbox.checked ? 'true' : 'false';
-    });
-  });
+  // Khởi tạo bằng cách lọc với ngày mặc định (ngày hiện tại)
+  const today = new Date().toISOString().split('T')[0];
+  filterDateInput.value = today;
+  filterTableRowsByDate(today);
 </script>
+
 </body>
 </html>
 
