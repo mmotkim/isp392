@@ -10,6 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "NewUser", value = "/NewUser")
 public class NewUser extends HttpServlet {
@@ -42,6 +45,8 @@ public class NewUser extends HttpServlet {
             HttpSession session = request.getSession();
             ActivityDAO activityDAO = new ActivityDAO();
             userDAO u = new userDAO();
+            DateTimeFormatter inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 
             String state = "true";
 
@@ -67,15 +72,18 @@ public class NewUser extends HttpServlet {
             if (genderValue.equals("Male")) gender=true; else gender = false;
 
             String dob = request.getParameter("dob").trim();
+            LocalDate date = LocalDate.parse(dob, inputDateFormat);
+            Date dob2 = Date.valueOf(date);
+
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
 
             int role = Integer.parseInt(request.getParameter("role"));
 
-            u.addUser(name, gender, dob, phone, email, address, role);
+            u.addUserWithDate(name, gender, dob2, phone, email, address, role);
 
-            response.sendRedirect("ViewAccount?state=" + state);
+            response.sendRedirect("ListAccount?state=" + state);
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 
