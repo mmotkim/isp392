@@ -68,7 +68,7 @@
                     <label class="" for="email">Enter Email:</label>
                     <input id="email" name="email" type="text" class="form-control" placeholder="Email"
                            aria-label="Your Email"
-                           aria-describedby="basic-addon2" required>
+                           aria-describedby="basic-addon2" maxlength="100" required>
                     <span id="email-error" class="error-message"></span>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     <label class="" for="address">Enter Address:</label>
                     <input id="address" name="address" type="text" class="form-control" placeholder="Address"
                            aria-label="Your Address"
-                           aria-describedby="basic-addon2">
+                           aria-describedby="basic-addon2" maxlength="500">
                 </div>
             </div>
 
@@ -98,9 +98,9 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label class="" for="phone">Enter Phone:</label>
-                    <input id="phone" name="phone" type="text" class="form-control" placeholder="Phone"
+                    <input id="phone" name="phone" type="number" class="form-control" placeholder="Phone"
                            aria-label="Your Phone"
-                           aria-describedby="basic-addon2">
+                           aria-describedby="basic-addon2" maxlength="11">
                     <span id="phone-error" class="error-message"></span>
                 </div>
             </div>
