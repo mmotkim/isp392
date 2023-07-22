@@ -87,21 +87,29 @@ public class ClassActivityDAO {
 
 
             ClassActivity selected = entityManager.find(ClassActivity.class, id);
-            TypedQuery<ClassActivity> query = entityManager.createQuery("FROM ClassActivity WHERE classId = :classId AND activityId = :activityId AND date = :date", ClassActivity.class);
+            int selectedSlot = selected.getSlot();
+
+            TypedQuery<ClassActivity> query = entityManager.createQuery("FROM ClassActivity WHERE classId = :classId AND date = :date AND slot = :slot", ClassActivity.class).setMaxResults(1);
             query.setParameter("classId", selected.getClassId());
-            query.setParameter("activityId", selected.getActivityId());
             query.setParameter("date", selected.getDate());
-            List<ClassActivity> slotList = query.getResultList();
-            int selectdSlot = selected.getSlot();
+            query.setParameter("slot", slot);
 
-            selected.setSlot(slot);
+            ClassActivity other = query.getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
 
-            //replace slot with duplicated entry
-            for (ClassActivity ca : slotList){
-                if (ca.getSlot() == slot){
-                    ca.setSlot(selectdSlot);
-                    selected.setSlot(slot);
-                }
+            if (other != null){
+                selected.setSlot(slot);
+                other.setSlot(selectedSlot);
+
+                entityManager.persist(selected);
+                entityManager.persist(other);
+
+            }
+            else {
+                selected.setSlot(slot);
+                entityManager.persist(selected);
             }
 
 
@@ -115,6 +123,44 @@ public class ClassActivityDAO {
         }
 
     }
+
+//    public void rescheduleSlot(int id, int slot) {
+//        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+//        EntityTransaction transaction = entityManager.getTransaction();
+//
+//        try {
+//            transaction.begin();
+//
+//
+//            ClassActivity selected = entityManager.find(ClassActivity.class, id);
+//            int selectedSlot = selected.getSlot();
+//
+//            TypedQuery<ClassActivity> query = entityManager.createQuery("FROM ClassActivity WHERE classId = :classId AND date = :date", ClassActivity.class);
+//            query.setParameter("classId", selected.getClassId());
+//            query.setParameter("date", selected.getDate());
+//            List<ClassActivity> slotList = query.getResultList();
+//
+//            selected.setSlot(slot);
+//
+//            //replace slot with duplicated entry
+//            for (ClassActivity ca : slotList){
+//                if (ca.getSlot() == slot){
+//                    ca.setSlot(selectedSlot);
+//                    selected.setSlot(slot);
+//                }
+//            }
+//
+//
+//            transaction.commit();
+//        } finally {
+//            if (transaction.isActive()) {
+//                transaction.rollback();
+//            }
+//            entityManager.close();
+//
+//        }
+//
+//    }
 
     public Map<ClassActivity, List<Activity>> getActivitiesForWeek(int classId, LocalDate start, LocalDate end) {
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
@@ -185,5 +231,35 @@ public class ClassActivityDAO {
             entityManager.close();
 
         }
+    }
+
+    public boolean isScheduleValid(int id, int slot, LocalDate date){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+
+            ClassActivity selected = entityManager.find(ClassActivity.class, id);
+
+            TypedQuery<ClassActivity> query = entityManager.createQuery("FROM ClassActivity WHERE classId = :classId AND date = :date AND slot = :slot", ClassActivity.class).setMaxResults(1);
+            query.setParameter("classId", selected.getClassId());
+            query.setParameter("date", date);
+            query.setParameter("slot", slot);
+
+            ClassActivity other = query.getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
+
+            if (other != null){
+                entityManager.close();
+                return false;
+
+            }
+
+            else {
+
+                entityManager.close();
+                return true;
+            }
     }
 }

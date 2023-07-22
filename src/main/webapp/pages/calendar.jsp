@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
 
 <jsp:include page="../components/header.jsp"/>
 <%-- Alert--%>
@@ -40,13 +40,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
+        <c:if test="${param.state eq 'false'}">
+            <div class="alert alert-danger alert-dismissible inter fade show" role="alert">
+                There's already an assigned slot at that date!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
         <div class="row">
 
             <div class="col-lg-3">
                 <div class="mb-4">
                     <h5 class="card-title text-primary">
                         <!-- Tong so luong Activity -->
-                        Select a class and its date.
+                        Select a class and a date to look up.
                     </h5>
                 </div>
                 <h2 class="mb-5 text-center"></h2>
@@ -75,7 +81,7 @@
             <div class="col-lg-9">
                 <h2 class="mb-5 text-center card-title text-primary">Schedule</h2>
                 <div class="week-list-container">
-                    <table class="table week-list" id="itemTable">
+                    <table class="table table-light week-list" id="itemTable">
                         <thead>
                         <tr>
                             <th class="col-1">Date</th>
@@ -106,7 +112,7 @@
                                                                 <a class=""
                                                                    style="display: block; color: inherit"
                                                                    data-bs-toggle="collapse"
-                                                                   href="#${ca.getSlotId()}${loop.index}"><span></span>${activity.getName()}
+                                                                   href="#${ca.getSlotId()}${loop.index}"><span></span>${ca.getSlot()}. ${activity.getName()}
                                                                 </a>
                                                                 <div class=" flex-end" style="">
                                                                     <!-- Collapse Icon -->
@@ -126,7 +132,7 @@
                                                                            class="link-primary "><i
                                                                                 class="bx bx-pencil pe-3"
                                                                                 style="font-size: 18px"></i></a>
-                                                                        <a href="./RemoveActivity?id=${ca.getActivityId()}"
+                                                                        <a href="./RemoveActivity?id=${ca.getSlotId()}"
                                                                            title="Remove Activity from Class"
                                                                            class="link-primary "><i
                                                                                 class="bi bi-x-lg pe-3"

@@ -101,7 +101,9 @@
                     <table class="table table-light table-nowrap align-middle table-borderless table-hover">
                         <thead>
                         <tr>
-                            <th class="sortable-title col-3" onclick="sortTable(0)" scope="col" style="width: 100px">Number</th>
+                            <th class="sortable-title col-3" onclick="sortTable(0)" scope="col" style="width: 100px">
+                                Number
+                            </th>
                             <th class="sortable-title col-auto" onclick="sortTable(1)" scope="col">Name</th>
                             <th class="col-auto" scope="col">Description</th>
                             <th class="sortable-title col-auto" onclick="sortTable(3)" scope="col">Type</th>
@@ -243,7 +245,7 @@
                 var title = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
                 var description = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
                 var type = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
-                if (title.includes(searchText) || activity.includes(searchText) || type.includes(searchText)) {
+                if (title.includes(searchText) || description.includes(searchText) || type.includes(searchText)) {
                     row.style.display = 'table-row';
                 } else {
                     row.style.display = 'none';
@@ -285,7 +287,7 @@
 
 </script>
 
-<%--<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>--%>
+<script src="../../assets/js/bootstrap.bundle.js"></script>
 
 </body>
 

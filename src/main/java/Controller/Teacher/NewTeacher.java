@@ -1,20 +1,14 @@
 package Controller.Teacher;
 
-import Dao.ClassDAO;
-import Dao.StudentDAO;
 import Dao.userDAO;
-import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "NewTeacher", value = "/NewTeacher")
 public class NewTeacher extends HttpServlet {
@@ -76,7 +70,7 @@ public class NewTeacher extends HttpServlet {
 
 
             userDAO parentDAO = new userDAO();
-            parentDAO.addUser(name,gender,DoB,phone,email,address.trim(),3);
+//            parentDAO.addUser(name,gender,DoB,phone,email,address.trim(),3);
 
             response.sendRedirect("teacher?state=true");
         } catch (Exception e) {

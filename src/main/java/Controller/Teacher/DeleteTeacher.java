@@ -1,8 +1,6 @@
 package Controller.Teacher;
 
-import Dao.StudentDAO;
 import Dao.userDAO;
-import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +20,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     try {
         HttpSession session = request.getSession();
         userDAO teacherDAO = new userDAO();
-        teacherDAO.deleteUser(Integer.parseInt(request.getParameter("id")));        ;
+//        teacherDAO.deleteParent(Integer.parseInt(request.getParameter("id")));        ;
 
         response.sendRedirect("teacher?state=true");
 

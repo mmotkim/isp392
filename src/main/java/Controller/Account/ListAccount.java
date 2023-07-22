@@ -6,14 +6,14 @@
 package Controller.Account;
 
 import Dao.AccountDAO;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,7 +36,11 @@ public class ListAccount extends HttpServlet {
         HttpSession session = request.getSession();
         AccountDAO dao = new AccountDAO();
         List<Entity.Users> listA2 = dao.ListAccount();
+        int count = dao.count();
+
         request.setAttribute("listA2", listA2);
+        request.setAttribute("count", count);
+
         Object object = session.getAttribute("account");
         request.getRequestDispatcher("pages/account/account.jsp").forward(request, response);
     } 
