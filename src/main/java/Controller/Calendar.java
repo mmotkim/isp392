@@ -90,6 +90,7 @@ public class Calendar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String state = "true";
         try {
             HttpSession session = request.getSession();
             ActivityDAO activityDAO = new ActivityDAO();
@@ -100,8 +101,21 @@ public class Calendar extends HttpServlet {
             String slot = request.getParameter("slot");
 
             String date = request.getParameter("dateInput");
-            if (!date.isEmpty()) caDAO.rescheduleDate(slotId, LocalDate.parse(date));
+
+            if (!date.isEmpty()) {
+                if (caDAO.isScheduleValid(slotId, Integer.parseInt(slot), LocalDate.parse(date))){
+                    caDAO.rescheduleDate(slotId, LocalDate.parse(date));
+                    state = "true";
+                }
+
+                else {
+                    state = "false";
+                    response.sendRedirect("calendar?state=" + state);
+                    return;
+                }
+            };
             if (!slot.isEmpty()) caDAO.rescheduleSlot(slotId, Integer.parseInt(slot));
+
 
 
 //            activityDAO.addActivity(name, description, type);
@@ -118,7 +132,7 @@ public class Calendar extends HttpServlet {
 
 
 
-            response.sendRedirect("calendar?state=true");
+            response.sendRedirect("calendar?state=" + state);
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 

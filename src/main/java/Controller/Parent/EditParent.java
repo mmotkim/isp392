@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.annotations.Parent;
 
 import java.io.IOException;
 
@@ -73,7 +72,7 @@ public class EditParent extends HttpServlet {
             if (activeValue.equals("Yes")) active=true; else active = false;
 
             userDAO userDAO = new userDAO();
-            userDAO.updateUser(id,name,gender,DoB,phone,email,address,active);
+//            userDAO.updateUser(id,name,gender,DoB,phone,email,address,active);
 
 
             response.sendRedirect("./parent?state=true");

@@ -77,8 +77,8 @@
                         <li><a class="dropdown-item " href="meal">Meal</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="nav-link px-2 link-light">Accounts</a></li>
-                <li><a  class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/calendar') ? 'link-primary' : ''}" href="calendar">Calendar</a></li>
+                <li><a href="ListAccount" class="nav-link px-2 ${pageContext.request.contextPath eq '/ListAccount' ? 'link-secondary' : 'link-light'}">Accounts</a></li>
+                <li><a  class="nav-link px-2 ${pageContext.request.contextPath eq '/calendar' ? 'link-secondary' : 'link-light'}" href="calendar">Calendar</a></li>
             </ul>
 
             <div class="col-md-4 text-end ">

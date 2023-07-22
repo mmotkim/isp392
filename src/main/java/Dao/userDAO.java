@@ -1,12 +1,14 @@
 package Dao;
 
+import Entity.Users;
 import Utils.HibernateUtils;
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import Entity.*;
 
 public class userDAO {
 
@@ -250,6 +252,43 @@ public class userDAO {
             newUser.setGender(gender);
             //format yyyy-mm-dd
             newUser.setDob(Date.valueOf(DoB));
+            newUser.setPhone(phone);
+            newUser.setEmail(email);
+            newUser.setAddress(address);
+            newUser.setActive(Boolean.FALSE);
+            newUser.setRole(RoleID);
+            entityManager.persist(newUser);
+
+            trans.commit();
+
+
+        } finally {
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+    public void addUserWithDate(String name, Boolean gender, Date DoB, String phone, String email, String address, int RoleID) {
+
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = entityManager.getTransaction();
+        try {
+            trans.begin();
+
+            String[] names = name.split(" ");
+            Query query = entityManager.createNativeQuery("SELECT * FROM Users", Users.class);
+            List<Users> usersList = query.getResultList();
+            String newUserName = names[names.length - 1] + (usersList.get(usersList.size() - 1).getUserId() + 1);
+
+            Users newUser = new Users();
+            newUser.setUsername(newUserName);
+            newUser.setPassword(newUserName);
+            newUser.setFullname(name);
+            newUser.setGender(gender);
+            //format yyyy-mm-dd
+            newUser.setDob(DoB);
             newUser.setPhone(phone);
             newUser.setEmail(email);
             newUser.setAddress(address);

@@ -4,10 +4,6 @@
  */
 package Dao;
 
-/**
- *
- * @author Admin
- */
 import Entity.Users;
 import Utils.HibernateUtils;
 import jakarta.persistence.*;
@@ -17,6 +13,17 @@ import java.util.List;
 
 public class AccountDAO {
 
+    public int count(){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        try {
+            Query count = entityManager.createNativeQuery("SELECT COUNT(*) FROM Users");
+
+            return (int)count.getSingleResult();
+
+        } finally {
+            entityManager.close();
+        }
+    }
 
     public List<Users> ListAccount(){
         ArrayList<Users> list = new ArrayList<>();
