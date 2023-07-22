@@ -3,8 +3,7 @@ package Dao;
 import Utils.HibernateUtils;
 import jakarta.persistence.*;
 import Entity.ClassEntity;
-import Entity.Attendance;
-
+import Entity.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +112,7 @@ public class ClassDAO {
         }
     }
 
-    public ClassEntity getClassById(int id){
+        public ClassEntity getClassById(int id){
         ArrayList<ClassEntity> list = new ArrayList<>();
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
@@ -227,6 +226,34 @@ public class ClassDAO {
         } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
+
+    public void addAttendanceList(Date date){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = entityManager.getTransaction();
+
+        try {
+            trans.begin();
+            StudentDAO stuDao = new StudentDAO();
+            List<Student> litS = stuDao.getListActiveStudents();
+            for(Student s: litS){
+                Attendance atten = new Attendance();
+                atten.setStudentId(s.getStudentId());
+                atten.setDate(date);
+                entityManager.persist(atten);
+            }
+
+
+            trans.commit();
+
+
+        } finally {
+            if (trans.isActive()) {
+                trans.rollback();
             }
             entityManager.close();
 

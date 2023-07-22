@@ -46,7 +46,6 @@
   </div>
   <div class="row">
     <div class="col-lg-16">
-
       <form action="EditAttendanceInClass" method="post">
         <div class="col-md-6">
           <div class="input-group mb-3">
@@ -59,7 +58,6 @@
           <thead>
           <tr>
             <th scope="col">Student</th>
-<%--            <th scope="col">Teacher</th>--%>
             <th scope="col">Date</th>
             <th scope="col">Status</th>
             <th scope="col">Reason</th>
@@ -70,7 +68,6 @@
           <c:forEach var="t" items="${list}" varStatus="status">
             <tr>
               <td>${stuDAO.getStudentById(t.getStudentId()).getStudentName()}</td>
-<%--              <td>${userDAO.getFullNameByUserId(t.getTeacherId())}</td>--%>
               <td>${t.getDate()}</td>
               <td>
 <%--                <input type="hidden" name="status" value="${t.getStatus()}"> <!-- Use the actual status value from the model -->--%>

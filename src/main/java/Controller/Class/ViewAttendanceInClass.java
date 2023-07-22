@@ -1,13 +1,10 @@
 package Controller.Class;
 
 import Dao.ClassDAO;
-import Dao.MealDAO;
 import Dao.StudentDAO;
 import Dao.userDAO;
-import Entity.AteStatusEntity;
 import Entity.Attendance;
 import Entity.ClassEntity;
-import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

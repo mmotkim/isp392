@@ -1,10 +1,6 @@
 package Controller.Class;
 
 import Dao.ClassDAO;
-import Dao.StudentDAO;
-import Entity.Attendance;
-import Entity.Student;
-import Entity.ClassEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Enumeration;
-import java.util.List;
 
 @WebServlet(name = "EditAttendanceInClass", value = "/EditAttendanceInClass")
 public class EditAttendanceInClass extends HttpServlet {

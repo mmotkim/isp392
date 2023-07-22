@@ -42,12 +42,6 @@
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
 
-<%--<% if (request.getAttribute("mess") != null) { %>--%>
-<%--<div class="success-message">--%>
-<%--    <%= request.getAttribute("mess") %>--%>
-<%--</div>--%>
-<%--<% } %>--%>
-
 <div class="container">
     <div class="row align-items-center">
         <c:if test="${param.state eq 'true'}">
@@ -72,6 +66,18 @@
                     >
                 </div>
             </div>
+            <div>
+                <form action="AddAttendance" method="post">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="input-group">
+                            <input name="date" type="date" id="date" class="form-control" placeholder="Date">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Attendance</button>
+                    </div>
+
+                </form>
+            </div>
+
         </div>
     </div>
     <div class="row">
