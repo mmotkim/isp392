@@ -233,7 +233,7 @@ public class ClassActivityDAO {
         }
     }
 
-    public boolean isScheduleValid(int id, int slot, LocalDate date){
+    public boolean     isScheduleValid(int id, int slot, LocalDate date){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 

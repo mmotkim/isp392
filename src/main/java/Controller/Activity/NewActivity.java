@@ -4,6 +4,7 @@ import Dao.ActivityDAO;
 import Dao.ClassActivityDAO;
 import Dao.ClassDAO;
 import Entity.ClassEntity;
+import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,6 +26,8 @@ public class NewActivity extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            Users u = (Users) session.getAttribute("acc");
+
             ClassDAO classDAO = new ClassDAO();
             List<ClassEntity> list = classDAO.getAllClasses();
             int count = classDAO.sumOfClasses();

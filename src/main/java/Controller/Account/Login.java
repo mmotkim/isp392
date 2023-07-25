@@ -16,7 +16,14 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try {
+            HttpSession session = request.getSession();
 
+            request.getRequestDispatcher("pages/account/login.jsp").forward(request, response);
+
+
+        } catch (Exception e) {
+        }
 
 
     }
@@ -29,8 +36,16 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("user");
-        String password = request.getParameter("pass");
+        try{
+//after coding done, put them here
+        } catch (Exception e){
+
+        }
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        System.out.println(username);
+        System.out.println(password);
         AccountDAO accDao = new AccountDAO();
         Users a = accDao.login(username, password);
         if (a == null) {
@@ -44,8 +59,9 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
 //            session.setMaxInactiveInterval(10000);
-            response.sendRedirect("Home");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
+
     }
     @Override
     public String getServletInfo() {

@@ -81,11 +81,13 @@ public class AccountDAO {
         try {
             transaction.begin();
 
-            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.username= :username AND u.password = :pass",Users.class);
-            Users user = query
-                    .setParameter("username", username)
-                    .setParameter("pass", pass)
-                    .getSingleResult();
+            TypedQuery<Users> query = entityManager.createQuery("FROM Users WHERE username= :username AND password = :pass",Users.class).setMaxResults(1);
+            query.setParameter("username", username);
+            query.setParameter("pass", pass);
+            Users user = query.getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
             transaction.commit();
             return user;
 

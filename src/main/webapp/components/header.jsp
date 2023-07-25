@@ -45,7 +45,7 @@
 <body>
 <div class="bg-dark text-white ">
     <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-md-between py-3 mb-4">
+        <header class="d-flex flex-wrap align-items-center justify-content-md-between py-3 mb-3">
             <div class="logo">
                 <a href="#" class="d-flex">
                     <img class="me-3" height="28" src="${pageContext.request.contextPath}/assets/logo.png"/>
@@ -54,7 +54,7 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
                 <!-- for all -->
-                <li><a href="home" class="nav-link px-2 link-light ${fn:contains(pageContext.request.requestURI, '/home') ? 'link-secondary' : ''}">Home</a></li>
+                <li><a href="home" class="nav-link px-2  ${fn:contains(pageContext.request.requestURI, '/index') ? 'link-secondary' : 'link-light'}">Home</a></li>
 
                 <!-- for headmaster only
             <li><a href="#" class="nav-link px-2 link-light">Dashboard</a></li>
@@ -64,9 +64,12 @@
             <li><a href="#" class="nav-link px-2 link-light">Parents</a></li> -->
                 <!-- for admin only -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link px-2    ${pageContext.request.contextPath != '/home' ? 'link-secondary' : 'link-light'} dropdown-toggle" href="#" id="managerDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <c:if test="${sessionScope['acc'].getRole() == 2}">
+                    <a class="nav-link px-2    ${pageContext.request.contextPath == '/index' ? 'link-secondary' : 'link-light'} dropdown-toggle" href="#" id="managerDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Manager
                     </a>
+                    </c:if>
+
                     <ul class="dropdown-menu" aria-labelledby="managerDropdown">
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/notification') ? 'link-primary' : ''}" href="notification">Notifications</a></li>
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/activity') ? 'link-primary' : ''}" href="activity">Activity</a></li>
@@ -80,59 +83,62 @@
                 <li><a href="ListAccount" class="nav-link px-2 ${pageContext.request.contextPath eq '/ListAccount' ? 'link-secondary' : 'link-light'}">Accounts</a></li>
                 <li><a  class="nav-link px-2 ${pageContext.request.contextPath eq '/calendar' ? 'link-secondary' : 'link-light'}" href="calendar">Calendar</a></li>
             </ul>
-            <div class="col-md-4 text-end ">
 
-                </a href="login">
-                <button type="button" class="btn btn-outline-light me-1" >
-                    Log In
-                </button>
-                <a>
+            <div class="col-md-4 text-end">
+                <div class="d-flex justify-content-end align-items-center text-end">
+                    <div class="me-2">Logged in as: Mmotkim</div>
+
+                    <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-bell"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                        <c:forEach var="t" items="${notifs}">
+                            <ul class="list-group">
+                                <a href="./EditNotification?notificationId=${t.key.getNotificationId()}" class="list-group-item list-group-item-action"
+                                ><div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 me-2">${t.key.getTitle()}</h5>
+                                    <small>${t.key.getProcessingDate()}</small>
+                                </div>
+                                    <p class="mb-1 overflow-ellipsis" style="max-width: 300px">${t.key.getDescription()}</p>
+                                    <small>
+                                        <c:if test="${t.value.equals(null)}">
+                                            No activity attached
+                                        </c:if>
+                                        <c:if test="${t.value != null}">
+                                            ${t.value}
+                                        </c:if>
+                                        <span class="alert-warning"></span>
+                                    </small>
+                                </a>
+                            </ul>
+                        </c:forEach>
+                    </div>
+
+                    <c:if test="${sessionScope['acc']==null}">
+                    <a href="Login">
+                    <button type="button"  class="btn btn-outline-light me-1">
+                        Login
+                    </button>
+
+                    </a>
+                    </c:if>
+                    <c:if test="${sessionScope['acc']!=null}">
+                        <a href="LogoutControl">
+                            <button type="button"  class="btn btn-outline-light me-1">
+                                Logout
+                            </button>
+                        </a>
+                    </c:if>
+                </div>
+
+
 
             </div>
-
-<%--            <div class="col-md-4 text-end ">--%>
-<%--                <p class="me-2">Logged in as: Mmotkim</p>--%>
-
-<%--                <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
-<%--                    <i class="bi bi-bell"></i>--%>
-<%--                </a>--%>
-
-<%--                <button type="button" onclick="location.href='LogoutControl'" class="btn btn-outline-light me-1">--%>
-<%--                    Logout--%>
-<%--                </button>--%>
-
-<%--                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">--%>
-<%--                    <c:forEach var="t" items="${notifs}">--%>
-<%--                    <ul class="list-group">--%>
-<%--                        <a href="./EditNotification?notificationId=${t.key.getNotificationId()}" class="list-group-item list-group-item-action"--%>
-<%--                        ><div class="d-flex w-100 justify-content-between">--%>
-<%--                            <h5 class="mb-1 me-2">${t.key.getTitle()}</h5>--%>
-<%--                            <small>${t.key.getProcessingDate()}</small>--%>
-<%--                        </div>--%>
-<%--                            <p class="mb-1 overflow-ellipsis" style="max-width: 300px">${t.key.getDescription()}</p>--%>
-<%--                            <small>--%>
-<%--                                <c:if test="${t.value.equals(null)}">--%>
-<%--                                    No activity attached--%>
-<%--                                </c:if>--%>
-<%--                                <c:if test="${t.value != null}">--%>
-<%--                                    ${t.value}--%>
-<%--                                </c:if>--%>
-<%--                                <span class="alert-warning"></span>--%>
-<%--                            </small>--%>
-<%--                        </a>--%>
-<%--                    </ul>--%>
-<%--                    </c:forEach>--%>
-<%--                </div>--%>
-<%--            </div>--%>
         </header>
     </div>
 
 </div>
-<script>
-    function redirectToLoginPage() {
-        window.location.href = "${pageContext.request.contextPath}/pages/account/login.jsp";
-    }
-</script>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
 </body>
 </html>

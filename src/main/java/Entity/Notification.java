@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 
 @Entity
-public class Notification {
+public class    Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "notification_id")
