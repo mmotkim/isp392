@@ -17,6 +17,9 @@ public class RemoveActivityFromClass extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
             ClassActivityDAO caDAO = new ClassActivityDAO();
             caDAO.removeActivityFromClass(Integer.parseInt(request.getParameter("id")));
 

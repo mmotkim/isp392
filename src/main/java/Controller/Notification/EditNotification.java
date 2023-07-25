@@ -26,6 +26,9 @@ public class EditNotification extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
             NotificationDAO notificationDAO = new NotificationDAO();
             ActivityDAO activityDAO = new ActivityDAO();
 

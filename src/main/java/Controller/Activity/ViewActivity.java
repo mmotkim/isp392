@@ -19,6 +19,11 @@ public class ViewActivity extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        if (session.getAttribute("acc")==null){
+            response.sendRedirect("index.jsp");
+        }
+
+
         ActivityDAO activityDAO = new ActivityDAO();
         List<Entity.Activity> list = activityDAO.getAllActivities();
         int count = activityDAO.countActivities();

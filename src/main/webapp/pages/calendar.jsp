@@ -35,13 +35,13 @@
 <div class="">
     <div class="container text-left">
         <c:if test="${param.state eq 'true'}">
-            <div class="alert alert-success alert-dismissible inter fade show" role="alert">
+            <div class="alert alert-success alert-dismissible inter fade show" style="padding-top: 0.5rem; padding-bottom: 0.5rem" role="alert">
                 Action completed without issues!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
         <c:if test="${param.state eq 'false'}">
-            <div class="alert alert-danger alert-dismissible inter fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible inter fade show" style="padding-top: 0.5rem; padding-bottom: 0.5rem" role="alert">
                 There's already an assigned slot at that date!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>

@@ -26,6 +26,9 @@ public class NewNotification extends HttpServlet {
         try {
             ActivityDAO activityDAO = new ActivityDAO();
             HttpSession session = request.getSession();
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
 
             int count2 = activityDAO.countActivities();
             List<Entity.Activity> list2 = activityDAO.getAllActivities();

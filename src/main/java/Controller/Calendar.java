@@ -31,6 +31,9 @@ public class Calendar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
             HttpSession session = request.getSession();
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
             ClassDAO classDAO = new ClassDAO();
             ClassActivityDAO caDAO = new ClassActivityDAO();
             List<ClassEntity> list = classDAO.getAllClasses();
@@ -102,7 +105,7 @@ public class Calendar extends HttpServlet {
 
             String date = request.getParameter("dateInput");
 
-            if (!date.isEmpty()) {
+            if (!date.isEmpty() && !slot.isEmpty()) {
                 if (caDAO.isScheduleValid(slotId, Integer.parseInt(slot), LocalDate.parse(date))){
                     caDAO.rescheduleDate(slotId, LocalDate.parse(date));
                     state = "true";
@@ -114,7 +117,19 @@ public class Calendar extends HttpServlet {
                     return;
                 }
             };
-            if (!slot.isEmpty()) caDAO.rescheduleSlot(slotId, Integer.parseInt(slot));
+            if (!date.isEmpty() && slot.isEmpty()){
+                if (caDAO.isScheduleValid(slotId, caDAO.getFromId(slotId).getSlot(), LocalDate.parse(date))){
+                    caDAO.rescheduleDate(slotId, LocalDate.parse(date));
+                    state = "true";
+                }
+
+                else {
+                    state = "false";
+                    response.sendRedirect("calendar?state=" + state);
+                    return;
+                }
+            }
+            if (!slot.isEmpty() && date.isEmpty()) caDAO.rescheduleSlot(slotId, Integer.parseInt(slot));
 
 
 

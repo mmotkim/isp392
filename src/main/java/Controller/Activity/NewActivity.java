@@ -26,6 +26,9 @@ public class NewActivity extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
             Users u = (Users) session.getAttribute("acc");
 
             ClassDAO classDAO = new ClassDAO();

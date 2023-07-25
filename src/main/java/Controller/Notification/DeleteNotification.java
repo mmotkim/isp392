@@ -18,6 +18,9 @@ public class DeleteNotification extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             HttpSession session = request.getSession();
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
             NotificationDAO notificationDAO = new NotificationDAO();
             notificationDAO.deleteNotification(Integer.parseInt(request.getParameter("id")))        ;
 

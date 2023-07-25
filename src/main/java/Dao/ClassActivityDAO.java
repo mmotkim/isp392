@@ -262,4 +262,24 @@ public class ClassActivityDAO {
                 return true;
             }
     }
+
+    public ClassActivity getFromId(int id){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            ClassActivity ca = entityManager.createQuery("FROM ClassActivity WHERE slotId = " + id, ClassActivity.class).getSingleResult();
+
+            transaction.commit();
+            return ca;
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+        }
+    }
 }

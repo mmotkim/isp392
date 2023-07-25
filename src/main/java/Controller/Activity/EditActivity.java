@@ -52,7 +52,9 @@ public class EditActivity extends HttpServlet {
         try {
 
             HttpSession session = request.getSession();
-
+            if (session.getAttribute("acc")==null){
+                response.sendRedirect("index.jsp");
+            }
                 int activityId = Integer.parseInt(request.getParameter("activityId")) ;
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");

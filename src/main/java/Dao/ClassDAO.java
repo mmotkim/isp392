@@ -4,6 +4,8 @@ import Utils.HibernateUtils;
 import jakarta.persistence.*;
 import Entity.ClassEntity;
 import Entity.*;
+import org.hibernate.query.NativeQuery;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -257,5 +259,7 @@ public class ClassDAO {
 
         }
     }
+
+
 
 }
