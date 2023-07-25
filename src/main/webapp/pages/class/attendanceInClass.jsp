@@ -70,10 +70,9 @@
               <td>${stuDAO.getStudentById(t.getStudentId()).getStudentName()}</td>
               <td>${t.getDate()}</td>
               <td>
-<%--                <input type="hidden" name="status" value="${t.getStatus()}"> <!-- Use the actual status value from the model -->--%>
-<%--                <input type="checkbox" name="attendanceStatus" value="true" ${t.getStatus() ? 'checked' : ''}--%>
-<%--                       onclick="updateHiddenValue(this)">--%>
-  <input type="checkbox" name="status_${t.getDate()}_${t.getStudentId()}" ${t.getStatus() ? 'checked' : ''}>
+                <input type="hidden" name="id" value="${t.getId()}">
+                <input type="checkbox" name="status_${t.getId()}" ${t.getStatus() ? 'checked' : ''}>
+                <input type="hidden" name="statuses" value="${t.getStatus()}">
 
               </td>
               <td>${t.getReason()}</td>
@@ -143,6 +142,7 @@
       } else {
         row.style.display = 'none'; // Ẩn hàng nếu ngày không khớp với ngày lọc
       }
+
     });
   }
 

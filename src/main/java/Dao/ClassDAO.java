@@ -159,16 +159,15 @@ public class ClassDAO {
         }
     }
 
-    public void setPresent (int studentId, Date date){
+    public void setPresent (int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.studentId = :stuId AND a.date = :date", Attendance.class)
-                    .setParameter("stuId", studentId)
-                    .setParameter("date", date)
+            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.id = :id", Attendance.class)
+                    .setParameter("id", id)
                     .getSingleResult();
             attendance.setStatus(true);
 
@@ -207,16 +206,15 @@ public class ClassDAO {
 
         }
     }
-    public void setAttendance (int studentId, Date date, Boolean atten){
+    public void setAttendance (int id, Boolean atten){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.studentId = :stuId AND a.date = :date", Attendance.class)
-                    .setParameter("stuId", studentId)
-                    .setParameter("date", date)
+            Attendance attendance = entityManager.createQuery("SELECT a FROM Attendance a WHERE a.id = :id", Attendance.class)
+                    .setParameter("id", id)
                     .getSingleResult();
             attendance.setStatus(atten);
 

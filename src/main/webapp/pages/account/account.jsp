@@ -23,7 +23,7 @@
             integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="${pageContexo.requeso.contextPath}/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css"/>
 
     <style>
         .sortable-title {
@@ -104,6 +104,7 @@
                             <th scope="col">Email</th>
                             <th scope="col" class="sortable-title" onclick="sortTable(4)">Role</th>
                             <th scope="col" class="sortable-title" onclick="sortTable(5)">Active State</th>
+                            <th scope="col" class="" >Action</th>
                         </tr>
                         </thead>
                         <tbody>

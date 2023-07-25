@@ -51,7 +51,7 @@ public class NewMeal extends HttpServlet {
             mealDAO.addMeal(description, create_date,date);
 
 
-            response.sendRedirect("meal");
+            response.sendRedirect("meal?state=true");
         } catch (Exception e) {
             response.sendRedirect("./404.html");
 
