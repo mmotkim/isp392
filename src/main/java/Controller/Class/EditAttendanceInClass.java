@@ -1,10 +1,6 @@
 package Controller.Class;
 
 import Dao.ClassDAO;
-import Dao.StudentDAO;
-import Entity.Attendance;
-import Entity.Student;
-import Entity.ClassEntity;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Enumeration;
-import java.util.List;
 
 @WebServlet(name = "EditAttendanceInClass", value = "/EditAttendanceInClass")
 public class EditAttendanceInClass extends HttpServlet {
@@ -30,24 +25,12 @@ public class EditAttendanceInClass extends HttpServlet {
             HttpSession session = request.getSession();
             String classId = request.getParameter("classId");
             ClassDAO classDAO = new ClassDAO();
-            Enumeration<String> parameterNames = request.getParameterNames();
-            while (parameterNames.hasMoreElements()) {
-                String paramName = parameterNames.nextElement();
-                if (paramName.startsWith("status_")) {
-                    // Get the date and studentId from the paramName
-                    String[] tokens = paramName.split("_");
-                    String dateStr = tokens[1];
-                    int studentId = Integer.parseInt(tokens[2]);
-
-                    // Get the attendance status (true or false) from the checkbox value
-                    boolean status = !Boolean.parseBoolean(request.getParameter(paramName));
-//                    boolean status = request.getParameter(paramName) != null;
-
-                    classDAO.setAttendance(studentId,Date.valueOf(dateStr),status);
-
-                    // Update the attendance record in the data store with the new status and reason
-                    // Example: attendanceDAO.updateAttendance(classId, dateStr, studentId, status, reason);
-                }
+            String[] ids = request.getParameterValues("id");
+            String[] statuses = request.getParameterValues("statuses");
+            for (int i = 0; i < ids.length; i++) {
+                String id = ids[i];
+                String status = statuses[i];
+                classDAO.setAttendance(Integer.parseInt(id),Boolean.parseBoolean(status));
             }
             response.sendRedirect("./attendance?classId=" + classId + "&state=true");
 

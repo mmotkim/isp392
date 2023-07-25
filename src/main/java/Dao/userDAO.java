@@ -155,6 +155,38 @@ public class userDAO {
 
         }
     }
+    public String getFullNameByUserId(int id){
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        ArrayList<Users> list = new ArrayList<>();
+
+
+        try {
+            transaction.begin();
+
+            Users user = entityManager.createQuery("FROM Users WHERE id = " + id, Users.class).getSingleResult();
+
+            transaction.commit();
+            return user.getFullname();
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+
+
+        }
+
+
+    }
+
+    public String getClassNameByClassId(int id) {
+
+            ClassDAO classDAO = new ClassDAO();
+            return classDAO.getClassById(id).getClassName();
+
+    }
     public void updateUser(int id, String name, Boolean gender, String DoB, String phone, String email, String address, Boolean active){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

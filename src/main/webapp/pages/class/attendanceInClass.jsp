@@ -46,7 +46,6 @@
   </div>
   <div class="row">
     <div class="col-lg-16">
-
       <form action="EditAttendanceInClass" method="post">
         <div class="col-md-6">
           <div class="input-group mb-3">
@@ -59,7 +58,6 @@
           <thead>
           <tr>
             <th scope="col">Student</th>
-<%--            <th scope="col">Teacher</th>--%>
             <th scope="col">Date</th>
             <th scope="col">Status</th>
             <th scope="col">Reason</th>
@@ -70,13 +68,11 @@
           <c:forEach var="t" items="${list}" varStatus="status">
             <tr>
               <td>${stuDAO.getStudentById(t.getStudentId()).getStudentName()}</td>
-<%--              <td>${userDAO.getFullNameByUserId(t.getTeacherId())}</td>--%>
               <td>${t.getDate()}</td>
               <td>
-<%--                <input type="hidden" name="status" value="${t.getStatus()}"> <!-- Use the actual status value from the model -->--%>
-<%--                <input type="checkbox" name="attendanceStatus" value="true" ${t.getStatus() ? 'checked' : ''}--%>
-<%--                       onclick="updateHiddenValue(this)">--%>
-  <input type="checkbox" name="status_${t.getDate()}_${t.getStudentId()}" ${t.getStatus() ? 'checked' : ''}>
+                <input type="hidden" name="id" value="${t.getId()}">
+                <input type="checkbox" name="status_${t.getId()}" ${t.getStatus() ? 'checked' : ''}>
+                <input type="hidden" name="statuses" value="${t.getStatus()}">
 
               </td>
               <td>${t.getReason()}</td>
@@ -128,49 +124,40 @@
 </div>
 <jsp:include page="../../components/footer.jsp" />
 <script>
-  const filterDateInput = document.getElementById('filterDate');
+  // Lấy danh sách các hàng trong bảng
   const tableRows = document.querySelectorAll('.table tbody tr');
 
-  // Function to filter the table rows by the given date
+  // Lấy input chứa ngày lọc
+  const filterDateInput = document.getElementById('filterDate');
+
+  // Hàm để lọc bảng dựa trên ngày
   function filterTableRowsByDate(filterDate) {
     tableRows.forEach(row => {
-      const rowDate = row.querySelector('td:nth-child(3)').textContent;
+      const rowDate = row.querySelector('td:nth-child(2)').textContent;
 
       if (filterDate === '') {
-        row.style.display = ''; // Show all rows if the filter is empty
+        row.style.display = ''; // Hiển thị tất cả các hàng nếu không có ngày lọc
       } else if (rowDate === filterDate) {
-        row.style.display = '';
+        row.style.display = ''; // Hiển thị hàng nếu ngày khớp với ngày lọc
       } else {
-        row.style.display = 'none';
+        row.style.display = 'none'; // Ẩn hàng nếu ngày không khớp với ngày lọc
       }
+
     });
   }
 
-  // Set the default value of the date input to today
-  const today = new Date().toISOString().split('T')[0];
-  filterDateInput.value = today;
-
-  // Trigger the filtering function with today's date on page load
-  filterTableRowsByDate(today);
-
+  // Xử lý sự kiện khi người dùng thay đổi ngày lọc
   filterDateInput.addEventListener('change', () => {
     const filterDate = filterDateInput.value;
     filterTableRowsByDate(filterDate);
   });
-</script><script>
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-  checkboxes.forEach(checkbox => {
-    // Add event listener to each checkbox
-    checkbox.addEventListener('change', () => {
-      // Find the adjacent hidden input element
-      const hiddenInput = checkbox.nextElementSibling;
-
-      // Update the value of the hidden input based on the checkbox state
-      hiddenInput.value = checkbox.checked ? 'true' : 'false';
-    });
-  });
+  // Khởi tạo bằng cách lọc với ngày mặc định (ngày hiện tại)
+  const today = new Date().toISOString().split('T')[0];
+  filterDateInput.value = today;
+  filterTableRowsByDate(today);
 </script>
+
 </body>
 </html>
 

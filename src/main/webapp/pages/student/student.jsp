@@ -141,10 +141,10 @@
                             <td>${t.getStudentId()}</td>
                             <!-- Name -->
                             <td>${t.getStudentName()}</td>
-                            <td>${t.getGender() == true ? "Male" : "Female"}</td>
+                            <td>${t.getGender()? "Male" : "Female"}</td>
                             <td>${t.getDob()}</td>
                             <td>${userDAO.getFullNameByUserId(t.getParentId())}</td>
-                            <td>${t.getActive() == true ? "Active" : "Inactive"}</td>
+                            <td>${t.getActive() ? "Active" : "Inactive"}</td>
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">

@@ -72,7 +72,7 @@
                       <button type="button" class="btn-close" onclick="d.close()"></button>
                     </div>
                     <div class="modal-body">
-                      <p>Are you sure you want to delete Notification <span class="text-muted">( ID: ${t.getUserId()})</span></p>
+                      <p>Are you sure you want to delete Parent <span class="text-muted">( ID: ${t.getUserId()})</span></p>
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-secondary" onclick="d${t.getUserId()}.close()">Cancel</button>

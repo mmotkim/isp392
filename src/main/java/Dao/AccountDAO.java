@@ -74,17 +74,16 @@ public class AccountDAO {
         }
             return null;
         }
-   public Users Login(String email, String pass){
+   public Users login(String username, String pass){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         ArrayList<Users> list = new ArrayList<>();
         try {
             transaction.begin();
 
-//            Users user = entityManager.createQuery("SELECT * FROM Users WHERE [email]  " + email + " AND [password] = " + pass+"", Users.class).getSingleResult();
-            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.email= :email AND u.password = :pass",Users.class);
+            TypedQuery<Users> query = entityManager.createQuery("SELECT u FROM Users u WHERE u.username= :username AND u.password = :pass",Users.class);
             Users user = query
-                    .setParameter("email", email)
+                    .setParameter("username", username)
                     .setParameter("pass", pass)
                     .getSingleResult();
             transaction.commit();

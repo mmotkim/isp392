@@ -46,7 +46,6 @@
       <div class="col-md-6">
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
           <div>
-            <!-- Them Class -->
             <a href="NewMeal" class="btn btn-primary px-4 py-2"
             ><i class="bx bx-plus me-1"></i> Add New Meal</a>
           </div>
@@ -60,27 +59,27 @@
             <thead>
             <tr>
               <th scope="col" style="width: 50px">ID</th>
-              <th scope="col">Name</th>
-              <th scope="col">Level</th>
-              <th scope="col">Quantity</th>
+              <th scope="col">Description</th>
+              <th scope="col">Create Date</th>
+              <th scope="col">Date</th>
               <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="t" items="${list}">
-              <dialog id="d" >
+              <dialog id="d${t.getMealId()}" >
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title text-danger">Confirm Deletion</h5>
-                      <button type="button" class="btn-close" onclick="d.close()"></button>
+                      <button type="button" class="btn-close" onclick="d${t.getMealId()}.close()"></button>
                     </div>
                     <div class="modal-body">
-                      <p>Are you sure you want to delete Meal <span class="text-muted">( ID: ${t.getMealId()})</span></p>
+                      <p>Are you sure you want to delete Meal <span class="text-muted"> ${t.getMealDescription()}</span></p>
                     </div>
                     <div class="modal-footer">
-                      <button class="btn btn-secondary" onclick="d.close()">Cancel</button>
-                      <a href="./DeleteMeal?id=${t.getMealId()}" class="btn btn-primary" onclick="d.close()">
+                      <button class="btn btn-secondary" onclick="d${t.getMealId()}.close()">Cancel</button>
+                      <a href="./DeleteMeal?id=${t.getMealId()}" class="btn btn-primary" onclick="d${t.getMealId()}.close()">
                         Delete
                       </a>
                     </div>
@@ -111,31 +110,12 @@
                     <li class="list-inline-item">
                       <!-- Delete -->
                       <a
-                              href="./DeleteMeal?id=${t.getMealId()}"
-                              onclick="d.showModal();"
+                              href="#"
+                              onclick="d${t.getMealId()}.showModal();"
                               title="Delete"
                               class="px-2 text-danger"
                       ><i class="bx bx-trash-alt font-size-18"></i
                       ></a>
-                    </li>
-                    <!-- Other actions -->
-                    <li class="list-inline-item dropdown">
-                      <a
-                              class="text-muted dropdown-toggle font-size-18"
-                              href="#"
-                              role="button"
-                              data-bs-toggle="dropdown"
-                              aria-haspopup="true"
-                      ><i class="bx bx-dots-vertical-rounded"></i
-                      ></a>
-                      <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="#">Action</a
-                        ><a class="dropdown-item" href="#"
-                      >Another action</a
-                      ><a class="dropdown-item" href="#"
-                      >Something else here</a
-                      >
-                      </div>
                     </li>
                   </ul>
                 </td>

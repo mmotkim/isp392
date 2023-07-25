@@ -58,7 +58,7 @@
                                aria-describedby="basic-addon2">
                     </div>
                     <div class="form-row input-group mb-3">
-                        <label class="input-group-text" for="date">Enter Create Date</label>
+                        <label class="input-group-text" for="date">Enter Date</label>
                         <input name="date" id="date" type="date" class="form-control" placeholder="Date" aria-label="Your Date"
                                aria-describedby="basic-addon2">
                     </div>
@@ -95,9 +95,6 @@
 
         if (name === "") {
             nameError.textContent = "Name is required";
-            event.preventDefault();
-        } else if (!validNamePattern.test(name)) {
-            nameError.textContent = "Please enter a valid name";
             event.preventDefault();
         } else if(name.length>=750){
             nameError.textContent = "Input must smaller than 750 character";

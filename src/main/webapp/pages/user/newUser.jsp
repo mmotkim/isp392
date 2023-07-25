@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>Adding a new Activity</title>
+    <title>Adding a new User</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css"
           integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -48,7 +48,7 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label class="" for="name">Enter Full Name:</label>
-                    <input name="name" id="name" type="text" class="form-control" placeholder="Activity Name"
+                    <input name="name" id="name" type="text" class="form-control" placeholder="User Name"
                            aria-label="User Full Name"
                            aria-describedby="basic-addon2" maxlength="50">
                 </div>
@@ -109,7 +109,7 @@
                 <div class="form-group mb-3">
                     <label class="" for="role">Choose User Role:</label>
                     <select name="role" id="role" type="text" class="form-select"
-                            aria-label="Choose Activity Type"
+                            aria-label="Choose User Role"
                             aria-describedby="basic-addon2" required>
 
                         <option value="">Choose a role</option>

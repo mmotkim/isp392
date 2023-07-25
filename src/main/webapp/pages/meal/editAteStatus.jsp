@@ -30,7 +30,7 @@
 <jsp:include page="../../components/header.jsp"/>
 
 <div class="container pt-3">
-  <a href="ateStatus" class="size-3">
+  <a href="ateStatus?classId=${classId}" class="size-3">
     <div class="arrow" style=""></div>
   </a>
 </div>
@@ -80,7 +80,7 @@
           <div class="form-row input-group mb-3">
             <label class="input-group-text" for="date">Date</label>
             <input name="date" id="date" type="date" class="form-control" placeholder="Date" aria-label="Date"
-                   aria-describedby="basic-addon2" value="${meal.getDate()}">
+                   aria-describedby="basic-addon2" value="${meal.getDate()}" readonly>
           </div>
 
         </div>
