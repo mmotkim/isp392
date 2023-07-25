@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,40 +20,49 @@
 <body class="bg-light">
 <jsp:include page="../../components/header.jsp"/>
 
-<%--Back--%>
+
 <div class="container pt-3">
     <a href="home" class="size-3">
         <div class="arrow" style=""></div>
     </a>
 </div>
 
-<%--Main Body--%>
+
 <div class="container" style="margin-top: 40px">
-    <div class="row align-items-center">
+    
+    <div class="row align-items-center py-3 text-center">
+        <h4>
+            Welcome back.
+        </h4>
     </div>
+
     <form action="Login" method="post">
-        <div class="col">
-            <div class="col-lg-16">
-                    <div class="form-row input-group mb-3 d-flex">
-                        <label class="input-group-text" for="username">Enter User:</label>
-                        <input name="username" id="username" type="text" class="form-control" placeholder="User Name" aria-label="UserName"
-                               aria-describedby="basic-addon2" required>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-6 col-lg-4">
+                <div class=" p-0">
+                    <div class="form-floating mb-3">
+                        <input name="username" id="username" type="text" class="form-control" placeholder="User Name" required>
+                        <label class="" for="username">Your Username</label>
                     </div>
-                    <div class="form-row input-group mb-3">
-                        <label class="input-group-text" for="pass">Enter Password</label>
+                    <div class="form-floating  mb-3">
                         <input name="password" id="pass" type="password" class="form-control" placeholder="Password" aria-label="Password"
                                aria-describedby="basic-addon2" required>
+                        <label class="" for="pass">Your Password</label>
                     </div>
+                </div>
+                <div class="d-flex  align-items-center justify-content-end gap mb-3">
+                    <div>
+                        <button type="submit" class=" btn btn-primary">
+                            Login</button>
+                    </div>
+                </div>
             </div>
+                    
+            
         </div>
 
         <div class="col-md pt-3">
-            <div class="d-flex  align-items-center justify-content-end gap mb-3">
-                <div>
-                    <button type="submit" class=" btn btn-primary">
-                        Login</button>
-                </div>
-            </div>
+            
         </div>
     </form>
 
