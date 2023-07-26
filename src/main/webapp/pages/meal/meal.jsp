@@ -58,7 +58,6 @@
           <table class="table table-light table-nowrap align-middle table-borderless table-hover">
             <thead>
             <tr>
-              <th scope="col" style="width: 50px">ID</th>
               <th scope="col">Description</th>
               <th scope="col">Create Date</th>
               <th scope="col">Date</th>
@@ -88,12 +87,11 @@
               </dialog>
 
               <tr>
-                <!-- ID -->
-                <td>${t.getMealId()}</td>
                 <!-- Name -->
                 <td>${t.getMealDescription()}</td>
                 <td>${t.getCreatedDate()}</td>
                 <td>${t.getDate()}</td>
+                <c:if test="${sessionScope.acc.role == 1}">
 
                 <td class="justify-content-between ml-2">
                   <ul class="list-inline mb-0">
@@ -119,6 +117,7 @@
                     </li>
                   </ul>
                 </td>
+                </c:if>
               </tr>
             </c:forEach>
             </tbody>

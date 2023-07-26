@@ -27,10 +27,12 @@ public class EditAttendanceInClass extends HttpServlet {
             ClassDAO classDAO = new ClassDAO();
             String[] ids = request.getParameterValues("id");
             String[] statuses = request.getParameterValues("statuses");
+            String[] reasons = request.getParameterValues("reason");
             for (int i = 0; i < ids.length; i++) {
                 String id = ids[i];
                 String status = statuses[i];
-                classDAO.setAttendance(Integer.parseInt(id),Boolean.parseBoolean(status));
+                String reason = reasons[i];
+                classDAO.setAttendance(Integer.parseInt(id),Boolean.parseBoolean(status), reason);
             }
             response.sendRedirect("./attendance?classId=" + classId + "&state=true");
 

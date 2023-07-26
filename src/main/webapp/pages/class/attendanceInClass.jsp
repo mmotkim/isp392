@@ -69,14 +69,27 @@
             <tr>
               <td>${stuDAO.getStudentById(t.getStudentId()).getStudentName()}</td>
               <td>${t.getDate()}</td>
+              <c:choose>
+              <c:when test="${sessionScope.acc.role == 1}">
+
               <td>
                 <input type="hidden" name="id" value="${t.getId()}">
                 <input type="checkbox" name="status_${t.getId()}" ${t.getStatus() ? 'checked' : ''}>
                 <input type="hidden" name="statuses" value="${t.getStatus()}">
 
               </td>
-              <td>${t.getReason()}</td>
-
+              <td>
+                <input type="text" name="reason" value="${t.getReason()}"></td>
+              </c:when>
+                <c:otherwise>
+                  <td>
+                    <input type="checkbox" ${t.getStatus() ? 'checked' : ''} disabled>
+                  </td>
+                  <td>
+                      ${t.getReason()}
+                  </td>
+                </c:otherwise>
+              </c:choose>
             </tr>
           </c:forEach>
           </tbody>

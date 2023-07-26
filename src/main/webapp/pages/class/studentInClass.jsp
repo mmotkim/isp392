@@ -25,6 +25,8 @@
     <div class="arrow"></div>
   </a>
 </div>
+<c:choose>
+<c:when test="${sessionScope.acc.role == 1}">
 
 <div class="container" style="padding-top: 30px">
   <c:if test="${param.state eq 'true'}">
@@ -192,6 +194,42 @@
     </div>
   </form>
 </div>
+</c:when>
+  <c:otherwise>
+<div class="col-md-6 pt-3">
+  <h5 class="card-title">
+    Students in class ${aClass.getClassName()}
+  </h5>
+  <h6>
+    [Student Quantity: ${aClass.getStudentQuantity()}]
+  </h6>
+  <h6 class="card-title text-muted pt-5" style="font-style: oblique">
+    [Student List]
+  </h6>
+</div>
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-light table-nowrap align-middle table-borderless table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">DoB</th>
+          <th scope="col">Gender</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="student" items="${listS}">
+          <tr>
+            <td>${student.getStudentName()}</td>
+            <td>${student.getDob()}</td>
+            <td>${student.getGender() ? "Male" : "Female"}</td>
+          </tr>
+        </c:forEach>
+        </tbody>
+      </table>
+    </div>
+  </c:otherwise>
+</c:choose>
 <script>
   // Lấy danh sách tất cả các sinh viên từ server-side
   let allStudents = [

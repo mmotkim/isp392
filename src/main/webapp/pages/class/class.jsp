@@ -70,7 +70,7 @@
                 <form action="AddAttendance" method="post">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="input-group">
-                            <input name="date" type="date" id="date" class="form-control" placeholder="Date">
+                            <input name="date" type="date" id="date" class="form-control" placeholder="Date" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Attendance</button>
                     </div>
@@ -126,6 +126,7 @@
                             <td>${t.getClassName()}</td>
                             <td>${t.getLevel()}</td>
                             <td>${t.getStudentQuantity()}</td>
+                            <c:if test="${sessionScope.acc.role == 1}">
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">
@@ -171,6 +172,38 @@
                                     </li>
                                 </ul>
                             </td>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.role == 2}">
+                                <td class="justify-content-between ml-2">
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a
+                                                    href="./StudentInClass?classId=${t.getClassId()}"
+
+                                                    title="Student in class"
+                                                    class="px-2 text-primary"
+                                            ><i class="bx bx-show font-size-18"></i></a>
+                                        </li>
+                                        <li class="list-inline-item dropdown">
+                                            <a
+                                                    class="text-muted dropdown-toggle font-size-18"
+                                                    href="#"
+                                                    role="button"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                            ><i class="bx bx-dots-vertical-rounded"></i
+                                            ></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item" href="./ateStatus?classId=${t.getClassId()}"
+                                            >Ate Status In Class</a
+                                            ><a class="dropdown-item" href="./attendance?classId=${t.getClassId()}"
+                                            >Attendance In Class</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+
+                            </c:if>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -60,7 +60,6 @@
           <table class="table table-light table-nowrap align-middle table-borderless table-hover">
             <thead>
             <tr>
-              <th scope="col" style="width: 50px">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Gender</th>
               <th scope="col">DoB</th>
@@ -93,8 +92,6 @@
               </dialog>
 
               <tr>
-                <!-- ID -->
-                <td>${t.getUserId()}</td>
                 <!-- Name -->
                 <td>${t.getFullname()}</td>
                 <td>${t.getGender() == true ? "Male" : "Female"}</td>
@@ -103,7 +100,7 @@
                 <td>${t.getEmail()}</td>
                 <td>${t.getAddress()}</td>
                 <td>${t.getActive()== true ? "Active" : "Inactive"}</td>
-
+                <c:if test="${sessionScope.acc.role == 1}">
                 <td class="justify-content-between ml-2">
                   <ul class="list-inline mb-0">
                     <li class="list-inline-item">
@@ -147,6 +144,7 @@
                     </li>
                   </ul>
                 </td>
+                </c:if>
               </tr>
             </c:forEach>
             </tbody>

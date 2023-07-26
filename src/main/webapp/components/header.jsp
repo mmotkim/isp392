@@ -62,14 +62,14 @@
             <li><a href="#" class="nav-link px-2 link-light">Teachers</a></li>
             <li><a href="#" class="nav-link px-2 link-light">Students</a></li>
             <li><a href="#" class="nav-link px-2 link-light">Parents</a></li> -->
-                <!-- for admin only -->
+<c:if test="${sessionScope['acc']!=null}">
+
+<c:if test="${sessionScope['acc'].getRole() == 1 || sessionScope['acc'].getRole() == 2 }">
+
                 <li class="nav-item dropdown">
-                    <c:if test="${sessionScope['acc'].getRole() == 2}">
                     <a class="nav-link px-2    ${pageContext.request.contextPath == '/index' ? 'link-secondary' : 'link-light'} dropdown-toggle" href="#" id="managerDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Manager
                     </a>
-                    </c:if>
-
                     <ul class="dropdown-menu" aria-labelledby="managerDropdown">
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/notification') ? 'link-primary' : ''}" href="notification">Notifications</a></li>
                         <li><a class="dropdown-item ${fn:contains(pageContext.request.requestURI, '/activity') ? 'link-primary' : ''}" href="activity">Activity</a></li>
@@ -80,14 +80,19 @@
                         <li><a class="dropdown-item " href="meal">Meal</a></li>
                     </ul>
                 </li>
+
                 <li><a href="ListAccount" class="nav-link px-2 ${pageContext.request.contextPath eq '/ListAccount' ? 'link-secondary' : 'link-light'}">Accounts</a></li>
+                </c:if>
+
                 <li><a  class="nav-link px-2 ${pageContext.request.contextPath eq '/calendar' ? 'link-secondary' : 'link-light'}" href="calendar">Calendar</a></li>
+</c:if>
             </ul>
 
             <div class="col-md-4 text-end">
                 <div class="d-flex justify-content-end align-items-center text-end">
-                    <div class="me-2">Logged in as: Mmotkim</div>
+                    <c:if test="${sessionScope['acc']!=null}">
 
+                        <div class="me-2">Logged in as: ${acc.getFullname()}</div>
                     <a href="#"  class="link-light me-2 dropdown-toggle text-decoration-none" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bi bi-bell"></i>
                     </a>
@@ -114,7 +119,12 @@
                             </ul>
                         </c:forEach>
                     </div>
-
+                        <a href="LogoutControl">
+                            <button type="button"  class="btn btn-outline-light me-1">
+                                Logout
+                            </button>
+                        </a>
+                    </c:if>
                     <c:if test="${sessionScope['acc']==null}">
                     <a href="Login">
                     <button type="button"  class="btn btn-outline-light me-1">
@@ -123,17 +133,7 @@
 
                     </a>
                     </c:if>
-                    <c:if test="${sessionScope['acc']!=null}">
-                        <a href="LogoutControl">
-                            <button type="button"  class="btn btn-outline-light me-1">
-                                Logout
-                            </button>
-                        </a>
-                    </c:if>
                 </div>
-
-
-
             </div>
         </header>
     </div>

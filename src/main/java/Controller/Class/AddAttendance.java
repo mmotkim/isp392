@@ -25,6 +25,7 @@ public class AddAttendance extends HttpServlet {
             HttpSession session = request.getSession();
             String date = request.getParameter("date");
             ClassDAO classDAO =new ClassDAO();
+
             classDAO.addAttendanceList(Date.valueOf(date));
 
             response.sendRedirect("class?state=true");

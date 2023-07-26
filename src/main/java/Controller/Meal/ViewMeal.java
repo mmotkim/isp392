@@ -2,6 +2,7 @@ package Controller.Meal;
 
 import Dao.MealDAO;
 import Entity.Meal;
+import Entity.Users;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,6 +21,17 @@ public class ViewMeal extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        if (session.getAttribute("acc")==null){
+            response.sendRedirect("index.jsp");
+            return;
+        }
+        else { // prevents users other than admin and headmaster from seeing
+            Users u = (Users) session.getAttribute("acc");
+            if (u.getRole() != 2 && u.getRole() != 1) {
+                response.sendRedirect("index.jsp");
+                return;
+            }
+        }
         MealDAO mealDAO = new MealDAO();
         List<Meal> list = mealDAO.getAllMeals();
         int count = mealDAO.countMeals();

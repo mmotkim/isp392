@@ -37,6 +37,19 @@ public class ViewTeacher extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        if (session.getAttribute("acc")==null){
+            response.sendRedirect("index.jsp");
+            return;
+        }
+        else { // prevents users other than admin and headmaster from seeing
+            Users u = (Users) session.getAttribute("acc");
+            if (u.getRole() != 2 && u.getRole() != 1) {
+                response.sendRedirect("index.jsp");
+                return;
+            }
+        }
+
         userDAO teacherDAO = new userDAO();
         List<Users> list = teacherDAO.listTeachers();
         int count = teacherDAO.sumOfTeacher();

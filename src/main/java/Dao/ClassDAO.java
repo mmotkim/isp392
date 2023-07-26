@@ -208,7 +208,7 @@ public class ClassDAO {
 
         }
     }
-    public void setAttendance (int id, Boolean atten){
+    public void setAttendance (int id, Boolean atten, String reason){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -219,7 +219,7 @@ public class ClassDAO {
                     .setParameter("id", id)
                     .getSingleResult();
             attendance.setStatus(atten);
-
+attendance.setReason(reason);
             transaction.commit();
 
 

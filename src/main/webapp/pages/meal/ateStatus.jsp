@@ -76,8 +76,10 @@
                                     <c:when test="${t.getStatus() eq 'did-not-eat'}">Did not eat</c:when>
                                     <c:otherwise>Unknown</c:otherwise>
                                 </c:choose>
-                            </td>              <td>${t.getReason()}</td>
+                            </td>
+                            <td>${t.getReason()}</td>
                             <td>${mealDAO.getMealById(t.getMealId()).getDate()}</td>
+                            <c:if test="${sessionScope.acc.role == 1}">
 
                             <td class="justify-content-between ml-2">
                                 <ul class="list-inline mb-0">
@@ -87,19 +89,9 @@
                                             <i class="bx bx-pencil font-size-18"></i>
                                         </a>
                                     </li>
-                                    <!-- Other actions -->
-                                    <li class="list-inline-item dropdown">
-                                        <a class="text-muted dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </li>
                                 </ul>
                             </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                     </tbody>

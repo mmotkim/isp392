@@ -21,6 +21,18 @@ public class ViewParent extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession();
+        if (session.getAttribute("acc")==null){
+            response.sendRedirect("index.jsp");
+            return;
+        }
+        else { // prevents users other than admin and headmaster from seeing
+            Users u = (Users) session.getAttribute("acc");
+            if (u.getRole() != 2 && u.getRole() != 1) {
+                response.sendRedirect("index.jsp");
+                return;
+            }
+        }
+
         userDAO userDAO = new userDAO();
         List<Users> list = userDAO.listParents();
         int count = userDAO.sumOfParent();

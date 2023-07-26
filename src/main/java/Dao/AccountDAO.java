@@ -60,8 +60,6 @@ public class AccountDAO {
             Users user = entityManager.createQuery(
                             "SELECT u from Users u WHERE u.email  like :email", Users.class).
                     setParameter("email", email).getSingleResult();
-            user.getEmail();
-
             trans.commit();
 
 
@@ -127,7 +125,7 @@ public class AccountDAO {
         }
         return null;
     }
-    public Users changePass(String email, String newpassword){
+    public void changePass(String email, String newpassword){
 
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -141,8 +139,6 @@ public class AccountDAO {
                     .setParameter("pass", newpassword)
                     .getSingleResult();
             transaction.commit();
-            return user;
-
         } finally {
             if (transaction.isActive()) {
                 transaction.rollback();

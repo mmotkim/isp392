@@ -4,6 +4,7 @@ import Entity.Users;
 import Utils.HibernateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 import java.sql.Date;
@@ -155,6 +156,32 @@ public class userDAO {
 
         }
     }
+    public Users getLastUser() {
+        EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            // Change the query to use ORDER BY and DESC to get the last record
+            Query query = entityManager.createQuery("SELECT u FROM Users u ORDER BY u.id DESC", Users.class);
+            query.setMaxResults(1); // Set the maximum result to 1 to get only the last record
+            Users user = (Users) query.getSingleResult();
+
+            transaction.commit();
+            return user;
+
+        } catch (NoResultException e) {
+            // Handle the case where there are no records in the table
+            return null;
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+        }
+    }
+
     public String getFullNameByUserId(int id){
         EntityManager entityManager = HibernateUtils.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
