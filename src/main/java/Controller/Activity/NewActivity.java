@@ -28,6 +28,7 @@ public class NewActivity extends HttpServlet {
             HttpSession session = request.getSession();
             if (session.getAttribute("acc")==null){
                 response.sendRedirect("index.jsp");
+                return;
             }
             Users u = (Users) session.getAttribute("acc");
 

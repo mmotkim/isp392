@@ -20,6 +20,7 @@ public class DeleteActivity extends HttpServlet {
             HttpSession session = request.getSession();
             if (session.getAttribute("acc")==null){
                 response.sendRedirect("index.jsp");
+                return;
             }
             ActivityDAO activityDAO = new ActivityDAO();
             activityDAO.deleteActivity(Integer.parseInt(request.getParameter("id")))        ;

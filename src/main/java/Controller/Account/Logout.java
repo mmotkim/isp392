@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author Admin
  */
 @WebServlet(name = "LogoutControl", urlPatterns = {"/LogoutControl"})
-public class LogoutControl extends HttpServlet {
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

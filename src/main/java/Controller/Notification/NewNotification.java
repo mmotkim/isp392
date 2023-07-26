@@ -18,8 +18,6 @@ import java.util.List;
 @WebServlet(name = "NewNotification", value = "/NewNotification")
 public class NewNotification extends HttpServlet {
 
-
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,6 +26,7 @@ public class NewNotification extends HttpServlet {
             HttpSession session = request.getSession();
             if (session.getAttribute("acc")==null){
                 response.sendRedirect("index.jsp");
+                return;
             }
 
             int count2 = activityDAO.countActivities();

@@ -45,14 +45,14 @@
 <body>
 <div class="bg-dark text-white ">
     <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-md-between py-3 mb-3">
-            <div class="logo">
+        <header class="row d-flex flex-wrap align-items-center justify-content-md-between py-4">
+            <div class="logo col-auto">
                 <a href="#" class="d-flex">
                     <img class="me-3" height="28" src="${pageContext.request.contextPath}/assets/logo.png"/>
                 </a>
             </div>
 
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-white">
+            <ul class="nav col-auto mb-2 text-center justify-content-center mb-md-0 text-white">
                 <!-- for all -->
                 <li><a href="home" class="nav-link px-2  ${fn:contains(pageContext.request.requestURI, '/index') ? 'link-secondary' : 'link-light'}">Home</a></li>
 
@@ -88,7 +88,7 @@
 </c:if>
             </ul>
 
-            <div class="col-md-4 text-end">
+            <div class="col text-end">
                 <div class="d-flex justify-content-end align-items-center text-end">
                     <c:if test="${sessionScope['acc']!=null}">
 
@@ -127,9 +127,9 @@
                     </c:if>
                     <c:if test="${sessionScope['acc']==null}">
                     <a href="Login">
-                    <button type="button"  class="btn btn-outline-light me-1">
-                        Login
-                    </button>
+                        <button type="button"  class="btn btn-outline-light me-1">
+                            Login
+                        </button>
 
                     </a>
                     </c:if>

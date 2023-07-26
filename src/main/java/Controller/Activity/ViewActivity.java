@@ -21,6 +21,7 @@ public class ViewActivity extends HttpServlet {
         HttpSession session = request.getSession();
         if (session.getAttribute("acc")==null){
             response.sendRedirect("index.jsp");
+            return;
         }
 
 

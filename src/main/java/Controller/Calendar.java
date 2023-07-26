@@ -33,6 +33,7 @@ public class Calendar extends HttpServlet {
             HttpSession session = request.getSession();
             if (session.getAttribute("acc")==null){
                 response.sendRedirect("index.jsp");
+                return;
             }
             ClassDAO classDAO = new ClassDAO();
             ClassActivityDAO caDAO = new ClassActivityDAO();
