@@ -42,9 +42,9 @@
         }
     </style>
 </head>
-<body>
-<div class="bg-dark text-white ">
-    <div class="container">
+<body class="">
+<div class="bg-dark text-white">
+    <div class="container mb-3 ">
         <header class="row d-flex flex-wrap align-items-center justify-content-md-between py-4">
             <div class="logo col-auto">
                 <a href="#" class="d-flex">
